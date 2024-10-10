@@ -1,9 +1,9 @@
 import ProdcutCategory from './ProductCategory';
 
 export type ProductType = 'product' | 'service';
+import BaseEntity from './BaseEntity';
 
-export default interface Product {
-    id: number,
+export default interface Product extends BaseEntity {
     img_url: string,
     img_url_list: string[],
     name: string,
@@ -27,8 +27,5 @@ export default interface Product {
     has_documents: boolean,
     technical_doc_url: string,
     product_category_id: number,
-    deleted_at: string,
-    created_at: string,
-    updated_at: string,
     product_category?: ProdcutCategory,
 }

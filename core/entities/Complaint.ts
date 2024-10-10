@@ -1,12 +1,9 @@
 import User from './User';
+import BaseEntity from './BaseEntity';
 
-export default interface Complaint {
-    id: number,
+export default interface Complaint extends BaseEntity {
     description: string,
     attachment_file_url: string,
     user_id: number,
-    deleted_at: string,
-    created_at: string,
-    updated_at: string,
     user?: User,
 }

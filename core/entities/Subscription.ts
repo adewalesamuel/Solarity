@@ -1,5 +1,6 @@
-export default interface Subscription {
-    id: number,
+import BaseEntity from './BaseEntity';
+
+export default interface Subscription extends BaseEntity {
     user_id: number,
     type: string,
     stripe_id: string,

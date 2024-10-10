@@ -1,12 +1,9 @@
 import User from './User';
+import BaseEntity from './BaseEntity';
 
-export default interface Referral {
-    id: number,
+export default interface Referral extends BaseEntity {
     user_id: number,
     client_id: number,
-    deleted_at: string,
-    created_at: string,
-    updated_at: string,
     user?: User,
     client?: User
 }

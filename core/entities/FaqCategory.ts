@@ -1,5 +1,6 @@
-export default interface FaqCategory {
-    id: number,
+import BaseEntity from './BaseEntity';
+
+export default interface FaqCategory extends BaseEntity {
     name: string,
     slug: string,
     description: string,
