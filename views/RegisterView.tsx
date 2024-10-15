@@ -38,7 +38,7 @@ export default function RegisterView() {
             await Services.AuthService.register(
                 JSON.stringify(payload), abortController.signal);
 
-            navigation.navigate('Login');
+            navigation.navigate('Login', {from: 'Registration', success: true});
         } catch (error) {
             errorHandler.setError(error);
         } finally {

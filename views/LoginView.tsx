@@ -1,5 +1,5 @@
 import { Text, StyleSheet, KeyboardAvoidingView, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { CONSTS } from '../constants'
 import { Components } from '../components'
 import { Hooks } from '../hooks'
@@ -9,18 +9,27 @@ import { Services } from '../services'
 import {
     NavigationProp,
     ParamListBase,
+    RouteProp,
     useNavigation,
+    useRoute,
   } from '@react-navigation/native';
 
 
+type LoginRouteParams = Partial<{
+    from: string,
+    success: boolean,
+}> | undefined;
 export default function LoginView() {
     let abortController = new AbortController();
+
+    const {Toaster} = Utils;
     const navigation: NavigationProp<ParamListBase> = useNavigation();
+    const route: RouteProp<ParamListBase> = useRoute();
+    const params: LoginRouteParams = route.params;
 
     const {Auth} = Utils;
     const errorHandler = Hooks.useError();
     const useUser = Hooks.useUser();
-
 
     const handleLoginSubmit = async () => {
         useUser.setIsDisabled(true);
@@ -44,6 +53,17 @@ export default function LoginView() {
             useUser.setIsDisabled(false);
         }
     };
+
+    const init = useCallback(() => {
+        if (params?.from === 'Registration' && params.success === true) {
+            Toaster.success('Votre compte a été crée avec success\nVeuillez vous connecter');
+        }
+    }, [Toaster, params?.from, params?.success])
+
+    useEffect(() => {
+        init();
+    })
+
     return (
         <Layouts.AppLayout>
             <KeyboardAvoidingView style={styles.container}>
