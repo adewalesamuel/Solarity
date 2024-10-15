@@ -7,7 +7,9 @@ import { Hooks } from '../hooks'
 export default function RegisterView() {
     const useUser = Hooks.useUser();
 
-    const handleRegisterSubmit = () => {};
+    const handleRegisterSubmit = () => {
+        console.log(useUser.email)
+    };
     return (
         <KeyboardAvoidingView style={styles.container}>
             <Text style={styles.title}>Bienvenu parmi nous !</Text>

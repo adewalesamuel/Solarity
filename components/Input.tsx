@@ -6,7 +6,8 @@ import { InputProps } from '../core/forms/FormProps'
 export default function Input(props: InputProps) {
   return (
     <TextInput style={styles.inputItem} placeholder={props.placeholder}
-    inputMode={props.inputMode} value={props.value} readOnly={props.readOnly}
+    value={props.value} readOnly={props.readOnly} keyboardType={props.keyboardType}
+    secureTextEntry={props.isPassword ? true : false} autoCorrect={false}
     onChangeText={props.onChange}/>
   )
 }
