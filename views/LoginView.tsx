@@ -3,6 +3,7 @@ import React from 'react'
 import { CONSTS } from '../constants'
 import { Components } from '../components'
 import { Hooks } from '../hooks'
+import { Utils } from '../utils'
 import { Layouts } from '../layouts'
 import { Services } from '../services'
 import {
@@ -11,34 +12,33 @@ import {
     useNavigation,
   } from '@react-navigation/native';
 
-export default function RegisterView() {
+
+export default function LoginView() {
     let abortController = new AbortController();
     const navigation: NavigationProp<ParamListBase> = useNavigation();
 
+    const {Auth} = Utils;
     const errorHandler = Hooks.useError();
     const useUser = Hooks.useUser();
 
 
-    const handleRegisterSubmit = async () => {
+    const handleLoginSubmit = async () => {
         useUser.setIsDisabled(true);
 
         try {
-            if (!useUser.hasAcceptedConditions) {
-                const error = new Error()
-                error.message = "Vous devez accepter les conditions d'utilsation";
-                return errorHandler.setError(error);
-            }
             const payload = {
                 email: useUser.email,
                 password: useUser.password,
-                password_confirmationl: useUser.password_confirmation,
             }
-            console.log(payload);
-            await Services.AuthService.login(
+
+            const response: any = await Services.AuthService.login(
                 JSON.stringify(payload), abortController.signal);
 
-            navigation.navigate('Login');
-        } catch (error) {
+            await Auth.setUser(response?.user);
+            await Auth.setSessionToken(response.token);
+
+            navigation.navigate('Dashboard');
+        } catch (error: any) {
             errorHandler.setError(error);
         } finally {
             useUser.setIsDisabled(false);
@@ -47,21 +47,21 @@ export default function RegisterView() {
     return (
         <Layouts.AppLayout>
             <KeyboardAvoidingView style={styles.container}>
-                <Text style={styles.title}>Bienvenu parmi nous !</Text>
+                <Text style={styles.title}>Bienvenu !</Text>
                 <Text style={styles.subTitle}>
                     Merci de suivre les étapes pour vous connecter !
                 </Text>
-                <Components.RegisterForm useUser={useUser} isDisabled={useUser.isDisabled}
-                handleFormSubmit={handleRegisterSubmit}/>
+                <Components.LoginForm useUser={useUser} isDisabled={useUser.isDisabled}
+                handleFormSubmit={handleLoginSubmit}/>
                 <View style={styles.lineContainer}>
                     <View style={styles.horiontalLine} />
                     <Text>ou</Text>
                     <View style={styles.horiontalLine} />
                 </View>
-                <View style={styles.loginContainer}>
-                    <Text style={styles.loginText}>Vous avez déjà un compte ?</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <Text style={styles.loginLink}>Connectez-vous maintenant</Text>
+                <View style={styles.registerContainer}>
+                    <Text style={styles.registerText}>Vous n'avez pas encore de compte ?</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
+                        <Text style={styles.registerLink}>Inscrivez-vous maintenant</Text>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
@@ -101,13 +101,13 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: CONSTS.COLOR.LIGHT,
     },
-    loginContainer: {
+    registerContainer: {
         width: '100%',
     },
-    loginText: {
+    registerText: {
         textAlign: 'center',
     },
-    loginLink: {
+    registerLink: {
         textAlign: 'center',
         color: CONSTS.COLOR.PRIMARY,
         fontWeight: 'bold',

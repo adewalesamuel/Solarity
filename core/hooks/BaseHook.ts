@@ -11,5 +11,5 @@ export default interface BaseHook {
     setDeleted_at?: (arg: string) => any,
     setUpdated_at?: (arg: string) => any,
     setErrors: (arg: never[]) => any,
-    setIsDisabled?: (arg: boolean) => void,
+    setIsDisabled: (arg: boolean) => void,
 }

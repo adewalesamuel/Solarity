@@ -16,8 +16,12 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Registration">
-        <Stack.Screen name="Registration" component={Views.RegisterView} 
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Registration" component={Views.RegisterView}
+        options={{headerShown: false}}/>
+        <Stack.Screen name="Login" component={Views.LoginView}
+        options={{headerShown: false}}/>
+        <Stack.Screen name="Dashboard" component={Views.DashboardView}
         options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>

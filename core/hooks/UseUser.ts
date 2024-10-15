@@ -25,6 +25,8 @@ export type UseUser = BaseHook & {
     pm_last_four?: string,
     trial_ends_at?: string,
     isPasswordVisible: boolean,
+    hasAcceptedConditions?: boolean,
+    canRemember?: boolean,
 
     setProfile_img_url: (arg: string) => void,
     setName: (arg: string) => void,
@@ -48,6 +50,8 @@ export type UseUser = BaseHook & {
     setPm_last_four?: (arg: string) => void,
     setTrial_ends_at?: (arg: string) => void,
     setIsPasswordVisible: (arg: boolean) => void,
+    setHasAcceptedConditions: (arg: boolean) => void,
+    setCanRemember: (arg: boolean) => void,
 
     getUser: (userId: number, signal: AbortSignal) => Promise<Response<User | User[]>>,
     createUser: (signal: AbortSignal) => Promise<Response<User>>,

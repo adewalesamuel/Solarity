@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { CONSTS } from '../../constants'
 import { UseUser } from '../../core/hooks/UseUser'
@@ -11,8 +11,7 @@ type RegisterFormProps =  FormProps & {
     useUser: UseUser
 }
 
-export default function RegisterForm(props: RegisterFormProps) {
-
+export default function LoginForm(props: RegisterFormProps) {
     return (
         <View style={styles.formContainer}>
             <View style={styles.inputContainer}>
@@ -25,19 +24,19 @@ export default function RegisterForm(props: RegisterFormProps) {
                 inputMode="text" value={props.useUser.password} readOnly={props.isDisabled}
                 isPassword={true} onChange={(text) => props.useUser.setPassword(text)}/>
             </View>
-            <View style={styles.inputContainer}>
-                <Input placeholder="Confirmer le mot de passe" keyboardType="visible-password"
-                inputMode="text" value={props.useUser.password_confirmation} readOnly={props.isDisabled}
-                isPassword={true} onChange={(text) => props.useUser.setPassword_confirmation(text)}/>
-            </View>
             <View style={styles.checkboxContainer}>
-                <CheckBox disabled={false} value={props.useUser.hasAcceptedConditions}
-                tintColors={{true: CONSTS.COLOR.PRIMARY}} onValueChange={(newValue) =>
-                props.useUser.setHasAcceptedConditions(newValue)}/>
-                <Text style={styles.checkboxText} onPress={() =>
-                    props.useUser.setHasAcceptedConditions(!props.useUser.hasAcceptedConditions)}>
-                    J’accepte le termes et conditions générales.
-                </Text>
+                <View style={styles.checkboxLeft}>
+                    <CheckBox disabled={false} value={props.useUser.canRemember}
+                    tintColors={{true: CONSTS.COLOR.PRIMARY}} onValueChange={(newValue) =>
+                    props.useUser.setCanRemember(newValue)}/>
+                    <Text style={styles.checkboxText} onPress={() =>
+                        props.useUser.setCanRemember(!props.useUser.canRemember)}>
+                        Se souvenir de moi
+                    </Text>
+                </View>
+                <TouchableOpacity>
+                    <Text style={styles.forgotText}>Mot de passe oublié?</Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.inputContainer}>
                 <Components.PrimaryButton onClick={props.handleFormSubmit} isDisabled={props.isDisabled}>
@@ -64,19 +63,24 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
+        justifyContent: 'center',
         paddingVertical: CONSTS.SIZE.SM,
         marginBottom: CONSTS.SIZE.SM,
+    },
+    checkboxLeft: {
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
     },
     checkboxText: {
         fontSize: CONSTS.SIZE.MD,
         fontWeight: 'bold',
     },
-    inputItem: {
-        paddingVertical: CONSTS.SIZE.SM,
-        paddingHorizontal: CONSTS.SIZE.MD,
-        borderColor: CONSTS.COLOR.SECONDARY,
-        borderWidth: 1,
-        borderRadius: '5px',
-        fontSize: CONSTS.SIZE.LG,
+    forgotText: {
+        textDecorationLine: 'underline',
+        borderBottomWidth: 1,
+        borderBottomColor: CONSTS.COLOR.LIGHT,
+        fontSize: CONSTS.SIZE.MD,
+        marginLeft: CONSTS.SIZE.XXL,
     },
 })

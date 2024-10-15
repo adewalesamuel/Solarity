@@ -1,7 +1,7 @@
 import Response from '../core/services/Response';
 import { Utils } from '../utils';
 
-const HOST = 'http://127.0.0.1';
+const HOST = 'http://10.0.2.2';
 const PORT = '8000';
 const URL = process.env.APP_HOST_URL ?? `${HOST}:${PORT}`;
 const ROOT_PATH  = '/api';
@@ -190,14 +190,12 @@ const getResponseErrors = (response: any) => {
 
         response.json().then((result: any) => {
             let errorMessages = [];
-
             if (!result.errors || result?.errors?.length < 1) {
                 errorMessages.push(result.message);
             } else {
                 for (let error in result.errors)
                     {errorMessages.push(result.errors[error]);}
             }
-
 
             resolve(errorMessages);
         });

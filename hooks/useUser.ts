@@ -23,6 +23,8 @@ export const useUser = (): UseUser => {
 	const [city_id, setCity_id] = useState<number | undefined>(undefined);
 
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+	const [hasAcceptedConditions, setHasAcceptedConditions] = useState(false);
+	const [canRemember, setCanRemember] = useState(false);
 
     const [errors, setErrors] = useState([]);
     const [isDisabled, setIsDisabled] = useState(false);
@@ -139,6 +141,8 @@ export const useUser = (): UseUser => {
 		password_confirmation,
 		city_id,
 		isPasswordVisible,
+		hasAcceptedConditions,
+		canRemember,
 
         errors,
         isDisabled,
@@ -158,6 +162,8 @@ export const useUser = (): UseUser => {
 		setPassword_confirmation,
 		setCity_id,
 		setIsPasswordVisible,
+		setHasAcceptedConditions,
+		setCanRemember,
 
         setId,
         setErrors,
