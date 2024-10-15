@@ -16,6 +16,11 @@ export default function RegisterForm(props: RegisterFormProps) {
     return (
         <View style={styles.formContainer}>
             <View style={styles.inputContainer}>
+                <Input placeholder="Nom" keyboardType="default"
+                inputMode="text" value={props.useUser.name} readOnly={props.isDisabled}
+                onChange={(text) => props.useUser.setName(text)}/>
+            </View>
+            <View style={styles.inputContainer}>
                 <Input placeholder="E-mail" keyboardType="email-address"
                 inputMode="text" value={props.useUser.email} readOnly={props.isDisabled}
                 onChange={(text) => props.useUser.setEmail(text)}/>

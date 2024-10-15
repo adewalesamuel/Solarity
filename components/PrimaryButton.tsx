@@ -5,7 +5,7 @@ import { CONSTS } from '../constants'
 
 export default function PrimaryButton(props: ButtonProps) {
     return (
-        <Pressable style={styles.container} onPress={props.onClick}>
+        <Pressable style={styles.container} onPress={props.onClick} disabled={props.isDisabled}>
             <Text style={styles.text}>
                 {props.isDisabled ? 'Chargement...' : props.children}
             </Text>

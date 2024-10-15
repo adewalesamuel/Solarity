@@ -1,10 +1,17 @@
 import React, { PropsWithChildren } from 'react';
-import ToastManager from 'toastify-react-native';
+import Toastable from 'react-native-toastable';
 
 export default function AppLayout(props: PropsWithChildren) {
     return (
         <>
-            <ToastManager />
+            <Toastable
+                statusMap={{
+                    success: 'green',
+                    danger: 'red',
+                    warning: 'orange',
+                    info: 'lightblue',
+                }}
+            />
             {props.children}
         </>
     )

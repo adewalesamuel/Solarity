@@ -1,10 +1,9 @@
-import { Toast } from "toastify-react-native";
-
+import { showToastable } from 'react-native-toastable';
 
 const Toaster = {
-    info: (message: string) => Toast.info(message),
-    error: (message: string) => Toast.error(message),
-    success: (message: string) => Toast.success(message),
+    info: (message: string) => showToastable({message, status: 'info'}),
+    error: (message: string) => showToastable({message, status: 'danger'}),
+    success: (message: string) => showToastable({message, status: 'success'}),
 }
 
 export default Toaster;

@@ -1,10 +1,20 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { Text, BackHandler, SafeAreaView } from 'react-native'
+import React, { useEffect } from 'react'
+import { Layouts } from '../layouts';
 
 export default function DashboardView() {
-  return (
-    <View>
-      <Text>DashboardView</Text>
-    </View>
-  )
+
+	useEffect(() => {
+		const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+			return true;
+		});
+		return () => backHandler.remove();
+	}, [])
+	return (
+		<Layouts.AppLayout>
+			<SafeAreaView>
+				<Text>DashboardView</Text>
+			</SafeAreaView>
+		</Layouts.AppLayout>
+	)
 }

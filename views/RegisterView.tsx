@@ -29,12 +29,13 @@ export default function RegisterView() {
                 return errorHandler.setError(error);
             }
             const payload = {
+                name: useUser.name,
                 email: useUser.email,
                 password: useUser.password,
-                password_confirmationl: useUser.password_confirmation,
+                password_confirmation: useUser.password_confirmation,
             }
-            console.log(payload);
-            await Services.AuthService.login(
+
+            await Services.AuthService.register(
                 JSON.stringify(payload), abortController.signal);
 
             navigation.navigate('Login');

@@ -35,7 +35,7 @@ export default function LoginView() {
                 JSON.stringify(payload), abortController.signal);
 
             await Auth.setUser(response?.user);
-            await Auth.setSessionToken(response.token);
+            await Auth.setSessionToken(response?.token);
 
             navigation.navigate('Dashboard');
         } catch (error: any) {
