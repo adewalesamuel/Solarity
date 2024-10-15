@@ -1,5 +1,6 @@
-export type UserType = 'particulier' | 'professionel';
 import BaseEntity from './BaseEntity';
+
+export type UserType = 'particulier' | 'professionel';
 
 export default interface User extends BaseEntity {
     profile_img_url: string,
