@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity, Linking } from 'react-native'
 import React from 'react'
 import { CONSTS } from '../../constants'
 import { UseUser } from '../../core/hooks/UseUser'
@@ -6,12 +6,23 @@ import { FormProps } from '../../core/forms/FormProps'
 import Input from '../Input'
 import { Components } from '..'
 import CheckBox from '@react-native-community/checkbox';
+import { Hooks } from '../../hooks'
 
 type RegisterFormProps =  FormProps & {
     useUser: UseUser
 }
 
 export default function LoginForm(props: RegisterFormProps) {
+    const forgotPassworUrl = 'https://app.solarity-france.com/motdepasse-oublie';
+    const errorHandler = Hooks.useError();
+
+    const handleForgotPress = async () => {
+        try {
+            await Linking.openURL(forgotPassworUrl).catch(err => console.log(err));
+        } catch (error) {
+            errorHandler.setError(error);
+        }
+    }
     return (
         <View style={styles.formContainer}>
             <View style={styles.inputContainer}>
@@ -34,7 +45,7 @@ export default function LoginForm(props: RegisterFormProps) {
                         Se souvenir de moi
                     </Text>
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleForgotPress}>
                     <Text style={styles.forgotText}>Mot de passe oublié?</Text>
                 </TouchableOpacity>
             </View>

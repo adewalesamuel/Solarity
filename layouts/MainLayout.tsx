@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         display: 'flex',
         flexGrow: 1,
-        justifyContent: 'space-between',
+        paddingBottom: 68,
         width: '100%',
         height: '100%',
     },

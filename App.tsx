@@ -23,6 +23,8 @@ function App(): React.JSX.Element {
         options={{headerShown: false}}/>
         <Stack.Screen name="Dashboard" component={Views.DashboardView}
         options={{headerShown: false}}/>
+        <Stack.Screen name="Profile" component={Views.ProfileView}
+        options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
