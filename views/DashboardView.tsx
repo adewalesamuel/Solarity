@@ -1,4 +1,4 @@
-import { Text, BackHandler, SafeAreaView } from 'react-native'
+import { Text, BackHandler } from 'react-native'
 import React, { useEffect } from 'react'
 import { Layouts } from '../layouts';
 
@@ -12,9 +12,9 @@ export default function DashboardView() {
 	}, [])
 	return (
 		<Layouts.AppLayout>
-			<SafeAreaView>
-				<Text>DashboardView</Text>
-			</SafeAreaView>
+			<Layouts.MainLayout>
+				<Text>Hello</Text>
+			</Layouts.MainLayout>
 		</Layouts.AppLayout>
 	)
 }
