@@ -6,7 +6,7 @@ import { UseUser } from '../core/hooks/UseUser';
 
 export const useUser = (): UseUser => {
     const [id, setId] = useState<number | ''>('');
-	const [profile_img_url, setProfile_img_url] = useState('');
+	const [profile_img_url, setProfile_img_url] = useState<string|undefined>(undefined);
 	const [name, setName] = useState('');
 	const [phone_number, setPhone_number] = useState('');
 	const [email, setEmail] = useState('');
@@ -88,7 +88,7 @@ export const useUser = (): UseUser => {
     }
     const fillUser = (user: User) => {
         setId(user.id);
-        setProfile_img_url(user.profile_img_url ?? '');
+        setProfile_img_url(user.profile_img_url ?? undefined);
 		setName(user.name ?? '');
 		setPhone_number(user.phone_number ?? '');
 		setEmail(user.email ?? '');

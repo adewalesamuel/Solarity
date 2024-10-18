@@ -1,6 +1,6 @@
-import User, { UserType } from '../entities/User';
-import BaseHook from '../types/hooks/BaseHook';
-import { Response } from '../types/service';
+import User, { UserType } from '../../entities/User';
+import { Response } from '../services';
+import BaseHook from './BaseHook';
 
 export type UseUser = BaseHook & {
     profile_img_url: string | undefined,

@@ -1,7 +1,8 @@
-import Product from '../entities/Product';
-import Review from '../entities/Review';
-import User from '../entities/User';
-import Response from '../services/Response';
+
+import Product from '../../entities/Product';
+import Review from '../../entities/Review';
+import User from '../../entities/User';
+import { Response } from '../services';
 import BaseHook from './BaseHook';
 
 export default interface UseReview extends BaseHook {

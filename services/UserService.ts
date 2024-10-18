@@ -1,5 +1,5 @@
 import User from '../core/entities/User';
-import Response from '../core/services/Response';
+import { Response } from '../core/types/service';
 import { Api } from './Api';
 
 const ENDPOINT = '/profile';

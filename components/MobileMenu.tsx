@@ -13,7 +13,7 @@ export default function MobileMenu() {
         <Pressable style={styles.menuIcon}>
             <BellIcon size={28} color="black"/>
         </Pressable>
-        <Pressable style={styles.menuIcon}>
+        <Pressable style={styles.menuIcon} onPress={() => navigation.navigate('Dashboard')}>
             <ChartBarSquareIcon size={28} color="black" />
         </Pressable>
         <Pressable style={styles.accentMenuIcon}>

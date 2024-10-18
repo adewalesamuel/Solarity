@@ -1,7 +1,8 @@
-import Order, { OrderStatus, OrderType } from '../entities/Order';
-import Product from '../entities/Product';
-import User from '../entities/User';
-import Response from '../services/Response';
+
+import Order, { OrderStatus, OrderType } from '../../entities/Order';
+import Product from '../../entities/Product';
+import User from '../../entities/User';
+import { Response } from '../services';
 import BaseHook from './BaseHook';
 
 export default interface UseOrder extends BaseHook {

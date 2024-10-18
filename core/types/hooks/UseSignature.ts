@@ -1,5 +1,5 @@
-import Signature from '../entities/Signature';
-import Response from '../services/Response';
+import Signature from '../../entities/Signature';
+import { Response } from '../services';
 import BaseHook from './BaseHook';
 
 export default interface UseSignature extends BaseHook {
