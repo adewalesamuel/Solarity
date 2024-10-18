@@ -1,13 +1,37 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { ImageSourcePropType, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import React, { useCallback, useEffect } from 'react'
 import { Layouts } from '../layouts'
-import { Cog6ToothIcon, UserIcon } from 'react-native-heroicons/outline';
+import { AcademicCapIcon, ArrowRightIcon, CheckBadgeIcon, Cog6ToothIcon,
+    GlobeEuropeAfricaIcon, LifebuoyIcon, ShieldCheckIcon, ShoppingCartIcon, SunIcon, UserIcon, UsersIcon } from 'react-native-heroicons/outline';
 import { CONSTS } from '../constants';
 import { Components } from '../components';
+import { Hooks } from '../hooks';
+import { Utils } from '../utils';
 
 
 export default function ProfileView() {
-    let abortController = new AbortController();
+    const {Auth} = Utils;
+
+    const errorHandler = Hooks.useError();
+    const useUser = Hooks.useUser();
+
+    const init = useCallback(async () => {
+        useUser.setIsDisabled(true);
+
+        try {
+            const user = await Auth.getUser();
+            useUser.fillUser(user);
+        } catch (error) {
+            errorHandler.setError(error);
+        } finally {
+            useUser.setIsDisabled(false);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
+        init();
+    }, [init])
 
     return (
         <Layouts.AppLayout>
@@ -20,23 +44,97 @@ export default function ProfileView() {
                         </Pressable>
                     </View>
                     <View style={styles.infoContainer}>
-                        <View>
-                            <Components.SafeImage source={undefined}
+                        <View style={styles.imageContainer}>
+                            <Components.SafeImage
+                            source={useUser.profile_img_url as ImageSourcePropType ?? undefined}
                             width={100} height={100} style={styles.image}/>
-                            <Text>Burno Pittico</Text>
+                            <Text style={styles.imageCaption}>{useUser.name ?? '--'}</Text>
                         </View>
-                        <View>
-                            <View>
-                                <View style={styles.statItem}>
-                                    <UserIcon size={28} color={'blue'}/>
-                                    <View>
-                                        <Text>Parrainage</Text>
-                                        <Text>2</Text>
-                                    </View>
+                        <View style={styles.statContainer}>
+                            <View style={styles.statItem}>
+                                <View style={styles.badgeSoftInfo}>
+                                    <UserIcon size={18} color={CONSTS.COLOR.INFO}/>
                                 </View>
-
+                                <View style={styles.statText}>
+                                    <Text>Parrainages</Text>
+                                    <Text style={styles.statNumber}>2</Text>
+                                </View>
+                            </View>
+                            <View style={styles.statItem}>
+                                <View style={styles.badgeSoftPrimary}>
+                                    <SunIcon size={18} color={CONSTS.COLOR.PRIMARY}/>
+                                </View>
+                                <View style={styles.statText}>
+                                    <Text>Production</Text>
+                                    <Text style={styles.statNumber}>13,850 kWa</Text>
+                                </View>
+                            </View>
+                            <View style={styles.statItem}>
+                                <View style={styles.badgeSoftSuccess}>
+                                    <GlobeEuropeAfricaIcon size={18} color={CONSTS.COLOR.SUCCESS}/>
+                                </View>
+                                <View style={styles.statText}>
+                                    <Text>Réduction CO2</Text>
+                                    <Text style={styles.statNumber}>13,850 kWa</Text>
+                                </View>
                             </View>
                         </View>
+                    </View>
+                    <View style={styles.buttonListContainer}>
+                        <Pressable style={styles.buttonListItem}>
+                            <View style={styles.buttonListItemLeft}>
+                                <View style={styles.badgeLight}>
+                                    <AcademicCapIcon color={'grey'} size={20}/>
+                                </View>
+                                <Text style={styles.buttonListItemText}>Espace Formation</Text>
+                            </View>
+                            <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
+                        </Pressable>
+                        <Pressable style={styles.buttonListItem}>
+                            <View style={styles.buttonListItemLeft}>
+                                <View style={styles.badgeLight}>
+                                    <UsersIcon color={'grey'} size={20}/>
+                                </View>
+                                <Text style={styles.buttonListItemText}>Espace Parrainage</Text>
+                            </View>
+                            <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
+                        </Pressable>
+                        <Pressable style={styles.buttonListItem}>
+                            <View style={styles.buttonListItemLeft}>
+                                <View style={styles.badgeLight}>
+                                    <ShoppingCartIcon color={'grey'} size={20}/>
+                                </View>
+                                <Text style={styles.buttonListItemText}>Mes Factures</Text>
+                            </View>
+                            <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
+                        </Pressable>
+                        <Pressable style={styles.buttonListItem}>
+                            <View style={styles.buttonListItemLeft}>
+                                <View style={styles.badgeLight}>
+                                    <CheckBadgeIcon color={'grey'} size={20}/>
+                                </View>
+                                <Text style={styles.buttonListItemText}>Mes Abonnements</Text>
+                            </View>
+                            <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
+                        </Pressable>
+                        <Pressable style={styles.buttonListItem}>
+                            <View style={styles.buttonListItemLeft}>
+                                <View style={styles.badgeLight}>
+                                    <ShieldCheckIcon color={'grey'} size={20}/>
+                                </View>
+                                <Text style={styles.buttonListItemText}>Assurance</Text>
+                            </View>
+                            <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
+                        </Pressable>
+                        <Pressable style={styles.buttonListItem}>
+                            <View style={styles.buttonListItemLeft}>
+                                <View style={styles.badgeLight}>
+                                    <LifebuoyIcon color={'grey'} size={20}/>
+                                </View>
+                                <Text style={styles.buttonListItemText}>Support Client</Text>
+                            </View>
+                            <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
+                        </Pressable>
                     </View>
                 </ScrollView>
             </Layouts.MainLayout>
@@ -44,10 +142,17 @@ export default function ProfileView() {
     )
 }
 
+const baseBadgeStyle = {
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    borderRadius: 100,
+}
+
 const styles = StyleSheet.create({
     container: {
         width: '100%',
         paddingHorizontal: CONSTS.SIZE.MD,
+        backgroundColor: CONSTS.COLOR.WHITE,
     },
     top: {
         paddingVertical: CONSTS.SIZE.LG,
@@ -69,11 +174,22 @@ const styles = StyleSheet.create({
         borderColor: CONSTS.COLOR.LIGHT,
         borderRadius: 100,
     },
+    imageContainer: {
+        paddingHorizontal: CONSTS.SIZE.MD,
+        display: 'flex',
+        alignItems: 'center',
+    },
     image: {
-        width: 100,
-        height: 100,
-        borderRadius: 100,
+        width: 115,
+        height: 115,
+        borderRadius: 115,
         objectFit: 'cover',
+    },
+    imageCaption: {
+        fontSize: CONSTS.SIZE.XL,
+        color: CONSTS.COLOR.BLACK,
+        marginTop: CONSTS.SIZE.MD,
+        fontWeight: 'bold',
     },
     infoContainer: {
         display: 'flex',
@@ -81,9 +197,61 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent:'space-between',
     },
+    statContainer: {
+        paddingRight: CONSTS.SIZE.XL,
+    },
     statItem: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'flex-start',
+        marginBottom: CONSTS.SIZE.MD,
+    },
+    badgeSoftInfo: {
+        ...baseBadgeStyle,
+        backgroundColor: CONSTS.COLOR.INFO_SOFT,
+    },
+    badgeSoftPrimary: {
+        ...baseBadgeStyle,
+        backgroundColor: CONSTS.COLOR.PRIMARY_SOFT,
+    },
+    badgeSoftSuccess: {
+        ...baseBadgeStyle,
+        backgroundColor: CONSTS.COLOR.SUCCESS_SOFT,
+    },
+    badgeLight: {
+        ...baseBadgeStyle,
+        backgroundColor: CONSTS.COLOR.LIGHT,
+    },
+    statText: {
+        paddingLeft: CONSTS.SIZE.MD,
+    },
+    statNumber: {
+        fontWeight: 'bold',
+        fontSize: CONSTS.SIZE.MD,
+    },
+    buttonListContainer: {
+        display: 'flex',
+        marginTop: CONSTS.SIZE.XL,
+    },
+    buttonListItem: {
+        marginBottom: CONSTS.SIZE.MD,
+        paddingHorizontal: CONSTS.SIZE.LG,
+        paddingVertical: CONSTS.SIZE.LG,
+        borderWidth: 2,
+        borderColor: CONSTS.COLOR.LIGHT,
+        borderRadius: 20,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    buttonListItemLeft: {
+        display: 'flex',
+        gap: 18,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    buttonListItemText: {
+        fontSize: CONSTS.SIZE.LG,
     },
 })
