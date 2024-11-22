@@ -1,7 +1,9 @@
 import { PropsWithChildren } from 'react';
 import { InputModeOptions } from 'react-native';
 
-type KeyboardType = 'default' | 'email-address' | 'numeric' | 'phone-pad' | 'ascii-capable' | 'numbers-and-punctuation' | 'url' | 'number-pad' | 'name-phone-pad' | 'decimal-pad' | 'twitter' | 'web-search' | 'visible-password';
+type KeyboardType = 'default' | 'email-address' | 'numeric' | 'phone-pad' |
+'ascii-capable' | 'numbers-and-punctuation' | 'url' | 'number-pad' |
+'name-phone-pad' | 'decimal-pad' | 'twitter' | 'web-search' | 'visible-password';
 
 export type FormProps = PropsWithChildren & {
     isDisabled: boolean

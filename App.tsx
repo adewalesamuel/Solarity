@@ -16,7 +16,9 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Views.HomeView}
+        options={{headerShown: false}}/>
         <Stack.Screen name="Registration" component={Views.RegisterView}
         options={{headerShown: false}}/>
         <Stack.Screen name="Login" component={Views.LoginView}

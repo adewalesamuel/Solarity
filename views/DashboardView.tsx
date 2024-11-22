@@ -1,8 +1,7 @@
-import { Text, BackHandler } from 'react-native'
+import { Text, BackHandler, ToastAndroid } from 'react-native'
 import React, { useState } from 'react'
 import { Layouts } from '../layouts';
 import { useFocusEffect } from '@react-navigation/native';
-import { Utils } from '../utils';
 
 export default function DashboardView() {
 	const [backPressed, setBackPressed] = useState(false);
@@ -20,7 +19,10 @@ export default function DashboardView() {
 			setBackPressed(false);
 		}, 2000)
 
-		Utils.Toaster.info('Appuyez une seconde fois pour quitter');
+		ToastAndroid.showWithGravity(
+			'Appuyez une seconde fois pour quitter',
+			ToastAndroid.LONG,
+			ToastAndroid.CENTER)
 		return true;
 	};
 

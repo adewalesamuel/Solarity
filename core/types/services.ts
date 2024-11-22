@@ -18,7 +18,6 @@ export interface ResponsePaginate<T> {
     prev_page_url: string,
     to: number,
     total: number,
-
 }
 
 export interface Response<T> {

@@ -1,4 +1,4 @@
-import Response from '../core/services/Response';
+import { Response } from '../core/types/services';
 import { Utils } from '../utils';
 
 const HOST = 'http://10.0.2.2';

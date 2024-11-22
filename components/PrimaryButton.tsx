@@ -1,7 +1,7 @@
 import React from 'react'
 import { Pressable, StyleSheet, Text } from 'react-native'
-import type { ButtonProps } from '../core/forms/FormProps'
 import { CONSTS } from '../constants'
+import { ButtonProps } from '../core/types/forms'
 
 export default function PrimaryButton(props: ButtonProps) {
     return (
