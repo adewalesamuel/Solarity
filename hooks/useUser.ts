@@ -21,6 +21,7 @@ export const useUser = (): UseUser => {
 	const [password, setPassword] = useState('');
 	const [password_confirmation, setPassword_confirmation] = useState('');
 	const [city_id, setCity_id] = useState<number | undefined>(undefined);
+	const [created_at, setCreated_at] = useState<string>('');
 
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 	const [hasAcceptedConditions, setHasAcceptedConditions] = useState(false);
@@ -102,6 +103,7 @@ export const useUser = (): UseUser => {
 		setCan_receive_mail(user.can_receive_mail ?? '');
 		setPassword(user.password ?? '');
 		setCity_id(user.city_id ?? undefined);
+		setCreated_at(user.created_at ?? '');
 
     }
     const emptyUser = () => {
@@ -120,6 +122,7 @@ export const useUser = (): UseUser => {
 		setCan_receive_mail(false);
 		setPassword('');
 		setCity_id(undefined);
+		setCreated_at('');
 
     }
 
@@ -140,6 +143,7 @@ export const useUser = (): UseUser => {
 		password,
 		password_confirmation,
 		city_id,
+		created_at,
 		isPasswordVisible,
 		hasAcceptedConditions,
 		canRemember,
@@ -164,6 +168,7 @@ export const useUser = (): UseUser => {
 		setIsPasswordVisible,
 		setHasAcceptedConditions,
 		setCanRemember,
+		setCreated_at,
 
         setId,
         setErrors,

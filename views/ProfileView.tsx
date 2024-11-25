@@ -47,7 +47,7 @@ export default function ProfileView() {
                         <View style={styles.imageContainer}>
                             <Components.SafeImage
                             source={useUser.profile_img_url as ImageSourcePropType ?? undefined}
-                            width={100} height={100} style={styles.image}/>
+                            style={styles.image}/>
                             <Text style={styles.imageCaption}>{useUser.name ?? '--'}</Text>
                         </View>
                         <View style={styles.statContainer}>
