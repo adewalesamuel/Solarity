@@ -84,7 +84,7 @@ export default function ProfileView() {
                         <Pressable style={styles.buttonListItem}>
                             <View style={styles.buttonListItemLeft}>
                                 <View style={styles.badgeLight}>
-                                    <AcademicCapIcon color={'grey'} size={20}/>
+                                    <AcademicCapIcon color={CONSTS.COLOR.BLACK} size={20}/>
                                 </View>
                                 <Text style={styles.buttonListItemText}>Espace Formation</Text>
                             </View>
@@ -93,7 +93,7 @@ export default function ProfileView() {
                         <Pressable style={styles.buttonListItem}>
                             <View style={styles.buttonListItemLeft}>
                                 <View style={styles.badgeLight}>
-                                    <UsersIcon color={'grey'} size={20}/>
+                                    <UsersIcon color={CONSTS.COLOR.BLACK} size={20}/>
                                 </View>
                                 <Text style={styles.buttonListItemText}>Espace Parrainage</Text>
                             </View>
@@ -102,7 +102,7 @@ export default function ProfileView() {
                         <Pressable style={styles.buttonListItem}>
                             <View style={styles.buttonListItemLeft}>
                                 <View style={styles.badgeLight}>
-                                    <ShoppingCartIcon color={'grey'} size={20}/>
+                                    <ShoppingCartIcon color={CONSTS.COLOR.BLACK} size={20}/>
                                 </View>
                                 <Text style={styles.buttonListItemText}>Mes Factures</Text>
                             </View>
@@ -111,7 +111,7 @@ export default function ProfileView() {
                         <Pressable style={styles.buttonListItem}>
                             <View style={styles.buttonListItemLeft}>
                                 <View style={styles.badgeLight}>
-                                    <CheckBadgeIcon color={'grey'} size={20}/>
+                                    <CheckBadgeIcon color={CONSTS.COLOR.BLACK} size={20}/>
                                 </View>
                                 <Text style={styles.buttonListItemText}>Mes Abonnements</Text>
                             </View>
@@ -120,7 +120,7 @@ export default function ProfileView() {
                         <Pressable style={styles.buttonListItem}>
                             <View style={styles.buttonListItemLeft}>
                                 <View style={styles.badgeLight}>
-                                    <ShieldCheckIcon color={'grey'} size={20}/>
+                                    <ShieldCheckIcon color={CONSTS.COLOR.BLACK} size={20}/>
                                 </View>
                                 <Text style={styles.buttonListItemText}>Assurance</Text>
                             </View>
@@ -129,7 +129,7 @@ export default function ProfileView() {
                         <Pressable style={styles.buttonListItem}>
                             <View style={styles.buttonListItemLeft}>
                                 <View style={styles.badgeLight}>
-                                    <LifebuoyIcon color={'grey'} size={20}/>
+                                    <LifebuoyIcon color={CONSTS.COLOR.BLACK} size={20}/>
                                 </View>
                                 <Text style={styles.buttonListItemText}>Support Client</Text>
                             </View>
@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
     },
     top: {
         paddingVertical: CONSTS.SIZE.LG,
-        display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         width: '100%',
@@ -176,7 +175,6 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         paddingHorizontal: CONSTS.SIZE.MD,
-        display: 'flex',
         alignItems: 'center',
     },
     image: {
@@ -192,7 +190,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     infoContainer: {
-        display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent:'space-between',
@@ -201,7 +198,6 @@ const styles = StyleSheet.create({
         paddingRight: CONSTS.SIZE.XL,
     },
     statItem: {
-        display: 'flex',
         flexDirection: 'row',
         alignItems: 'flex-start',
         marginBottom: CONSTS.SIZE.MD,
@@ -227,10 +223,10 @@ const styles = StyleSheet.create({
     },
     statNumber: {
         fontWeight: 'bold',
+        color: CONSTS.COLOR.BLACK,
         fontSize: CONSTS.SIZE.MD,
     },
     buttonListContainer: {
-        display: 'flex',
         marginTop: CONSTS.SIZE.XL,
     },
     buttonListItem: {
@@ -240,13 +236,11 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: CONSTS.COLOR.LIGHT,
         borderRadius: 20,
-        display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
     buttonListItemLeft: {
-        display: 'flex',
         gap: 18,
         flexDirection: 'row',
         alignItems: 'center',

@@ -2,10 +2,10 @@ import { View, StyleSheet, Text } from 'react-native'
 import React from 'react'
 import { CONSTS } from '../../constants'
 import { UseUser } from '../../core/hooks/UseUser'
-import { FormProps } from '../../core/forms/FormProps'
 import Input from '../Input'
 import { Components } from '..'
 import CheckBox from '@react-native-community/checkbox';
+import { FormProps } from '../../core/types/forms'
 
 type RegisterFormProps =  FormProps & {
     useUser: UseUser
@@ -18,22 +18,22 @@ export default function RegisterForm(props: RegisterFormProps) {
             <View style={styles.inputContainer}>
                 <Input placeholder="Nom" keyboardType="default"
                 inputMode="text" value={props.useUser.name} readOnly={props.isDisabled}
-                onChange={(text) => props.useUser.setName(text)}/>
+                onChange={(text: string) => props.useUser.setName(text)}/>
             </View>
             <View style={styles.inputContainer}>
                 <Input placeholder="E-mail" keyboardType="email-address"
                 inputMode="text" value={props.useUser.email} readOnly={props.isDisabled}
-                onChange={(text) => props.useUser.setEmail(text)}/>
+                onChange={(text: string) => props.useUser.setEmail(text)}/>
             </View>
             <View style={styles.inputContainer}>
                 <Input placeholder="Mot de passe" keyboardType="visible-password"
                 inputMode="text" value={props.useUser.password} readOnly={props.isDisabled}
-                isPassword={true} onChange={(text) => props.useUser.setPassword(text)}/>
+                isPassword={true} onChange={(text: string) => props.useUser.setPassword(text)}/>
             </View>
             <View style={styles.inputContainer}>
                 <Input placeholder="Confirmer le mot de passe" keyboardType="visible-password"
                 inputMode="text" value={props.useUser.password_confirmation} readOnly={props.isDisabled}
-                isPassword={true} onChange={(text) => props.useUser.setPassword_confirmation(text)}/>
+                isPassword={true} onChange={(text: string) => props.useUser.setPassword_confirmation(text)}/>
             </View>
             <View style={styles.checkboxContainer}>
                 <CheckBox disabled={false} value={props.useUser.hasAcceptedConditions}
@@ -56,7 +56,6 @@ export default function RegisterForm(props: RegisterFormProps) {
 const styles = StyleSheet.create({
     formContainer: {
         width: '100%',
-        display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
@@ -66,7 +65,6 @@ const styles = StyleSheet.create({
         marginBottom: CONSTS.SIZE.SM,
     },
     checkboxContainer: {
-        display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
         paddingVertical: CONSTS.SIZE.SM,

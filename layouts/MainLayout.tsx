@@ -15,7 +15,6 @@ export default function MainLayout(props: PropsWithChildren) {
 const styles = StyleSheet.create({
     container: {
         position: 'relative',
-        display: 'flex',
         flexGrow: 1,
         paddingBottom: 68,
         width: '100%',

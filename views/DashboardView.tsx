@@ -1,4 +1,4 @@
-import { Text, BackHandler, ToastAndroid, Platform, View, ImageSourcePropType, StyleSheet, ScrollView } from 'react-native'
+import { Text, BackHandler, ToastAndroid, Platform, View, ImageSourcePropType, StyleSheet, ScrollView, Image } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Layouts } from '../layouts';
 import { useFocusEffect } from '@react-navigation/native';
@@ -6,7 +6,7 @@ import { Utils } from '../utils';
 import { Components } from '../components';
 import { Hooks } from '../hooks';
 import { CONSTS } from '../constants';
-import { EllipsisVerticalIcon } from 'react-native-heroicons/outline';
+import { BoltIcon, EllipsisVerticalIcon } from 'react-native-heroicons/outline';
 
 export default function DashboardView() {
 	const {Auth} = Utils;
@@ -91,18 +91,30 @@ export default function DashboardView() {
 							<EllipsisVerticalIcon size={30} color="black"/>
 						</View>
 					</View>
+					<View style={styles.powerCard}>
+						<View style={styles.powerCardHeader}>
+							<View style={styles.powerCardHeaderLeft}>
+								<View style={styles.powerCardIconContainer}>
+									<BoltIcon size={20} color={CONSTS.COLOR.PRIMARY}/>
+								</View>
+								<View>
+									<Text style={styles.powerCardTitle}>Puissance</Text>
+									<Text style={styles.powerCardSubtitle}>actuelle</Text>
+								</View>
+							</View>
+							<View>
+								<Text style={styles.powerCardNumber}>
+									681,852 <Text style={styles.powerCardNumberSign}>w</Text>
+								</Text>
+							</View>
+						</View>
+						<Image style={styles.powerImage}
+						source={require('../assets/images/power-graph.png')} />
+					</View>
 				</ScrollView>
 			</Layouts.MainLayout>
 		</Layouts.AppLayout>
 	)
-}
-
-const rowStyle = {
-	display: 'flex',
-	flexDirection: 'row',
-	width: '100%',
-	alignItems: 'center',
-	justifyContent: 'space-between',
 }
 
 const styles = StyleSheet.create({
@@ -112,7 +124,10 @@ const styles = StyleSheet.create({
 		backgroundColor: CONSTS.COLOR.WHITE,
 	},
 	topContainer: {
-		...rowStyle,
+		flexDirection: 'row',
+		width: '100%',
+		alignItems: 'center',
+		justifyContent: 'space-between',
 		paddingVertical: CONSTS.SIZE.XL,
 	},
 	todayText: {
@@ -134,8 +149,11 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 	},
 	secondContainer: {
-		...rowStyle,
-		paddingBottom: CONSTS.SIZE.LG,
+		flexDirection: 'row',
+		width: '100%',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		marginBottom: CONSTS.SIZE.XL,
 	},
 	dateIntervalText: {
 		textTransform: 'capitalize',
@@ -145,5 +163,54 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		paddingVertical: CONSTS.SIZE.MD,
 		borderColor: CONSTS.COLOR.SECONDARY,
+	},
+	powerCard: {
+		position: 'relative',
+		borderRadius: CONSTS.SIZE.LG,
+		backgroundColor: CONSTS.COLOR.BLACK,
+		minHeight: 180,
+	},
+	powerCardHeader: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		paddingTop: CONSTS.SIZE.XL,
+		paddingBottom: CONSTS.SIZE.LG,
+		paddingHorizontal: CONSTS.SIZE.LG,
+	},
+	powerCardHeaderLeft: {
+		flexDirection: 'row',
+	},
+	powerCardIconContainer: {
+		paddingHorizontal: CONSTS.SIZE.MD,
+		paddingVertical: CONSTS.SIZE.MD,
+		borderRadius: CONSTS.SIZE.XXL,
+		backgroundColor: '#262003',
+		marginRight: CONSTS.SIZE.MD,
+	},
+	powerCardTitle: {
+		color: CONSTS.COLOR.WHITE,
+		fontWeight: 'bold',
+		fontSize: CONSTS.SIZE.XL,
+	},
+	powerCardSubtitle: {
+		color: CONSTS.COLOR.WHITE,
+	},
+	powerCardNumber: {
+		color: CONSTS.COLOR.PRIMARY,
+		fontWeight: 'bold',
+		fontSize: CONSTS.SIZE.LG,
+	},
+	powerCardNumberSign: {
+		color: CONSTS.COLOR.SECONDARY,
+		fontWeight: 'bold',
+		fontSize: CONSTS.SIZE.LG,
+	},
+	powerImage: {
+		position: 'absolute',
+		left: 0,
+		bottom: 0,
+		width: '100%',
+		maxHeight: '100%',
+		height: '45%',
 	},
 })

@@ -41,14 +41,12 @@ export default function HomeView() {
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
         position: 'relative',
         height: '100%',
         backgroundColor: CONSTS.COLOR.BLACK,
         justifyContent: 'flex-end',
     },
     logoContainer: {
-        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         borderWidth: 2,

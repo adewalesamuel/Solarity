@@ -91,7 +91,6 @@ export default function LoginView() {
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         paddingHorizontal: CONSTS.SIZE.MD,
@@ -111,7 +110,6 @@ const styles = StyleSheet.create({
     },
     lineContainer: {
         marginVertical: CONSTS.SIZE.XXL,
-        display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',

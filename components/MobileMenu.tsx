@@ -11,19 +11,19 @@ export default function MobileMenu() {
   return (
     <View style={styles.container}>
         <Pressable style={styles.menuIcon}>
-            <BellIcon size={28} color="black"/>
+            <BellIcon size={28} color="grey"/>
         </Pressable>
         <Pressable style={styles.menuIcon} onPress={() => navigation.navigate('Dashboard')}>
-            <ChartBarSquareIcon size={28} color="black" />
+            <ChartBarSquareIcon size={28} color="grey" />
         </Pressable>
         <Pressable style={styles.accentMenuIcon}>
             <SunIcon size={28} color="white" />
         </Pressable>
         <Pressable style={styles.menuIcon}>
-            <ShoppingCartIcon size={28} color="black" />
+            <ShoppingCartIcon size={28} color="grey" />
         </Pressable>
         <Pressable style={styles.menuIcon} onPress={() => navigation.navigate('Profile')}>
-            <UserIcon size={28} color="black" />
+            <UserIcon size={28} color="grey" />
         </Pressable>
     </View>
   )
@@ -32,7 +32,6 @@ export default function MobileMenu() {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: CONSTS.COLOR.WHITE,
-        display: 'flex',
         position: 'absolute',
         left: 0,
         right: 0,
