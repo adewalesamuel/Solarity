@@ -1,4 +1,4 @@
-import { Text, StyleSheet, KeyboardAvoidingView, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, KeyboardAvoidingView, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { CONSTS } from '../constants'
 import { Components } from '../components'
@@ -10,6 +10,7 @@ import {
     ParamListBase,
     useNavigation,
   } from '@react-navigation/native';
+import CustomText from '../components/CustomText';
 
 export default function RegisterView() {
     let abortController = new AbortController();
@@ -48,21 +49,21 @@ export default function RegisterView() {
     return (
         <Layouts.AppLayout>
             <KeyboardAvoidingView style={styles.container}>
-                <Text style={styles.title}>Bienvenu parmi nous !</Text>
-                <Text style={styles.subTitle}>
+                <CustomText customStyle={styles.title}>Bienvenu parmi nous !</CustomText>
+                <CustomText customStyle={styles.subTitle}>
                     Merci de suivre les étapes pour vous connecter !
-                </Text>
+                </CustomText>
                 <Components.RegisterForm useUser={useUser} isDisabled={useUser.isDisabled}
                 handleFormSubmit={handleRegisterSubmit}/>
                 <View style={styles.lineContainer}>
                     <View style={styles.horiontalLine} />
-                    <Text>ou</Text>
+                    <CustomText>ou</CustomText>
                     <View style={styles.horiontalLine} />
                 </View>
                 <View style={styles.loginContainer}>
-                    <Text style={styles.loginText}>Vous avez déjà un compte ?</Text>
+                    <CustomText customStyle={styles.loginText}>Vous avez déjà un compte ?</CustomText>
                     <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <Text style={styles.loginLink}>Connectez-vous maintenant</Text>
+                        <CustomText customStyle={styles.loginLink}>Connectez-vous maintenant</CustomText>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>

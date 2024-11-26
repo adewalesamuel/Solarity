@@ -1,4 +1,4 @@
-import { ImageSourcePropType, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ImageSourcePropType, Pressable, ScrollView, StyleSheet, View } from 'react-native'
 import React, { useCallback, useEffect } from 'react'
 import { Layouts } from '../layouts'
 import { AcademicCapIcon, ArrowRightIcon, CheckBadgeIcon, Cog6ToothIcon,
@@ -7,6 +7,7 @@ import { CONSTS } from '../constants';
 import { Components } from '../components';
 import { Hooks } from '../hooks';
 import { Utils } from '../utils';
+import CustomText from '../components/CustomText';
 
 
 export default function ProfileView() {
@@ -39,7 +40,7 @@ export default function ProfileView() {
             <Layouts.MainLayout>
                 <ScrollView style={styles.container}>
                     <View style={styles.top}>
-                        <Text style={styles.viewTitle}>Mon profil</Text>
+                        <CustomText customStyle={styles.viewTitle}>Mon profil</CustomText>
                         <Pressable style={styles.icon}>
                             <Cog6ToothIcon size={28} color="black" />
                         </Pressable>
@@ -49,7 +50,7 @@ export default function ProfileView() {
                             <Components.SafeImage
                             source={useUser.profile_img_url as ImageSourcePropType ?? undefined}
                             style={styles.image}/>
-                            <Text style={styles.imageCaption}>{useUser.name ?? '--'}</Text>
+                            <CustomText customStyle={styles.imageCaption}>{useUser.name ?? '--'}</CustomText>
                         </View>
                         <View style={styles.statContainer}>
                             <View style={styles.statItem}>
@@ -58,8 +59,8 @@ export default function ProfileView() {
                                     <UserIcon size={18} color={CONSTS.COLOR.INFO}/>
                                 </Components.BadgeIcon>
                                 <View style={styles.statText}>
-                                    <Text>Parrainages</Text>
-                                    <Text style={styles.statNumber}>2</Text>
+                                    <CustomText>Parrainages</CustomText>
+                                    <CustomText customStyle={styles.statNumber}>2</CustomText>
                                 </View>
                             </View>
                             <View style={styles.statItem}>
@@ -68,8 +69,8 @@ export default function ProfileView() {
                                     <SunIcon size={18} color={CONSTS.COLOR.PRIMARY}/>
                                 </Components.BadgeIcon>
                                 <View style={styles.statText}>
-                                    <Text>Production</Text>
-                                    <Text style={styles.statNumber}>13,850 kWa</Text>
+                                    <CustomText>Production</CustomText>
+                                    <CustomText customStyle={styles.statNumber}>13,850 kWa</CustomText>
                                 </View>
                             </View>
                             <View style={styles.statItem}>
@@ -78,8 +79,8 @@ export default function ProfileView() {
                                     <GlobeEuropeAfricaIcon size={18} color={CONSTS.COLOR.SUCCESS}/>
                                 </Components.BadgeIcon>
                                 <View style={styles.statText}>
-                                    <Text>Réduction CO2</Text>
-                                    <Text style={styles.statNumber}>13,850 kWa</Text>
+                                    <CustomText>Réduction CO2</CustomText>
+                                    <CustomText customStyle={styles.statNumber}>13,850 kWa</CustomText>
                                 </View>
                             </View>
                         </View>
@@ -91,7 +92,7 @@ export default function ProfileView() {
                                 color={CONSTS.COLOR.LIGHT}>
                                     <AcademicCapIcon color={CONSTS.COLOR.BLACK} size={20}/>
                                 </Components.BadgeIcon>
-                                <Text style={styles.buttonListItemText}>Espace Formation</Text>
+                                <CustomText customStyle={styles.buttonListItemText}>Espace Formation</CustomText>
                             </View>
                             <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
                         </Pressable>
@@ -101,7 +102,7 @@ export default function ProfileView() {
                                 color={CONSTS.COLOR.LIGHT}>
                                     <UsersIcon color={CONSTS.COLOR.BLACK} size={20}/>
                                 </Components.BadgeIcon>
-                                <Text style={styles.buttonListItemText}>Espace Parrainage</Text>
+                                <CustomText customStyle={styles.buttonListItemText}>Espace Parrainage</CustomText>
                             </View>
                             <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
                         </Pressable>
@@ -111,7 +112,7 @@ export default function ProfileView() {
                                 color={CONSTS.COLOR.LIGHT}>
                                     <ShoppingCartIcon color={CONSTS.COLOR.BLACK} size={20}/>
                                 </Components.BadgeIcon>
-                                <Text style={styles.buttonListItemText}>Mes Factures</Text>
+                                <CustomText customStyle={styles.buttonListItemText}>Mes Factures</CustomText>
                             </View>
                             <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
                         </Pressable>
@@ -121,7 +122,7 @@ export default function ProfileView() {
                                 color={CONSTS.COLOR.LIGHT}>
                                     <CheckBadgeIcon color={CONSTS.COLOR.BLACK} size={20}/>
                                 </Components.BadgeIcon>
-                                <Text style={styles.buttonListItemText}>Mes Abonnements</Text>
+                                <CustomText customStyle={styles.buttonListItemText}>Mes Abonnements</CustomText>
                             </View>
                             <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
                         </Pressable>
@@ -131,7 +132,7 @@ export default function ProfileView() {
                                 color={CONSTS.COLOR.LIGHT}>
                                     <ShieldCheckIcon color={CONSTS.COLOR.BLACK} size={20}/>
                                 </Components.BadgeIcon>
-                                <Text style={styles.buttonListItemText}>Assurance</Text>
+                                <CustomText customStyle={styles.buttonListItemText}>Assurance</CustomText>
                             </View>
                             <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
                         </Pressable>
@@ -141,7 +142,7 @@ export default function ProfileView() {
                                 color={CONSTS.COLOR.LIGHT}>
                                     <LifebuoyIcon color={CONSTS.COLOR.BLACK} size={20}/>
                                 </Components.BadgeIcon>
-                                <Text style={styles.buttonListItemText}>Support Client</Text>
+                                <CustomText customStyle={styles.buttonListItemText}>Support Client</CustomText>
                             </View>
                             <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
                         </Pressable>

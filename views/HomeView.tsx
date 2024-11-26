@@ -1,9 +1,10 @@
 import React from 'react';
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Layouts } from '../layouts';
 import { Components } from '../components';
 import { CONSTS } from '../constants';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import CustomText from '../components/CustomText';
 
 
 export default function HomeView() {
@@ -28,9 +29,9 @@ export default function HomeView() {
                     <View style={{marginVertical: CONSTS.SIZE.XXL}} />
                     <View style={{marginVertical: CONSTS.SIZE.XXL}} />
                     <View style={styles.registerContainer}>
-                        <Text style={styles.registerText}>Vous n'avez pas encore de compte ?</Text>
+                        <CustomText customStyle={styles.registerText}>Vous n'avez pas encore de compte ?</CustomText>
                         <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
-                            <Text style={styles.registerLink}>Inscrivez-vous maintenant</Text>
+                            <CustomText customStyle={styles.registerLink}>Inscrivez-vous maintenant</CustomText>
                         </TouchableOpacity>
                     </View>
                 </View>

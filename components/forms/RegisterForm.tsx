@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import React from 'react'
 import { CONSTS } from '../../constants'
 import { UseUser } from '../../core/hooks/UseUser'
@@ -6,6 +6,7 @@ import Input from '../Input'
 import { Components } from '..'
 import CheckBox from '@react-native-community/checkbox';
 import { FormProps } from '../../core/types/forms'
+import CustomText from '../CustomText'
 
 type RegisterFormProps =  FormProps & {
     useUser: UseUser
@@ -39,10 +40,10 @@ export default function RegisterForm(props: RegisterFormProps) {
                 <CheckBox disabled={false} value={props.useUser.hasAcceptedConditions}
                 tintColors={{true: CONSTS.COLOR.PRIMARY}} onValueChange={(newValue) =>
                 props.useUser.setHasAcceptedConditions(newValue)}/>
-                <Text style={styles.checkboxText} onPress={() =>
+                <CustomText customStyle={styles.checkboxText} onPress={() =>
                     props.useUser.setHasAcceptedConditions(!props.useUser.hasAcceptedConditions)}>
                     J’accepte le termes et conditions générales.
-                </Text>
+                </CustomText>
             </View>
             <View style={styles.inputContainer}>
                 <Components.PrimaryButton onClick={props.handleFormSubmit} isDisabled={props.isDisabled}>

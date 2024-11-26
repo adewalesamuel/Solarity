@@ -1,4 +1,4 @@
-import { Text, StyleSheet, KeyboardAvoidingView, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, KeyboardAvoidingView, View, TouchableOpacity } from 'react-native'
 import React, { useCallback, useEffect } from 'react'
 import { CONSTS } from '../constants'
 import { Components } from '../components'
@@ -13,6 +13,7 @@ import {
     useNavigation,
     useRoute,
   } from '@react-navigation/native';
+import CustomText from '../components/CustomText'
 
 
 type LoginRouteParams = Partial<{
@@ -67,21 +68,21 @@ export default function LoginView() {
     return (
         <Layouts.AppLayout>
             <KeyboardAvoidingView style={styles.container}>
-                <Text style={styles.title}>Bienvenu !</Text>
-                <Text style={styles.subTitle}>
+                <CustomText customStyle={styles.title}>Bienvenu !</CustomText>
+                <CustomText customStyle={styles.subTitle}>
                     Merci de suivre les étapes pour vous connecter !
-                </Text>
+                </CustomText>
                 <Components.LoginForm useUser={useUser} isDisabled={useUser.isDisabled}
                 handleFormSubmit={handleLoginSubmit}/>
                 <View style={styles.lineContainer}>
                     <View style={styles.horiontalLine} />
-                    <Text>ou</Text>
+                    <CustomText>ou</CustomText>
                     <View style={styles.horiontalLine} />
                 </View>
                 <View style={styles.registerContainer}>
-                    <Text style={styles.registerText}>Vous n'avez pas encore de compte ?</Text>
+                    <CustomText customStyle={styles.registerText}>Vous n'avez pas encore de compte ?</CustomText>
                     <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
-                        <Text style={styles.registerLink}>Inscrivez-vous maintenant</Text>
+                        <CustomText customStyle={styles.registerLink}>Inscrivez-vous maintenant</CustomText>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>

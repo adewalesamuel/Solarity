@@ -1,4 +1,5 @@
-import { Text, BackHandler, ToastAndroid, Platform, View, ImageSourcePropType, StyleSheet, ScrollView, Image } from 'react-native'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { BackHandler, ToastAndroid, Platform, View, ImageSourcePropType, StyleSheet, ScrollView, Image, Alert } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Layouts } from '../layouts';
 import { useFocusEffect } from '@react-navigation/native';
@@ -7,6 +8,8 @@ import { Components } from '../components';
 import { Hooks } from '../hooks';
 import { CONSTS } from '../constants';
 import { BoltIcon, EllipsisVerticalIcon, GlobeEuropeAfricaIcon, SunIcon } from 'react-native-heroicons/outline';
+import { NetworkInfo } from 'react-native-network-info';
+import CustomText from '../components/CustomText';
 
 export default function DashboardView() {
 	const {Auth} = Utils;
@@ -16,27 +19,69 @@ export default function DashboardView() {
     const errorHandler = Hooks.useError();
     const useUser = Hooks.useUser();
 
+	const getNetworkSubnet = async (): Promise<string | undefined> => {
+			const ip = await NetworkInfo.getIPAddress();
+			return ip?.substring(0, ip.lastIndexOf('.'));
+	}
+
+	const fetchWithTimeout = (url:string, timeout: number = 1000): Promise<Response>[] => {
+		const abortController = new AbortController();
+		const requestList = [];
+
+		requestList.push(
+			fetch(url, { signal: abortController.signal })
+			.catch(err => err)
+		);
+
+		setTimeout(() => abortController.abort, timeout);
+
+		return requestList;
+	}
+
+	const scanNetwork = async (subnet: string,range: number = 225) => {
+		let requestList: Promise<Response>[] = [];
+
+		for (let i = 1; i <= range; i++) {
+			const ip = `${subnet}.${i}`;
+			requestList = fetchWithTimeout(`http://${ip}`);
+		}
+
+		const responses = await Promise.all(requestList);
+		const devices = responses
+			.filter(response => response && response.status === 200)
+			.map((_, index) => ({ ip: `${subnet}.${index + 1}` }));
+
+		return devices;
+	};
+
     const init = useCallback(async () => {
         useUser.setIsDisabled(true);
 
         try {
-            const user = await Auth.getUser();
+			const user = await Auth.getUser();
             useUser.fillUser(user);
+
+			const subnet = await getNetworkSubnet();
+			if (!subnet || subnet === undefined) {return}
+
+			const devices = await scanNetwork(subnet as string, 2);
+
+			Alert.alert(
+				'Device Info',
+				JSON.stringify({
+					subnet,
+					devices: JSON.stringify(JSON.stringify(devices)),
+				}),
+			)
         } catch (error) {
             errorHandler.setError(error);
         } finally {
             useUser.setIsDisabled(false);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    useEffect(() => {
-        init();
-    }, [init])
-
 	const onBackPress = () => {
-
-		if (backPressed && Platform.OS !== 'android') {
+		if (backPressed && Platform.OS === 'android') {
 			BackHandler.exitApp();
 			return true;
 		}
@@ -58,8 +103,13 @@ export default function DashboardView() {
 		return true;
 	};
 
+    useEffect(() => {
+        init();
+    }, [init])
+
 	useFocusEffect(() => {
-		let backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+		let backHandler = BackHandler.addEventListener(
+			'hardwareBackPress', onBackPress);
 
 		return () => backHandler.remove();
 	})
@@ -69,10 +119,10 @@ export default function DashboardView() {
 				<ScrollView style={styles.container}>
 					<View style={styles.topContainer}>
 						<View>
-							<Text style={styles.todayText}>Aujourd'hui</Text>
-							<Text style={styles.dateText}>
+							<CustomText customStyle={styles.todayText}>Aujourd'hui</CustomText>
+							<CustomText customStyle={styles.dateText}>
 								{Utils.Date.styleDate(new Date(), 'full')}
-							</Text>
+							</CustomText>
 						</View>
 						<Components.SafeImage
 						source={useUser.profile_img_url as ImageSourcePropType ?? undefined}
@@ -80,12 +130,12 @@ export default function DashboardView() {
 					</View>
 					<View style={styles.secondContainer}>
 						<View>
-							<Text style={styles.userNameText}>{useUser.name}</Text>
-							<Text style={styles.dateIntervalText}>
+							<CustomText customStyle={styles.userNameText}>{useUser.name}</CustomText>
+							<CustomText customStyle={styles.dateIntervalText}>
 								{Utils.Date.getMonthInterval(
 								new Date(useUser.created_at as string),
 								new Date())}
-							</Text>
+							</CustomText>
 						</View>
 						<View style={styles.iconContainer}>
 							<EllipsisVerticalIcon size={30} color="black"/>
@@ -101,14 +151,14 @@ export default function DashboardView() {
 									</Components.BadgeIcon>
 								</View>
 								<View>
-									<Text style={styles.powerCardTitle}>Puissance</Text>
-									<Text style={styles.powerCardSubtitle}>actuelle</Text>
+									<CustomText customStyle={styles.powerCardTitle}>Puissance</CustomText>
+									<CustomText customStyle={styles.powerCardSubtitle}>actuelle</CustomText>
 								</View>
 							</View>
 							<View>
-								<Text style={styles.powerCardNumber}>
-									681,852 <Text style={styles.powerCardNumberSign}>w</Text>
-								</Text>
+								<CustomText customStyle={styles.powerCardNumber}>
+									681,852 <CustomText customStyle={styles.powerCardNumberSign}>w</CustomText>
+								</CustomText>
 							</View>
 						</View>
 						<Image style={styles.powerImage}
@@ -125,9 +175,9 @@ export default function DashboardView() {
 							<View>
 								<Image style={styles.logoImage}
 								source={require('../assets/images/logo-light.png')} />
-								<Text>Production</Text>
-								<Text style={styles.defaultCardNumber}>13,850</Text>
-								<Text>kwa</Text>
+								<CustomText>Production</CustomText>
+								<CustomText customStyle={styles.defaultCardNumber}>13,850</CustomText>
+								<CustomText>kwa</CustomText>
 							</View>
 						</View>
 						<View style={styles.cardGroupItemRight}>
@@ -137,9 +187,9 @@ export default function DashboardView() {
 									<SunIcon size={30} color={CONSTS.COLOR.PRIMARY}/>
 								</Components.BadgeIcon>
 								<View style={{marginTop: CONSTS.SIZE.MD}}>
-									<Text>Aujourd'hui</Text>
-									<Text style={styles.defaultCardNumber}>13,850</Text>
-									<Text>kwa</Text>
+									<CustomText>Aujourd'hui</CustomText>
+									<CustomText customStyle={styles.defaultCardNumber}>13,850</CustomText>
+									<CustomText>kwa</CustomText>
 								</View>
 							</View>
 							<View style={styles.prodCardCo2}>
@@ -148,9 +198,9 @@ export default function DashboardView() {
 									<GlobeEuropeAfricaIcon size={30} color={CONSTS.COLOR.SUCCESS}/>
 								</Components.BadgeIcon>
 								<View style={{marginTop: CONSTS.SIZE.MD}}>
-									<Text>Reduction CO2</Text>
-									<Text style={styles.defaultCardNumber}>0,7</Text>
-									<Text>kg</Text>
+									<CustomText>Reduction CO2</CustomText>
+									<CustomText customStyle={styles.defaultCardNumber}>0,7</CustomText>
+									<CustomText>kg</CustomText>
 								</View>
 							</View>
 						</View>
@@ -222,7 +272,7 @@ const styles = StyleSheet.create({
 		position: 'relative',
 		borderRadius: CONSTS.SIZE.LG,
 		backgroundColor: CONSTS.COLOR.BLACK,
-		minHeight: 180,
+		minHeight: 160,
 	},
 	powerCardHeader: {
 		flexDirection: 'row',

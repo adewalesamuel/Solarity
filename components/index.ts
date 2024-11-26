@@ -1,4 +1,5 @@
 import BadgeIcon from './BadgeIcon';
+import CustomText from './CustomText';
 import LoginForm from './forms/LoginForm';
 import RegisterForm from './forms/RegisterForm';
 import Input from './Input';
@@ -14,4 +15,5 @@ export const Components = {
     MobileMenu,
     SafeImage,
     BadgeIcon,
+    CustomText,
 }

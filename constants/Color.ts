@@ -1,5 +1,6 @@
 export const COLOR = Object.freeze({
     LIGHT: '#E8E8E8',
+    TEXT_BASE: '#515151',
     SECONDARY: 'lightgrey',
     PRIMARY: '#FFD712',
     PRIMARY_SOFT: '#fff9dd',

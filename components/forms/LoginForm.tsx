@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, TouchableOpacity, Linking } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Linking } from 'react-native'
 import React from 'react'
 import { CONSTS } from '../../constants'
 import { UseUser } from '../../core/hooks/UseUser'
@@ -7,6 +7,7 @@ import { Components } from '..'
 import CheckBox from '@react-native-community/checkbox';
 import { Hooks } from '../../hooks'
 import { FormProps } from '../../core/types/forms'
+import CustomText from '../CustomText'
 
 type RegisterFormProps =  FormProps & {
     useUser: UseUser
@@ -40,13 +41,13 @@ export default function LoginForm(props: RegisterFormProps) {
                     <CheckBox disabled={false} value={props.useUser.canRemember}
                     tintColors={{true: CONSTS.COLOR.PRIMARY}} onValueChange={(newValue) =>
                     props.useUser.setCanRemember(newValue)}/>
-                    <Text style={styles.checkboxText} onPress={() =>
+                    <CustomText customStyle={styles.checkboxText} onPress={() =>
                         props.useUser.setCanRemember(!props.useUser.canRemember)}>
                         Se souvenir de moi
-                    </Text>
+                    </CustomText>
                 </View>
                 <TouchableOpacity onPress={handleForgotPress}>
-                    <Text style={styles.forgotText}>Mot de passe oublié?</Text>
+                    <CustomText customStyle={styles.forgotText}>Mot de passe oublié?</CustomText>
                 </TouchableOpacity>
             </View>
             <View style={styles.inputContainer}>
