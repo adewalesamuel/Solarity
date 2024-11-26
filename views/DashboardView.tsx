@@ -116,7 +116,7 @@ export default function DashboardView() {
 					</View>
 					<View style={styles.cardGroupContainer}>
 						<View style={styles.prodCard}>
-							<Components.BadgeIcon paddingH={CONSTS.SIZE.SM} 
+							<Components.BadgeIcon paddingH={CONSTS.SIZE.SM}
 							paddingV={CONSTS.SIZE.SM} color={CONSTS.COLOR.PRIMARY_SOFT}>
 								<SunIcon size={30} color={CONSTS.COLOR.PRIMARY}/>
 							</Components.BadgeIcon>

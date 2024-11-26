@@ -10,6 +10,7 @@ import { Utils } from '../utils';
 
 
 export default function ProfileView() {
+    const BADGE_PADDING = 12;
     const {Auth} = Utils;
 
     const errorHandler = Hooks.useError();
@@ -52,27 +53,30 @@ export default function ProfileView() {
                         </View>
                         <View style={styles.statContainer}>
                             <View style={styles.statItem}>
-                                <View style={styles.badgeSoftInfo}>
+                                <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
+                                color={CONSTS.COLOR.INFO_SOFT}>
                                     <UserIcon size={18} color={CONSTS.COLOR.INFO}/>
-                                </View>
+                                </Components.BadgeIcon>
                                 <View style={styles.statText}>
                                     <Text>Parrainages</Text>
                                     <Text style={styles.statNumber}>2</Text>
                                 </View>
                             </View>
                             <View style={styles.statItem}>
-                                <View style={styles.badgeSoftPrimary}>
+                                <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
+                                color={CONSTS.COLOR.PRIMARY_SOFT}>
                                     <SunIcon size={18} color={CONSTS.COLOR.PRIMARY}/>
-                                </View>
+                                </Components.BadgeIcon>
                                 <View style={styles.statText}>
                                     <Text>Production</Text>
                                     <Text style={styles.statNumber}>13,850 kWa</Text>
                                 </View>
                             </View>
                             <View style={styles.statItem}>
-                                <View style={styles.badgeSoftSuccess}>
+                                <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
+                                color={CONSTS.COLOR.SUCCESS_SOFT}>
                                     <GlobeEuropeAfricaIcon size={18} color={CONSTS.COLOR.SUCCESS}/>
-                                </View>
+                                </Components.BadgeIcon>
                                 <View style={styles.statText}>
                                     <Text>Réduction CO2</Text>
                                     <Text style={styles.statNumber}>13,850 kWa</Text>
@@ -83,54 +87,60 @@ export default function ProfileView() {
                     <View style={styles.buttonListContainer}>
                         <Pressable style={styles.buttonListItem}>
                             <View style={styles.buttonListItemLeft}>
-                                <View style={styles.badgeLight}>
+                                <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
+                                color={CONSTS.COLOR.LIGHT}>
                                     <AcademicCapIcon color={CONSTS.COLOR.BLACK} size={20}/>
-                                </View>
+                                </Components.BadgeIcon>
                                 <Text style={styles.buttonListItemText}>Espace Formation</Text>
                             </View>
                             <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
                         </Pressable>
                         <Pressable style={styles.buttonListItem}>
                             <View style={styles.buttonListItemLeft}>
-                                <View style={styles.badgeLight}>
+                                <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
+                                color={CONSTS.COLOR.LIGHT}>
                                     <UsersIcon color={CONSTS.COLOR.BLACK} size={20}/>
-                                </View>
+                                </Components.BadgeIcon>
                                 <Text style={styles.buttonListItemText}>Espace Parrainage</Text>
                             </View>
                             <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
                         </Pressable>
                         <Pressable style={styles.buttonListItem}>
                             <View style={styles.buttonListItemLeft}>
-                                <View style={styles.badgeLight}>
+                                <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
+                                color={CONSTS.COLOR.LIGHT}>
                                     <ShoppingCartIcon color={CONSTS.COLOR.BLACK} size={20}/>
-                                </View>
+                                </Components.BadgeIcon>
                                 <Text style={styles.buttonListItemText}>Mes Factures</Text>
                             </View>
                             <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
                         </Pressable>
                         <Pressable style={styles.buttonListItem}>
                             <View style={styles.buttonListItemLeft}>
-                                <View style={styles.badgeLight}>
+                                <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
+                                color={CONSTS.COLOR.LIGHT}>
                                     <CheckBadgeIcon color={CONSTS.COLOR.BLACK} size={20}/>
-                                </View>
+                                </Components.BadgeIcon>
                                 <Text style={styles.buttonListItemText}>Mes Abonnements</Text>
                             </View>
                             <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
                         </Pressable>
                         <Pressable style={styles.buttonListItem}>
                             <View style={styles.buttonListItemLeft}>
-                                <View style={styles.badgeLight}>
+                                <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
+                                color={CONSTS.COLOR.LIGHT}>
                                     <ShieldCheckIcon color={CONSTS.COLOR.BLACK} size={20}/>
-                                </View>
+                                </Components.BadgeIcon>
                                 <Text style={styles.buttonListItemText}>Assurance</Text>
                             </View>
                             <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
                         </Pressable>
                         <Pressable style={styles.buttonListItem}>
                             <View style={styles.buttonListItemLeft}>
-                                <View style={styles.badgeLight}>
+                                <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
+                                color={CONSTS.COLOR.LIGHT}>
                                     <LifebuoyIcon color={CONSTS.COLOR.BLACK} size={20}/>
-                                </View>
+                                </Components.BadgeIcon>
                                 <Text style={styles.buttonListItemText}>Support Client</Text>
                             </View>
                             <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
@@ -140,12 +150,6 @@ export default function ProfileView() {
             </Layouts.MainLayout>
         </Layouts.AppLayout>
     )
-}
-
-const baseBadgeStyle = {
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    borderRadius: 100,
 }
 
 const styles = StyleSheet.create({
@@ -201,22 +205,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-start',
         marginBottom: CONSTS.SIZE.MD,
-    },
-    badgeSoftInfo: {
-        ...baseBadgeStyle,
-        backgroundColor: CONSTS.COLOR.INFO_SOFT,
-    },
-    badgeSoftPrimary: {
-        ...baseBadgeStyle,
-        backgroundColor: CONSTS.COLOR.PRIMARY_SOFT,
-    },
-    badgeSoftSuccess: {
-        ...baseBadgeStyle,
-        backgroundColor: CONSTS.COLOR.SUCCESS_SOFT,
-    },
-    badgeLight: {
-        ...baseBadgeStyle,
-        backgroundColor: CONSTS.COLOR.LIGHT,
     },
     statText: {
         paddingLeft: CONSTS.SIZE.MD,
