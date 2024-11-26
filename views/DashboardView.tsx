@@ -6,7 +6,7 @@ import { Utils } from '../utils';
 import { Components } from '../components';
 import { Hooks } from '../hooks';
 import { CONSTS } from '../constants';
-import { BoltIcon, EllipsisVerticalIcon } from 'react-native-heroicons/outline';
+import { BoltIcon, EllipsisVerticalIcon, GlobeEuropeAfricaIcon, SunIcon } from 'react-native-heroicons/outline';
 
 export default function DashboardView() {
 	const {Auth} = Utils;
@@ -95,7 +95,10 @@ export default function DashboardView() {
 						<View style={styles.powerCardHeader}>
 							<View style={styles.powerCardHeaderLeft}>
 								<View style={styles.powerCardIconContainer}>
-									<BoltIcon size={20} color={CONSTS.COLOR.PRIMARY}/>
+									<Components.BadgeIcon paddingH={CONSTS.SIZE.SM}
+									paddingV={CONSTS.SIZE.SM} color="#262003">
+										<BoltIcon size={28} color={CONSTS.COLOR.PRIMARY}/>
+									</Components.BadgeIcon>
 								</View>
 								<View>
 									<Text style={styles.powerCardTitle}>Puissance</Text>
@@ -111,10 +114,61 @@ export default function DashboardView() {
 						<Image style={styles.powerImage}
 						source={require('../assets/images/power-graph.png')} />
 					</View>
+					<View style={styles.cardGroupContainer}>
+						<View style={styles.prodCard}>
+							<Components.BadgeIcon paddingH={CONSTS.SIZE.SM} 
+							paddingV={CONSTS.SIZE.SM} color={CONSTS.COLOR.PRIMARY_SOFT}>
+								<SunIcon size={30} color={CONSTS.COLOR.PRIMARY}/>
+							</Components.BadgeIcon>
+							<Image style={styles.prodImage}
+							source={require('../assets/images/production-graph.png')} />
+							<View>
+								<Image style={styles.logoImage}
+								source={require('../assets/images/logo-light.png')} />
+								<Text>Production</Text>
+								<Text style={styles.defaultCardNumber}>13,850</Text>
+								<Text>kwa</Text>
+							</View>
+						</View>
+						<View style={styles.cardGroupItemRight}>
+							<View style={styles.prodCard2}>
+								<Components.BadgeIcon paddingH={CONSTS.SIZE.SM}
+								paddingV={CONSTS.SIZE.SM} color={CONSTS.COLOR.PRIMARY_SOFT}>
+									<SunIcon size={30} color={CONSTS.COLOR.PRIMARY}/>
+								</Components.BadgeIcon>
+								<View style={{marginTop: CONSTS.SIZE.MD}}>
+									<Text>Aujourd'hui</Text>
+									<Text style={styles.defaultCardNumber}>13,850</Text>
+									<Text>kwa</Text>
+								</View>
+							</View>
+							<View style={styles.prodCardCo2}>
+								<Components.BadgeIcon paddingH={CONSTS.SIZE.SM}
+								paddingV={CONSTS.SIZE.SM} color={CONSTS.COLOR.SUCCESS_SOFT}>
+									<GlobeEuropeAfricaIcon size={30} color={CONSTS.COLOR.SUCCESS}/>
+								</Components.BadgeIcon>
+								<View style={{marginTop: CONSTS.SIZE.MD}}>
+									<Text>Reduction CO2</Text>
+									<Text style={styles.defaultCardNumber}>0,7</Text>
+									<Text>kg</Text>
+								</View>
+							</View>
+						</View>
+					</View>
 				</ScrollView>
 			</Layouts.MainLayout>
 		</Layouts.AppLayout>
 	)
+}
+
+const defaultCardStyle = {
+	borderWidth: 1,
+	borderColor: CONSTS.COLOR.SECONDARY,
+	borderRadius: CONSTS.SIZE.LG,
+	paddingVertical: CONSTS.SIZE.MD,
+	paddingHorizontal: CONSTS.SIZE.MD,
+	justifyContent: 'space-between',
+	alignItems: 'flex-start',
 }
 
 const styles = StyleSheet.create({
@@ -181,10 +235,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 	},
 	powerCardIconContainer: {
-		paddingHorizontal: CONSTS.SIZE.MD,
-		paddingVertical: CONSTS.SIZE.MD,
-		borderRadius: CONSTS.SIZE.XXL,
-		backgroundColor: '#262003',
 		marginRight: CONSTS.SIZE.MD,
 	},
 	powerCardTitle: {
@@ -212,5 +262,55 @@ const styles = StyleSheet.create({
 		width: '100%',
 		maxHeight: '100%',
 		height: '45%',
+	},
+	cardGroupContainer: {
+		width: '100%',
+		justifyContent: 'space-between',
+		flexDirection: 'row',
+		alignItems: 'stretch',
+		flexWrap: 'nowrap',
+		marginTop: CONSTS.SIZE.MD,
+	},
+	prodCard: {
+		...defaultCardStyle,
+		minHeight: 240,
+		width: '48%',
+		position: 'relative',
+		flexDirection: 'column',
+		justifyContent: 'space-between',
+		alignItems: 'flex-start',
+	},
+	prodImage: {
+		position: 'absolute',
+		top: '30%',
+		left: 0,
+		width: '118%',
+		height: '85%',
+	},
+	logoImage: {
+		width: 110,
+		height: 12,
+		marginBottom: CONSTS.SIZE.SM,
+	},
+	defaultCardNumber: {
+		color: CONSTS.COLOR.BLACK,
+		fontWeight: 'bold',
+		fontSize: CONSTS.SIZE.LG,
+	},
+	cardGroupItemRight: {
+		width: '48%',
+	},
+	prodCard2: {
+		...defaultCardStyle,
+		flexDirection: 'column',
+		justifyContent: 'space-between',
+		alignItems: 'flex-start',
+	},
+	prodCardCo2: {
+		...defaultCardStyle,
+		marginTop: CONSTS.SIZE.MD,
+		flexDirection: 'column',
+		justifyContent: 'space-between',
+		alignItems: 'flex-start',
 	},
 })
