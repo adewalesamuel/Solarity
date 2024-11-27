@@ -7,7 +7,7 @@ export default function MainLayout(props: PropsWithChildren) {
     return (
         <SafeAreaView style={styles.container}>
             <View>{props.children}</View>
-            <Components.MobileMenu />
+            <Components.MainMenu />
         </SafeAreaView>
     )
 }

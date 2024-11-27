@@ -8,12 +8,14 @@ import { Components } from '../components';
 import { Hooks } from '../hooks';
 import { Utils } from '../utils';
 import CustomText from '../components/CustomText';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
 
 export default function ProfileView() {
     const BADGE_PADDING = 12;
     const {Auth} = Utils;
 
+    const navigation: NavigationProp<ParamListBase> = useNavigation();
     const errorHandler = Hooks.useError();
     const useUser = Hooks.useUser();
 
@@ -106,7 +108,7 @@ export default function ProfileView() {
                             </View>
                             <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
                         </Pressable>
-                        <Pressable style={styles.buttonListItem}>
+                        <Pressable style={styles.buttonListItem} onPress={() => navigation.navigate('InvoiceList')}>
                             <View style={styles.buttonListItemLeft}>
                                 <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
                                 color={CONSTS.COLOR.LIGHT}>

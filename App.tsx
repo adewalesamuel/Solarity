@@ -27,6 +27,8 @@ function App(): React.JSX.Element {
         options={{headerShown: false}}/>
         <Stack.Screen name="Profile" component={Views.ProfileView}
         options={{headerShown: false}}/>
+        <Stack.Screen name="InvoiceList" component={Views.InvoiceListView}
+        options={{headerShown: true}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

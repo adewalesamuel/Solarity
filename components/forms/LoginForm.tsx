@@ -14,7 +14,7 @@ type RegisterFormProps =  FormProps & {
 }
 
 export default function LoginForm(props: RegisterFormProps) {
-    const forgotPassworUrl = 'https://app.solarity-france.com/motdepasse-oublie';
+    const forgotPassworUrl = `${process.env.APP_HOST_URL}/motdepasse-oublie`;
     const errorHandler = Hooks.useError();
 
     const handleForgotPress = async () => {
@@ -73,9 +73,10 @@ const styles = StyleSheet.create({
     checkboxContainer: {
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         paddingVertical: CONSTS.SIZE.SM,
         marginBottom: CONSTS.SIZE.SM,
+        width: '100%',
     },
     checkboxLeft: {
         alignItems: 'center',

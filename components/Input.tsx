@@ -5,7 +5,7 @@ import { InputProps } from '../core/types/forms'
 
 export default function Input(props: InputProps) {
   return (
-    <TextInput style={styles.inputItem} placeholder={props.placeholder}
+    <TextInput style={styles.inputItem} placeholder={props.placeholder} autoCapitalize="none"
     value={props.value} readOnly={props.readOnly} keyboardType={props.keyboardType}
     secureTextEntry={props.isPassword ? true : false} autoCorrect={false}
     onChangeText={props.onChange} placeholderTextColor={CONSTS.COLOR.SECONDARY}/>
