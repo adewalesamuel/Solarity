@@ -6,12 +6,14 @@
  */
 
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator, NativeStackHeaderProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { Views } from './views';
+import { Components } from './components';
 
 const Stack = createNativeStackNavigator();
 
+const MainHeader = (props: NativeStackHeaderProps) => <Components.MainHeader {...props} />;
 function App(): React.JSX.Element {
 
   return (
@@ -28,7 +30,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Profile" component={Views.ProfileView}
         options={{headerShown: false}}/>
         <Stack.Screen name="InvoiceList" component={Views.InvoiceListView}
-        options={{headerShown: true}}/>
+        options={{headerShown: true, header: MainHeader}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

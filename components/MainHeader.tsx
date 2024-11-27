@@ -1,0 +1,99 @@
+import React, { useCallback, useEffect } from 'react';
+import { ImageSourcePropType, Pressable, StyleSheet, View } from 'react-native';
+import { ArrowLeftIcon } from 'react-native-heroicons/outline';
+import { CONSTS } from '../constants';
+import { Hooks } from '../hooks';
+import { Utils } from '../utils';
+import CustomText from './CustomText';
+import { Components } from '.';
+import { NativeStackHeaderProps } from '@react-navigation/native-stack';
+
+export default function MainHeader(props: NativeStackHeaderProps) {
+    const {Auth} = Utils;
+
+    const useUser = Hooks.useUser();
+    const errorHandler = Hooks.useError();
+
+    const init = useCallback(async () => {
+        useUser.setIsDisabled(true);
+
+        try {
+            const user = await Auth.getUser();
+            useUser.fillUser(user);
+        } catch (error) {
+            errorHandler.setError(error);
+        } finally {
+            useUser.setIsDisabled(false);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
+        init();
+    }, [init])
+
+    return (
+        <View style={styles.container}>
+            <Pressable style={styles.iconContainer} onPress={() => props.navigation.goBack()}>
+                <ArrowLeftIcon size={30} color={CONSTS.COLOR.BLACK}/>
+            </Pressable>
+            <View style={styles.infoContainer}>
+                <View style={styles.textContainer}>
+                    <CustomText customStyle={textStyle}>Aujourd'hui</CustomText>
+                    <CustomText customStyle={styles.dateText}>
+							{Utils.Date.styleDate(new Date(), 'full')}
+					</CustomText>
+                </View>
+                <Components.SafeImage
+                source={useUser.profile_img_url as ImageSourcePropType ?? undefined}
+                style={styles.image}/>
+            </View>
+        </View>
+    )
+}
+
+const textStyle = {
+    textAlign: 'right' as 'right',
+}
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: CONSTS.COLOR.WHITE,
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingTop: CONSTS.SIZE.XL,
+        paddingBottom: CONSTS.SIZE.MD,
+        paddingHorizontal: CONSTS.SIZE.MD,
+    },
+    iconContainer: {
+        paddingHorizontal: CONSTS.SIZE.MD,
+        paddingVertical: CONSTS.SIZE.MD,
+        borderRadius: CONSTS.SIZE.XXL,
+        borderWidth: 1,
+        borderColor: CONSTS.COLOR.SECONDARY,
+    },
+    infoContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    textContainer: {
+        borderColor: 'red',
+        marginRight: CONSTS.SIZE.MD,
+    },
+    todayText: {
+		marginBottom: CONSTS.SIZE.SM,
+	},
+	dateText: {
+		color: CONSTS.COLOR.BLACK,
+		textTransform: 'capitalize',
+        ...textStyle,
+	},
+    image: {
+        width: 60,
+        height: 60,
+        borderRadius: 60,
+        objectFit: 'cover',
+    },
+});
