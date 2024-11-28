@@ -86,6 +86,7 @@ const post = async <T>(endpoint: string, payload = '', signal: AbortSignal): Pro
             signal,
         })
         .then(response => {
+
             if (!response.ok) {
                 return reject({
                     status: response.status,

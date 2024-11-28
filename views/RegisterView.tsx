@@ -49,7 +49,7 @@ export default function RegisterView() {
     return (
         <Layouts.AppLayout>
             <KeyboardAvoidingView style={styles.container}>
-                <CustomText customStyle={styles.title}>Bienvenu parmi nous !</CustomText>
+                <Components.TitleText>Bienvenu parmi nous !</Components.TitleText>
                 <CustomText customStyle={styles.subTitle}>
                     Merci de suivre les étapes pour vous connecter !
                 </CustomText>
@@ -79,12 +79,6 @@ const styles = StyleSheet.create({
         paddingVertical: CONSTS.SIZE.MD,
         backgroundColor: CONSTS.COLOR.WHITE,
         height: '100%',
-    },
-    title: {
-        fontSize: CONSTS.SIZE.XL,
-        marginBottom: CONSTS.SIZE.XS,
-        color: CONSTS.COLOR.BLACK,
-        fontWeight: 'bold',
     },
     subTitle: {
         fontSize: CONSTS.SIZE.MD,

@@ -42,7 +42,7 @@ export default function ProfileView() {
             <Layouts.MainLayout>
                 <ScrollView style={styles.container}>
                     <View style={styles.top}>
-                        <CustomText customStyle={styles.viewTitle}>Mon profil</CustomText>
+                        <Components.TitleText>Mon profil</Components.TitleText>
                         <Pressable style={styles.icon}>
                             <Cog6ToothIcon size={28} color="black" />
                         </Pressable>
@@ -52,7 +52,7 @@ export default function ProfileView() {
                             <Components.SafeImage
                             source={useUser.profile_img_url as ImageSourcePropType ?? undefined}
                             style={styles.image}/>
-                            <CustomText customStyle={styles.imageCaption}>{useUser.name ?? '--'}</CustomText>
+                            <Components.TitleText>{useUser.name ?? '--'}</Components.TitleText>
                         </View>
                         <View style={styles.statContainer}>
                             <View style={styles.statItem}>
@@ -168,11 +168,6 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'space-between',
     },
-    viewTitle: {
-        fontSize: CONSTS.SIZE.XL,
-        color: CONSTS.COLOR.BLACK,
-        fontWeight: 'bold',
-    },
     icon: {
         paddingHorizontal: CONSTS.SIZE.MD,
         paddingVertical: CONSTS.SIZE.MD,
@@ -189,12 +184,7 @@ const styles = StyleSheet.create({
         height: 115,
         borderRadius: 115,
         objectFit: 'cover',
-    },
-    imageCaption: {
-        fontSize: CONSTS.SIZE.XL,
-        color: CONSTS.COLOR.BLACK,
-        marginTop: CONSTS.SIZE.MD,
-        fontWeight: 'bold',
+        marginBottom: CONSTS.SIZE.MD,
     },
     infoContainer: {
         flexDirection: 'row',

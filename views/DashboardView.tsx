@@ -130,7 +130,7 @@ export default function DashboardView() {
 					</View>
 					<View style={styles.secondContainer}>
 						<View>
-							<CustomText customStyle={styles.userNameText}>{useUser.name}</CustomText>
+							<Components.TitleText>{useUser.name}</Components.TitleText>
 							<CustomText customStyle={styles.dateIntervalText}>
 								{Utils.Date.getMonthInterval(
 								new Date(useUser.created_at as string),
@@ -246,11 +246,6 @@ const styles = StyleSheet.create({
 		height: 70,
 		borderRadius: 70,
 		objectFit: 'cover',
-	},
-	userNameText: {
-		fontSize: CONSTS.SIZE.XL,
-		color: CONSTS.COLOR.BLACK,
-		fontWeight: 'bold',
 	},
 	secondContainer: {
 		flexDirection: 'row',
