@@ -14,5 +14,6 @@ export default interface Order extends BaseEntity {
     status: OrderStatus,
     type: OrderType,
     product?: Product,
+    products?: Product[],
     user?: User,
 }

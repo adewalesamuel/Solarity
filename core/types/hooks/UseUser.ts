@@ -58,5 +58,7 @@ export type UseUser = BaseHook & {
     updateUser: (signal: AbortSignal) => Promise<Response<User>>,
     deleteUser: (userId: number, signal: AbortSignal) => Promise<Response<User>>,
     fillUser: (user: User) => void,
-    emptyUser: () => any
+    emptyUser: () => any,
+
+    setCreated_at: (arg: string) => any,
 }

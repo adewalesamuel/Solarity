@@ -14,6 +14,7 @@ export default interface UseOrder extends BaseHook {
     status: OrderStatus,
     type: OrderType,
     product?: Product,
+    products?: Product[],
     user?: User,
 
     setProduct_id: (arg: number) => any,
@@ -24,6 +25,7 @@ export default interface UseOrder extends BaseHook {
     setStatus: (arg: OrderStatus) => any,
     setType: (arg: OrderType) => any,
     setProduct?: (arg: Product) => any,
+    setProducts?: (arg: Product[]) => any,
     setUser?: (arg: User) => any,
 
     getOrder: (userId: number, signal: AbortSignal) => Promise<Response<Order>>,
