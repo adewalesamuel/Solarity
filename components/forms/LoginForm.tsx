@@ -1,13 +1,13 @@
 import { View, StyleSheet, TouchableOpacity, Linking } from 'react-native'
 import React from 'react'
 import { CONSTS } from '../../constants'
-import { UseUser } from '../../core/hooks/UseUser'
 import Input from '../Input'
 import { Components } from '..'
 import CheckBox from '@react-native-community/checkbox';
 import { Hooks } from '../../hooks'
 import { FormProps } from '../../core/types/forms'
 import CustomText from '../CustomText'
+import { UseUser } from '../../core/types/hooks/UseUser'
 
 type RegisterFormProps =  FormProps & {
     useUser: UseUser

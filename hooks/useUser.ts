@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Services } from '../services';
 import User, { UserType } from '../core/entities/User';
 import { CONSTS } from '../constants';
-import { UseUser } from '../core/hooks/UseUser';
+import { UseUser } from '../core/types/hooks/UseUser';
 
 export const useUser = (): UseUser => {
     const [id, setId] = useState<number | ''>('');

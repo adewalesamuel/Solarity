@@ -3,6 +3,9 @@ import CustomText from './CustomText';
 import LoginForm from './forms/LoginForm';
 import RegisterForm from './forms/RegisterForm';
 import Input from './Input';
+import InvoiceCardHeader from './InvoiceCardHeader';
+import InvoiceCardItem from './InvoiceCardItem';
+import Loader from './Loader';
 import MainHeader from './MainHeader';
 import MainMenu from './MainMenu';
 import PrimaryButton from './PrimaryButton';
@@ -20,4 +23,7 @@ export const Components = {
     MainMenu,
     MainHeader,
     TitleText,
+    InvoiceCardItem,
+    Loader,
+    InvoiceCardHeader,
 }

@@ -102,6 +102,7 @@ export const useInvoice = (): UseInvoice => {
 		setDate,
 		setFooter,
 		setOrder_id,
+        setOrder,
 
         setId,
         setErrors,

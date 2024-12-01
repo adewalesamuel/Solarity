@@ -1,35 +1,70 @@
-import React, { useCallback, useEffect } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { ActivityIndicator, StyleSheet, View, VirtualizedList } from 'react-native';
 import AppLayout from '../layouts/AppLayout';
 import MainLayout from '../layouts/MainLayout';
 import { CONSTS } from '../constants';
-import { EllipsisVerticalIcon, ShoppingCartIcon } from 'react-native-heroicons/outline';
+import { EllipsisVerticalIcon } from 'react-native-heroicons/outline';
 import { Components } from '../components';
 import CustomText from '../components/CustomText';
 import { Utils } from '../utils';
-// import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 import { Hooks } from '../hooks';
+import Invoice from '../core/entities/Invoice';
+import { Services } from '../services';
+import { ResponsePaginate } from '../core/types/services';
 
 export default function InvoiceListView() {
+    const abortController = new AbortController();
+    const InvoiceCardHeader = useMemo(() => <Components.InvoiceCardHeader
+    price="14,90€" canShowButton={true} canShowImage={true}/>, [])
     const {Auth} = Utils;
 
-    // const navigation: NavigationProp<ParamListBase> = useNavigation();
     const errorHandler = Hooks.useError();
     const useUser = Hooks.useUser();
 
+    const [page, setPage] = useState(1);
+    const [invoices, setInvoices] = useState<Invoice[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [hasMoreData, setHasMoreData] = useState(true);
+
+    const handleEndReached = () => {
+        if (hasMoreData === false) {
+            return;
+        }
+
+        setPage((prevPage) => prevPage + 1);
+    }
+
+    const loadInvoiceList = async (currentPage: number = 1): Promise<Invoice[]> => {
+        const response = await Services.InvoiceService.getAll(
+            {page: currentPage},
+            abortController.signal
+        );
+        const data = (response.invoices as ResponsePaginate<Invoice[]>).data;
+
+        return data;
+    }
+
     const init = useCallback(async () => {
-        useUser.setIsDisabled(true);
+        setIsLoading(true);
 
         try {
-            const user = await Auth.getUser();
-            useUser.fillUser(user);
+            const data = await loadInvoiceList(page);
+            const invoiceList = [...invoices, ...data];
+
+            setInvoices(invoiceList);
+            setIsLoading(false);
+
+            if (data.length === 0) {setHasMoreData(false)}
+
+            if (page === 1) {
+                const user = await Auth.getUser();
+                useUser.setCreated_at(user?.created_at);
+            }
         } catch (error) {
             errorHandler.setError(error);
-        } finally {
-            useUser.setIsDisabled(false);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [page])
 
     useEffect(() => {
         init();
@@ -37,7 +72,7 @@ export default function InvoiceListView() {
     return (
         <AppLayout>
             <MainLayout>
-                <ScrollView style={styles.container}>
+                <View style={styles.container}>
                     <View style={styles.titleContainer}>
                         <View>
                             <Components.TitleText>Factures</Components.TitleText>
@@ -51,22 +86,19 @@ export default function InvoiceListView() {
 							<EllipsisVerticalIcon size={30} color={CONSTS.COLOR.BLACK}/>
 						</View>
                     </View>
-                    <View style={styles.invoiceHeader}>
-                        <View style={styles.invoiceHeaderTop}>
-                            <View style={styles.invoiceHeaderLeft}>
-                                <Components.BadgeIcon color="#262003" 
-                                paddingH={CONSTS.SIZE.SM} paddingV={CONSTS.SIZE.SM}>
-                                    <ShoppingCartIcon color={CONSTS.COLOR.PRIMARY} size={25}/>
-                                </Components.BadgeIcon>
-                                <View>
-                                    <CustomText customStyle={styles.invoiceTitle}>Facture</CustomText>
-                                    <CustomText customStyle={{color: CONSTS.COLOR.WHITE}}>à payer</CustomText>
-                                </View>
-                            </View>
-                            <CustomText customStyle={styles.invoicePrice}>14,90 €</CustomText>
-                        </View>
-                    </View>
-                </ScrollView>
+
+                    {invoices.length > 0 ?
+                        <VirtualizedList data={invoices} initialNumToRender={15}
+                            ListHeaderComponent={() => InvoiceCardHeader}
+                            onEndReached={handleEndReached}
+                            getItem={(data: Invoice[], index) => data[index]}
+                            getItemCount={(data: Invoice[]) => data.length}
+                            renderItem={({item}) => <Components.InvoiceCardItem invoice={item} />}/>
+                        : null
+                    }
+
+                    {isLoading ? <ActivityIndicator size={'large'} color={CONSTS.COLOR.PRIMARY} /> : null}
+                </View>
             </MainLayout>
         </AppLayout>
     )
@@ -93,32 +125,4 @@ const styles = StyleSheet.create({
 		paddingVertical: CONSTS.SIZE.MD,
 		borderColor: CONSTS.COLOR.SECONDARY,
 	},
-    invoiceHeader: {
-        backgroundColor: CONSTS.COLOR.BLACK,
-        paddingHorizontal: CONSTS.SIZE.XL,
-        paddingVertical: CONSTS.SIZE.XL,
-        borderTopLeftRadius: CONSTS.SIZE.XL,
-        borderTopRightRadius: CONSTS.SIZE.XL,
-        marginTop: CONSTS.SIZE.LG,
-    },
-    invoiceHeaderTop: {
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
-    },
-    invoiceHeaderLeft: {
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        columnGap: CONSTS.SIZE.LG,
-    },
-    invoiceTitle: {
-        color: CONSTS.COLOR.WHITE,
-        fontSize: CONSTS.SIZE.LG,
-        fontWeight: 'bold',
-    },
-    invoicePrice: {
-        color: CONSTS.COLOR.PRIMARY,
-        fontWeight: 'bold',
-        fontSize: CONSTS.SIZE.LG,
-    },
 })
