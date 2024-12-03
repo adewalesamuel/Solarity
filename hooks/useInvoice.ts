@@ -17,7 +17,7 @@ export const useInvoice = (): UseInvoice => {
     const [errors, setErrors] = useState([]);
     const [isDisabled, setIsDisabled] = useState(false);
 
-    const getInvoice = (invoiceId: number, signal: AbortSignal) => {
+    const getInvoice = (invoiceId: string | number, signal: AbortSignal) => {
         return Services.InvoiceService.getById(invoiceId, signal)
         .then(response => {
             fillInvoice(response.invoice as Invoice);
@@ -63,15 +63,7 @@ export const useInvoice = (): UseInvoice => {
 		setFooter(invoice.footer ?? '');
 		setOrder_id(invoice.order_id ?? '');
         setCreated_at(invoice.created_at);
-        if (invoice.order && invoice.order.product) {
-            invoice.order.amount = parseFloat(invoice.order.amount.toString());
-            invoice.order.product.primary_price = parseFloat(invoice.order.product.primary_price.toString());
-            invoice.order.product.other_price = parseFloat(invoice.order.product.other_price.toString());
-            invoice.order.product.full_price = parseFloat(invoice.order.product.full_price.toString());
-            invoice.order.product.first_deposit_amount = parseFloat(invoice.order.product.first_deposit_amount.toString());
-        }
-		setOrder(invoice.order ?? {});
-
+        setOrder(invoice.order ?? {});
     }
     const emptyInvoice = () => {
         setId('');
@@ -82,7 +74,6 @@ export const useInvoice = (): UseInvoice => {
 		setOrder_id(-1);
         setCreated_at('');
 		setOrder({});
-
     }
 
     return {
