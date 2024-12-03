@@ -1,18 +1,20 @@
-import React from "react";
-import { ActivityIndicator, StyleSheet, View, ViewProps } from "react-native";
-import { CONSTS } from "../constants";
+import React from 'react';
+import { ActivityIndicator, StyleSheet, View, ViewProps } from 'react-native';
+import { CONSTS } from '../constants';
 
 type LoaderProps = ViewProps & {
     isLoading: boolean,
 }
 export default function Loader(props: LoaderProps) {
     return (
-        <View style={styles.container}>
+        <>
             {props.isLoading ?
-                <ActivityIndicator color={CONSTS.COLOR.PRIMARY} size={28}/> :
-                props.children
+                <View style={styles.container}>
+                        <ActivityIndicator color={CONSTS.COLOR.PRIMARY} size={28}/>
+                </View>
+            : props.children
             }
-        </View>
+        </>
     )
 }
 

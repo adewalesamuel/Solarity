@@ -12,7 +12,7 @@ export const useInvoice = (): UseInvoice => {
 	const [footer, setFooter] = useState('');
 	const [order_id, setOrder_id] = useState<number>(-1);
     const [created_at, setCreated_at] = useState('');
-	const [order, setOrder] = useState<Order | {}>({});
+	const [order, setOrder] = useState<Order>();
 
     const [errors, setErrors] = useState([]);
     const [isDisabled, setIsDisabled] = useState(false);
@@ -63,7 +63,7 @@ export const useInvoice = (): UseInvoice => {
 		setFooter(invoice.footer ?? '');
 		setOrder_id(invoice.order_id ?? '');
         setCreated_at(invoice.created_at);
-        setOrder(invoice.order ?? {});
+        setOrder(invoice.order);
     }
     const emptyInvoice = () => {
         setId('');
@@ -73,7 +73,7 @@ export const useInvoice = (): UseInvoice => {
 		setFooter('');
 		setOrder_id(-1);
         setCreated_at('');
-		setOrder({});
+		setOrder(undefined);
     }
 
     return {

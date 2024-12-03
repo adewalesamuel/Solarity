@@ -9,13 +9,13 @@ export type UseInvoice = BaseHook & {
     date: string,
     footer: string,
     order_id: number,
-    order: Order | {},
+    order: Order | undefined,
     setNumber: (arg: string) => void
     setSubject: (arg: string) => void
     setDate: (arg: string) => void
     setFooter: (arg: string) => void
     setOrder_id: (arg: number) => void
-    setOrder: (arg: Order | {}) => void
+    setOrder: (arg: Order) => void
 
     getInvoice: (invoiceId: string | number, signal: AbortSignal) => Promise<Response<Invoice | Invoice[]>>,
     createInvoice: (signal: AbortSignal) => Promise<Response<Invoice>>,

@@ -16,7 +16,7 @@ import { ResponsePaginate } from '../core/types/services';
 export default function InvoiceListView() {
     const abortController = new AbortController();
     const InvoiceCardHeader = useMemo(() => <Components.InvoiceCardHeader
-    price="14,90€" canShowButton={true} canShowImage={true}/>, [])
+    price={14.90} canShowButton={true} canShowImage={true}/>, [])
     const {Auth} = Utils;
 
     const errorHandler = Hooks.useError();

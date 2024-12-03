@@ -8,7 +8,8 @@ import { ShoppingCartIcon } from 'react-native-heroicons/outline';
 type InvoiceCardHeaderProps = ViewProps & {
     canShowButton: boolean,
     canShowImage: boolean,
-    price?: string,
+    price?: number,
+    number?: string
 }
 
 export default function InvoiceCardHeader(props: InvoiceCardHeaderProps) {
@@ -25,12 +26,12 @@ export default function InvoiceCardHeader(props: InvoiceCardHeaderProps) {
                             Facture
                         </CustomText>
                         <CustomText customStyle={{color: CONSTS.COLOR.WHITE}}>
-                            à payer
+                            {props.number ?? 'a payer'}
                         </CustomText>
                     </View>
                 </View>
                 <CustomText customStyle={styles.invoicePrice}>
-                    {props.price !== undefined ? props.price : null}
+                    {props.price !== undefined ? `${props.price}€` : null}
                 </CustomText>
             </View>
             {props.canShowButton &&

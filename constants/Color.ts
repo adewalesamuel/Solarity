@@ -11,4 +11,5 @@ export const COLOR = Object.freeze({
     SUCCESS_SOFT: '#e0f7f1',
     WARNING: '#ffc107',
     WHITE: 'white',
+    DANGER: 'red',
 })
