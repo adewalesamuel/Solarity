@@ -15,20 +15,18 @@ import {
   } from '@react-navigation/native';
 import CustomText from '../components/CustomText'
 
-
 type LoginRouteParams = Partial<{
     from: string,
     success: boolean,
 }> | undefined;
 export default function LoginView() {
     let abortController = new AbortController();
+    const {Toaster, Auth} = Utils;
 
-    const {Toaster} = Utils;
     const navigation: NavigationProp<ParamListBase> = useNavigation();
     const route: RouteProp<ParamListBase> = useRoute();
     const params: LoginRouteParams = route.params;
 
-    const {Auth} = Utils;
     const errorHandler = Hooks.useError();
     const useUser = Hooks.useUser();
 

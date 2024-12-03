@@ -14,11 +14,10 @@ import CustomText from '../components/CustomText';
 
 export default function RegisterView() {
     let abortController = new AbortController();
-    const navigation: NavigationProp<ParamListBase> = useNavigation();
 
+    const navigation: NavigationProp<ParamListBase> = useNavigation();
     const errorHandler = Hooks.useError();
     const useUser = Hooks.useUser();
-
 
     const handleRegisterSubmit = async () => {
         useUser.setIsDisabled(true);
@@ -27,8 +26,10 @@ export default function RegisterView() {
             if (!useUser.hasAcceptedConditions) {
                 const error = new Error()
                 error.message = "Vous devez accepter les conditions d'utilsation";
+
                 return errorHandler.setError(error);
             }
+
             const payload = {
                 name: useUser.name,
                 email: useUser.email,

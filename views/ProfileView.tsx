@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonListItemLeft: {
-        gap: 18,
+        gap: CONSTS.SIZE.LG,
         flexDirection: 'row',
         alignItems: 'center',
     },

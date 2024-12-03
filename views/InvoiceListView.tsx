@@ -68,6 +68,7 @@ export default function InvoiceListView() {
 
     useEffect(() => {
         init();
+        return () => abortController.abort();
     }, [init])
     return (
         <AppLayout>

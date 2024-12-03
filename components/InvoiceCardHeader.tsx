@@ -40,13 +40,15 @@ export default function InvoiceCardHeader(props: InvoiceCardHeaderProps) {
                     </CustomText>
                 </Pressable>
             }
+            <Image style={styles.paperPattern}
+            source={require('../assets/images/paper-pattern.png')} />
             {props.canShowImage &&
                 <Image style={styles.invoiceImage}
                 source={require('../assets/images/invoice-coins.png')} />
             }
         </View>
     )
-} 
+}
 
 const styles = StyleSheet.create({
     invoiceHeader: {
@@ -91,5 +93,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0,
         bottom: -60,
+    },
+    paperPattern: {
+        position: 'absolute',
+        bottom: -5,
+        left: 0,
+        width: '115%',
     },
 })

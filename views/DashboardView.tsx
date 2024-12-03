@@ -14,10 +14,10 @@ import CustomText from '../components/CustomText';
 export default function DashboardView() {
 	const {Auth} = Utils;
 
-	const [backPressed, setBackPressed] = useState(false);
-
     const errorHandler = Hooks.useError();
     const useUser = Hooks.useUser();
+
+	const [backPressed, setBackPressed] = useState(false);
 
 	const getNetworkSubnet = async (): Promise<string | undefined> => {
 			const ip = await NetworkInfo.getIPAddress();
@@ -33,7 +33,7 @@ export default function DashboardView() {
 			.catch(err => err)
 		);
 
-		setTimeout(() => abortController.abort, timeout);
+		setTimeout(() => abortController.abort(), timeout);
 
 		return requestList;
 	}

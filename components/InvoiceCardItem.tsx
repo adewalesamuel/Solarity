@@ -6,12 +6,14 @@ import BadgeIcon from './BadgeIcon';
 import CustomText from './CustomText';
 import Invoice from '../core/entities/Invoice';
 import { Utils } from '../utils';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
 type InvoiceCardProps = {
     invoice: Invoice,
 }
 export default function InvoiceCardItem({invoice}: InvoiceCardProps) {
-    // const navigation: NavigationProp<ParamListBase> = useNavigation();
+    const navigation: NavigationProp<ParamListBase> = useNavigation();
+
     const getInvoiceDetail = (invoiceItem: Invoice) => {
         const amount = invoiceItem?.order?.amount ?? '';
         const orderType = getOrderTypeName(invoiceItem?.order?.type);
@@ -26,7 +28,7 @@ export default function InvoiceCardItem({invoice}: InvoiceCardProps) {
         return 'Achat'
     }
     return (
-        <Pressable style={styles.invoiceCardItem}>
+        <Pressable style={styles.invoiceCardItem} onPress={() => navigation.navigate('InvoiceShow', {id: invoice.id, number: invoice.number})}>
             <View style={styles.invoiceCardItemLeft}>
                 <BadgeIcon color={CONSTS.COLOR.LIGHT} paddingH={CONSTS.SIZE.SM}
                 paddingV={CONSTS.SIZE.SM}>

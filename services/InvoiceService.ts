@@ -8,7 +8,7 @@ const getAll = (params: any, signal: AbortSignal): Promise<Response<Invoice[]>> 
     return Api.getAll(`${ENDPOINT}?page=${params?.page ?? ''}`, signal)
 }
 
-const getById = (id: number, signal: AbortSignal): Promise<Response<Invoice>> => {
+const getById = (id: string | number, signal: AbortSignal): Promise<Response<Invoice>> => {
     return Api.get(`${ENDPOINT}/${id}`, signal);
 }
 
@@ -17,7 +17,7 @@ const create = (payload: string, signal: AbortSignal): Promise<Response<Invoice>
 }
 
 const update = (invoiceId: number, payload: string, signal: AbortSignal): Promise<Response<Invoice>> => {
-    return Api.put(`${ENDPOINT}`, payload, signal)
+    return Api.put(`${ENDPOINT}/${invoiceId}`, payload, signal)
 }
 const destroy = (id: number, signal: AbortSignal): Promise<Response<Invoice>> => {
     return Api.erase(`${ENDPOINT}/${id}`, signal)

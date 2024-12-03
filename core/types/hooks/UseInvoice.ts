@@ -17,7 +17,7 @@ export type UseInvoice = BaseHook & {
     setOrder_id: (arg: number) => void
     setOrder: (arg: Order | {}) => void
 
-    getInvoice: (invoiceId: number, signal: AbortSignal) => Promise<Response<Invoice | Invoice[]>>,
+    getInvoice: (invoiceId: string | number, signal: AbortSignal) => Promise<Response<Invoice | Invoice[]>>,
     createInvoice: (signal: AbortSignal) => Promise<Response<Invoice>>,
     updateInvoice: (invoiceId: number, signal: AbortSignal) => Promise<Response<Invoice>>,
     deleteInvoice: (invoiceId: number, signal: AbortSignal) => Promise<Response<Invoice>>,
