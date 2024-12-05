@@ -29,9 +29,13 @@ export default function HomeView() {
                     <View style={{marginVertical: CONSTS.SIZE.XXL}} />
                     <View style={{marginVertical: CONSTS.SIZE.XXL}} />
                     <View style={styles.registerContainer}>
-                        <CustomText customStyle={styles.registerText}>Vous n'avez pas encore de compte ?</CustomText>
+                        <CustomText customStyle={styles.registerText}>
+                            Vous n'avez pas encore de compte ?
+                        </CustomText>
                         <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
-                            <CustomText customStyle={styles.registerLink}>Inscrivez-vous maintenant</CustomText>
+                            <CustomText customStyle={styles.registerLink}>
+                                Inscrivez-vous maintenant
+                            </CustomText>
                         </TouchableOpacity>
                     </View>
                 </View>

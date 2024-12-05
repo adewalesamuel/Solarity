@@ -29,8 +29,9 @@ export default function DashboardView() {
 		const requestList = [];
 
 		requestList.push(
-			fetch(url, { signal: abortController.signal })
-			.catch(err => err)
+			fetch(
+				url, { signal: abortController.signal }
+			).catch(err => err)
 		);
 
 		setTimeout(() => abortController.abort(), timeout);
@@ -68,10 +69,7 @@ export default function DashboardView() {
 
 			Alert.alert(
 				'Device Info',
-				JSON.stringify({
-					subnet,
-					devices: JSON.stringify(JSON.stringify(devices)),
-				}),
+				JSON.stringify({subnet,devices}),
 			)
         } catch (error) {
             errorHandler.setError(error);

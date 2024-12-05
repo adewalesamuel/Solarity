@@ -1,10 +1,11 @@
-import { Response } from '../core/types/services';
+import { Response as ApiResponse } from '../core/types/services';
 import { Utils } from '../utils';
 
 const HOST = 'http://10.0.2.2';
 const PORT = '8000';
 const URL = process.env.APP_HOST_URL ?? `${HOST}:${PORT}`;
 const ROOT_PATH  = '/api';
+
 const getHeaders = async () => {
     const sessionToken = await Utils.Auth.getSessionToken();
 
@@ -24,7 +25,7 @@ const getFormDataHeaders = async () => {
     }));
 }
 
-const getAll = async <T>(endpoint: string, signal: AbortSignal): Promise<Response<T[]>> => {
+const getAll = async <T>(endpoint: string, signal: AbortSignal): Promise<ApiResponse<T[]>> => {
     const headers = await getHeaders();
 
     return new Promise((resolve, reject) => {
@@ -33,23 +34,15 @@ const getAll = async <T>(endpoint: string, signal: AbortSignal): Promise<Respons
             signal,
         })
         .then(response => {
-            if (!response.ok) {
-                return reject({
-                    status: response.status,
-                    messages: getResponseErrors(response),
-                    });
-            }
-
+            if (!response.ok) {return reject(getErrorObject(response));}
             return response.json();
         })
-        .then(result => {
-            resolve(result)
-        })
+        .then(result => {resolve(result)})
         .catch(error => reject(error))
     })
 }
 
-const get = async <T>(endpoint: string, signal: AbortSignal): Promise<Response<T>> => {
+const get = async <T>(endpoint: string, signal: AbortSignal): Promise<ApiResponse<T>> => {
     const headers = await getHeaders();
 
     return new Promise((resolve, reject) => {
@@ -58,23 +51,15 @@ const get = async <T>(endpoint: string, signal: AbortSignal): Promise<Response<T
             signal,
         })
         .then(response => {
-            if (!response.ok) {
-                return reject({
-                    status: response.status,
-                    messages: getResponseErrors(response),
-                    });
-            }
-
+            if (!response.ok) {return reject(getErrorObject(response));}
             return response.json();
         })
-        .then(result => {
-            resolve(result)
-        })
+        .then(result => {resolve(result)})
         .catch(error => reject(error))
     })
 }
 
-const post = async <T>(endpoint: string, payload = '', signal: AbortSignal): Promise<Response<T>> => {
+const post = async <T>(endpoint: string, payload = '', signal: AbortSignal): Promise<ApiResponse<T>> => {
     const headers = await getHeaders();
 
     return new Promise((resolve, reject) => {
@@ -86,23 +71,14 @@ const post = async <T>(endpoint: string, payload = '', signal: AbortSignal): Pro
             signal,
         })
         .then(response => {
-
-            if (!response.ok) {
-                return reject({
-                    status: response.status,
-                    messages: getResponseErrors(response),
-                    });
-            }
-
+            if (!response.ok) {return reject(getErrorObject(response));}
             return response.json();
         })
-        .then(result => {
-            resolve(result)
-        })
+        .then(result => {resolve(result)})
         .catch(error => reject(error))
     })
 }
-const postFormData = async <T>(endpoint: string, payload = '', signal: AbortSignal): Promise<Response<T>> => {
+const postFormData = async <T>(endpoint: string, payload = '', signal: AbortSignal): Promise<ApiResponse<T>> => {
     const headers = await getFormDataHeaders();
 
     return new Promise((resolve, reject) => {
@@ -114,23 +90,15 @@ const postFormData = async <T>(endpoint: string, payload = '', signal: AbortSign
             signal,
         })
         .then(response => {
-            if (!response.ok) {
-                return reject({
-                    status: response.status,
-                    messages: getResponseErrors(response),
-                    });
-            }
-
+            if (!response.ok) {return reject(getErrorObject(response));}
             return response.json();
         })
-        .then(result => {
-            resolve(result)
-        })
+        .then(result => {resolve(result)})
         .catch(error => reject(error))
     })
 }
 
-const put = async <T>(endpoint: string, payload = '', signal: AbortSignal): Promise<Response<T>> => {
+const put = async <T>(endpoint: string, payload = '', signal: AbortSignal): Promise<ApiResponse<T>> => {
     const headers = await getHeaders();
 
     return new Promise((resolve, reject) => {
@@ -142,23 +110,15 @@ const put = async <T>(endpoint: string, payload = '', signal: AbortSignal): Prom
             signal,
         })
         .then(response => {
-            if (!response.ok) {
-                return reject({
-                    status: response.status,
-                    messages: getResponseErrors(response),
-                    });
-            }
-
+            if (!response.ok) {return reject(getErrorObject(response));}
             return response.json();
         })
-        .then(result => {
-            resolve(result)
-        })
+        .then(result => {resolve(result)})
         .catch(error => reject(error))
     })
 }
 
-const erase = async <T>(endpoint: string, signal: AbortSignal): Promise<Response<T>> => {
+const erase = async <T>(endpoint: string, signal: AbortSignal): Promise<ApiResponse<T>> => {
     const headers = await getHeaders();
 
     return new Promise((resolve, reject) => {
@@ -169,38 +129,39 @@ const erase = async <T>(endpoint: string, signal: AbortSignal): Promise<Response
             signal,
         })
         .then(response => {
-            if (!response.ok) {
-                return reject({
-                    status: response.status,
-                    messages: getResponseErrors(response),
-                    });
-            }
-
+            if (!response.ok) {return reject(getErrorObject(response));}
             return response.json();
         })
-        .then(result => {
-            resolve(result)
-        })
+        .then(result => {resolve(result)})
         .catch(error => reject(error))
     })
 }
 
-const getResponseErrors = (response: any) => {
+const getResponseErrors = (response: Response) => {
     return new Promise((resolve, reject) => {
         if (!response) {reject(null);}
 
         response.json().then((result: any) => {
             let errorMessages = [];
+
             if (!result.errors || result?.errors?.length < 1) {
                 errorMessages.push(result.message);
             } else {
-                for (let error in result.errors)
-                    {errorMessages.push(result.errors[error]);}
+                for (let error in result.errors) {
+                    errorMessages.push(result.errors[error]);
+                }
             }
 
             resolve(errorMessages);
         });
     })
+}
+
+const getErrorObject = (response: Response): object => {
+    return {
+        status: response.status,
+        messages: getResponseErrors(response),
+    }
 }
 
 export const Api = {

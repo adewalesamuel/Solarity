@@ -4,7 +4,7 @@ export type PaginateLink = {
     active: boolean,
 }
 
-export interface ResponsePaginate<T> {
+export type ResponsePaginate<T> = {
     current_page: number,
     data: T,
     first_page_url: string,
@@ -20,7 +20,7 @@ export interface ResponsePaginate<T> {
     total: number,
 }
 
-export interface Response<T> {
+export type Response<T> = {
     [key: string]: T | ResponsePaginate<T>,
     success: any,
 }

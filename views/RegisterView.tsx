@@ -24,10 +24,7 @@ export default function RegisterView() {
 
         try {
             if (!useUser.hasAcceptedConditions) {
-                const error = new Error()
-                error.message = "Vous devez accepter les conditions d'utilsation";
-
-                return errorHandler.setError(error);
+                throw new Error("Vous devez accepter les conditions d'utilsation");
             }
 
             const payload = {
@@ -62,9 +59,13 @@ export default function RegisterView() {
                     <View style={styles.horiontalLine} />
                 </View>
                 <View style={styles.loginContainer}>
-                    <CustomText customStyle={styles.loginText}>Vous avez déjà un compte ?</CustomText>
+                    <CustomText customStyle={styles.loginText}>
+                        Vous avez déjà un compte ?
+                    </CustomText>
                     <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <CustomText customStyle={styles.loginLink}>Connectez-vous maintenant</CustomText>
+                        <CustomText customStyle={styles.loginLink}>
+                            Connectez-vous maintenant
+                        </CustomText>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>

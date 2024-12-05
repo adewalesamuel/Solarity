@@ -4,7 +4,7 @@ import { Api } from './Api';
 
 const ENDPOINT = '/profile';
 
-const getAll = (params: any, signal: AbortSignal): Promise<Response<User[] | User>> => {
+const getAll = (params: any, signal: AbortSignal): Promise<Response<User[]>> => {
     return Api.getAll(`${ENDPOINT}?page=${params?.page ?? ''}`, signal)
 }
 

@@ -15,8 +15,6 @@ import { ResponsePaginate } from '../core/types/services';
 
 export default function InvoiceListView() {
     const abortController = new AbortController();
-    const InvoiceCardHeader = useMemo(() => <Components.InvoiceCardHeader
-    price={14.90} canShowButton={true} canShowImage={true}/>, [])
     const {Auth} = Utils;
 
     const errorHandler = Hooks.useError();
@@ -27,11 +25,19 @@ export default function InvoiceListView() {
     const [isLoading, setIsLoading] = useState(true);
     const [hasMoreData, setHasMoreData] = useState(true);
 
-    const handleEndReached = () => {
-        if (hasMoreData === false) {
-            return;
-        }
+    const getUnpaidInvoice = (invoiceList: Invoice[]): Invoice | undefined => {
+        const invoice = invoiceList.find(
+            (invoiceItem) => !Utils.Order.isOrderPaid(invoiceItem.order?.status)
+        );
 
+        return invoice;
+    }
+    const InvoiceCardHeader = useMemo(() => <Components.InvoiceCardHeader
+    price={getUnpaidInvoice(invoices)?.order?.amount}
+    canShowButton={true} canShowImage={true}/>, [invoices.length])
+
+    const handleEndReached = () => {
+        if (hasMoreData === false) {return;}
         setPage((prevPage) => prevPage + 1);
     }
 
@@ -56,7 +62,6 @@ export default function InvoiceListView() {
             setIsLoading(false);
 
             if (data.length === 0) {setHasMoreData(false)}
-
             if (page === 1) {
                 const user = await Auth.getUser();
                 useUser.setCreated_at(user?.created_at);
@@ -87,7 +92,6 @@ export default function InvoiceListView() {
 							<EllipsisVerticalIcon size={30} color={CONSTS.COLOR.BLACK}/>
 						</View>
                     </View>
-
                     {invoices.length > 0 ?
                         <VirtualizedList data={invoices} initialNumToRender={15}
                             ListHeaderComponent={() => InvoiceCardHeader}
@@ -97,7 +101,6 @@ export default function InvoiceListView() {
                             renderItem={({item}) => <Components.InvoiceCardItem invoice={item} />}/>
                         : null
                     }
-
                     {isLoading ? <ActivityIndicator size={'large'} color={CONSTS.COLOR.PRIMARY} /> : null}
                 </View>
             </MainLayout>

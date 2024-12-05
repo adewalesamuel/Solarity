@@ -40,7 +40,8 @@ export default function LoginView() {
             }
 
             const response: any = await Services.AuthService.login(
-                JSON.stringify(payload), abortController.signal);
+                JSON.stringify(payload), abortController.signal
+            );
 
             await Auth.setUser(response?.user);
             await Auth.setSessionToken(response?.token);
@@ -78,9 +79,13 @@ export default function LoginView() {
                     <View style={styles.horiontalLine} />
                 </View>
                 <View style={styles.registerContainer}>
-                    <CustomText customStyle={styles.registerText}>Vous n'avez pas encore de compte ?</CustomText>
+                    <CustomText customStyle={styles.registerText}>
+                        Vous n'avez pas encore de compte ?
+                    </CustomText>
                     <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
-                        <CustomText customStyle={styles.registerLink}>Inscrivez-vous maintenant</CustomText>
+                        <CustomText customStyle={styles.registerLink}>
+                            Inscrivez-vous maintenant
+                        </CustomText>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>

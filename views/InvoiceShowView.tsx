@@ -10,7 +10,6 @@ import { Hooks } from '../hooks'
 import { Components } from '../components'
 import CustomText from '../components/CustomText'
 import { Utils } from '../utils'
-import { OrderStatus } from '../core/entities/Order'
 import { CheckBadgeIcon } from 'react-native-heroicons/outline'
 
 type InvoiceRouteParams = Partial<{
@@ -25,17 +24,13 @@ export default function InvoiceShowView() {
     const route: RouteProp<ParamListBase> = useRoute();
     const params: InvoiceRouteParams = route.params;
 
-    const isOrderPaid = (status: OrderStatus = 'pending'): boolean => {
-        const invalidList = ['pending', 'rejected', 'returned', 'canceled'];
-        return invalidList.some(item => item === status);
-    }
-
     const init = useCallback(async() => {
         useInvoice.setIsDisabled(true);
 
         try {
             await useInvoice.getInvoice(
-                params?.number as string, abortController.signal);
+                params?.number as string, abortController.signal
+            );
         } catch (error) {
             errorhandler.setError(error);
         } finally {
@@ -97,7 +92,7 @@ export default function InvoiceShowView() {
                                         Paiement:
                                     </CustomText>
                                     <CustomText>
-                                        {isOrderPaid(useInvoice.order?.status) ?
+                                        {Utils.Order.isOrderPaid(useInvoice.order?.status) ?
                                             <View style={styles.orderStatus}>
                                                 <CheckBadgeIcon color={CONSTS.COLOR.SUCCESS} size={15} key={1}/>
                                                 <CustomText>Recu</CustomText>
