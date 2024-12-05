@@ -32,9 +32,12 @@ export default function InvoiceListView() {
 
         return invoice;
     }
-    const InvoiceCardHeader = useMemo(() => <Components.InvoiceCardHeader
-    price={getUnpaidInvoice(invoices)?.order?.amount}
-    canShowButton={true} canShowImage={true}/>, [invoices.length])
+    const InvoiceCardHeader = useMemo(() => (
+        <Components.InvoiceCardHeader
+        canShowButton={true} canShowImage={true}
+        price={getUnpaidInvoice(invoices)?.order?.amount}
+        number={getUnpaidInvoice(invoices)?.number}/>
+    ), [invoices.length])
 
     const handleEndReached = () => {
         if (hasMoreData === false) {return;}

@@ -28,7 +28,8 @@ export default function InvoiceCardItem({invoice}: InvoiceCardProps) {
         return 'Achat'
     }
     return (
-        <Pressable style={styles.invoiceCardItem} onPress={() => navigation.navigate('InvoiceShow', {id: invoice.id, number: invoice.number})}>
+        <Pressable style={styles.invoiceCardItem} onPress={() => navigation.navigate(
+            'InvoiceShow', {id: invoice.id, number: invoice.number})}>
             <View style={styles.invoiceCardItemLeft}>
                 <BadgeIcon color={CONSTS.COLOR.LIGHT} paddingH={CONSTS.SIZE.SM}
                 paddingV={CONSTS.SIZE.SM}>

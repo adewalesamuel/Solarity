@@ -4,6 +4,7 @@ import { CONSTS } from '../constants';
 import { Components } from '.';
 import CustomText from './CustomText';
 import { ShoppingCartIcon } from 'react-native-heroicons/outline';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
 type InvoiceCardHeaderProps = ViewProps & {
     canShowButton: boolean,
@@ -13,6 +14,13 @@ type InvoiceCardHeaderProps = ViewProps & {
 }
 
 export default function InvoiceCardHeader(props: InvoiceCardHeaderProps) {
+    const navigation: NavigationProp<ParamListBase> = useNavigation();
+
+    const handleIvoiceButtonPress = () => {
+        if (!props.number || props.number === undefined) {return;}
+        navigation.navigate('InvoiceShow', {number: props.number})
+    }
+
     return (
         <View style={styles.invoiceHeader}>
             <View style={styles.invoiceHeaderTop}>
@@ -26,7 +34,7 @@ export default function InvoiceCardHeader(props: InvoiceCardHeaderProps) {
                             Facture
                         </CustomText>
                         <CustomText customStyle={{color: CONSTS.COLOR.WHITE}}>
-                            {props.number ?? 'a payer'}
+                            {props.canShowButton ? 'a payer' : props.number}
                         </CustomText>
                     </View>
                 </View>
@@ -35,7 +43,7 @@ export default function InvoiceCardHeader(props: InvoiceCardHeaderProps) {
                 </CustomText>
             </View>
             {props.canShowButton &&
-                <Pressable onPress={null} style={styles.invoiceButton}>
+                <Pressable style={styles.invoiceButton} onPress={handleIvoiceButtonPress}>
                     <CustomText customStyle={{color: CONSTS.COLOR.WHITE}}>
                         Consulter
                     </CustomText>
