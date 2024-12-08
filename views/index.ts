@@ -5,6 +5,7 @@ import InvoiceShowView from './InvoiceShowView';
 import LoginView from './LoginView';
 import ProfileView from './ProfileView';
 import RegisterView from './RegisterView';
+import SubscriptionShowView from './SubscriptionShowView';
 
 export const Views = {
     RegisterView,
@@ -14,4 +15,5 @@ export const Views = {
     HomeView,
     InvoiceListView,
     InvoiceShowView,
+    SubscriptionShowView,
 }

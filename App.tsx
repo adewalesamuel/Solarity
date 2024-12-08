@@ -18,7 +18,7 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Profile">
         <Stack.Screen name="Home" component={Views.HomeView}
         options={{headerShown: false}}/>
         <Stack.Screen name="Registration" component={Views.RegisterView}
@@ -33,6 +33,8 @@ function App(): React.JSX.Element {
         options={{headerShown: true, header: MainHeader}}/>
         <Stack.Screen name="InvoiceShow" component={Views.InvoiceShowView}
         options={{headerShown: true, header: MainHeader}}/>
+        <Stack.Screen name="SubscriptionShow" component={Views.SubscriptionShowView}
+        options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -118,7 +118,7 @@ export default function ProfileView() {
                             </View>
                             <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
                         </Pressable>
-                        <Pressable style={styles.buttonListItem}>
+                        <Pressable style={styles.buttonListItem} onPress={() => navigation.navigate('SubscriptionShow')}>
                             <View style={styles.buttonListItemLeft}>
                                 <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
                                 color={CONSTS.COLOR.LIGHT}>
