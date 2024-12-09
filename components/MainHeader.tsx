@@ -58,20 +58,20 @@ const textStyle = {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: CONSTS.COLOR.WHITE,
         width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        backgroundColor: CONSTS.COLOR.WHITE,
         paddingTop: CONSTS.SIZE.XL,
         paddingBottom: CONSTS.SIZE.MD,
         paddingHorizontal: CONSTS.SIZE.MD,
     },
     iconContainer: {
+        borderWidth: 1,
         paddingHorizontal: CONSTS.SIZE.MD,
         paddingVertical: CONSTS.SIZE.MD,
         borderRadius: CONSTS.SIZE.XXL,
-        borderWidth: 1,
         borderColor: CONSTS.COLOR.SECONDARY,
     },
     infoContainer: {
@@ -86,14 +86,14 @@ const styles = StyleSheet.create({
 		marginBottom: CONSTS.SIZE.SM,
 	},
 	dateText: {
+        textTransform: 'capitalize',
 		color: CONSTS.COLOR.BLACK,
-		textTransform: 'capitalize',
         ...textStyle,
 	},
     image: {
+        objectFit: 'cover',
         width: 60,
         height: 60,
         borderRadius: 60,
-        objectFit: 'cover',
     },
 });

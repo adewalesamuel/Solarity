@@ -95,22 +95,22 @@ export default function LoginView() {
 
 const styles = StyleSheet.create({
     container: {
+        height: '100%',
         flexDirection: 'column',
         justifyContent: 'center',
         paddingHorizontal: CONSTS.SIZE.MD,
         paddingVertical: CONSTS.SIZE.MD,
         backgroundColor: CONSTS.COLOR.WHITE,
-        height: '100%',
     },
     subTitle: {
         fontSize: CONSTS.SIZE.MD,
         marginBottom: CONSTS.SIZE.XXL,
     },
     lineContainer: {
-        marginVertical: CONSTS.SIZE.XXL,
         flexDirection: 'row',
-        justifyContent: 'space-around',
         alignItems: 'center',
+        justifyContent: 'space-around',
+        marginVertical: CONSTS.SIZE.XXL,
     },
     horiontalLine: {
         width: '48%',
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     },
     registerLink: {
         textAlign: 'center',
-        color: CONSTS.COLOR.PRIMARY,
         fontWeight: 'bold',
+        color: CONSTS.COLOR.PRIMARY,
     },
 })

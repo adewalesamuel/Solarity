@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
     container: {
         position: 'relative',
         height: '100%',
-        backgroundColor: CONSTS.COLOR.BLACK,
         justifyContent: 'flex-end',
+        backgroundColor: CONSTS.COLOR.BLACK,
     },
     logoContainer: {
         alignItems: 'center',
@@ -63,10 +63,10 @@ const styles = StyleSheet.create({
     },
     bgImg: {
         position: 'absolute',
-        top: 0,
-        left: 0,
         width: '100%',
         height: '78%',
+        top: 0,
+        left: 0,
     },
     card: {
         backgroundColor: CONSTS.COLOR.WHITE,
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
     },
     registerLink: {
         textAlign: 'center',
+        fontWeight: 'bold',
         color: CONSTS.COLOR.PRIMARY,
         marginBottom: CONSTS.SIZE.LG,
-        fontWeight: 'bold',
     },
 });

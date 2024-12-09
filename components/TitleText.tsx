@@ -11,9 +11,9 @@ export default function TitleText(props: TextProps) {
 
 const styles = StyleSheet.create({
     title: {
+        fontWeight: 'bold',
         fontSize: CONSTS.SIZE.XL,
         marginBottom: CONSTS.SIZE.XS,
         color: CONSTS.COLOR.BLACK,
-        fontWeight: 'bold',
     },
 })

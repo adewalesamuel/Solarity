@@ -22,8 +22,8 @@ export default function Loader(props: LoaderProps) {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        minHeight: 100,
         alignItems: 'center',
         justifyContent: 'center',
+        minHeight: 100,
     },
 })

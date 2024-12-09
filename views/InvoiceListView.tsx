@@ -113,22 +113,22 @@ export default function InvoiceListView() {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: CONSTS.COLOR.WHITE,
         height: '100%',
+        backgroundColor: CONSTS.COLOR.WHITE,
         paddingHorizontal: CONSTS.SIZE.MD,
     },
     titleContainer: {
-        paddingVertical: CONSTS.SIZE.MD,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        paddingVertical: CONSTS.SIZE.MD,
     },
     dateIntervalText: {
 		textTransform: 'capitalize',
 	},
     iconContainer: {
+        borderWidth: 1,
 		borderRadius: CONSTS.SIZE.LG,
-		borderWidth: 1,
 		paddingVertical: CONSTS.SIZE.MD,
 		borderColor: CONSTS.COLOR.SECONDARY,
 	},

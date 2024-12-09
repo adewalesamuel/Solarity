@@ -164,8 +164,8 @@ export default function InvoiceShowView() {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: CONSTS.COLOR.WHITE,
         height: '100%',
+        backgroundColor: CONSTS.COLOR.WHITE,
         paddingHorizontal: CONSTS.SIZE.MD,
     },
     invoiceRow: {
@@ -181,9 +181,9 @@ const styles = StyleSheet.create({
         width: '50%',
     },
     logoContainer: {
-        paddingTop: CONSTS.SIZE.SM,
         width: '50%',
         alignItems: 'flex-end',
+        paddingTop: CONSTS.SIZE.SM,
     },
     logo: {
         width: 120,
@@ -205,8 +205,8 @@ const styles = StyleSheet.create({
     },
     orderInfoRow: {
         flexDirection: 'row',
-        rowGap: CONSTS.SIZE.MD,
         justifyContent: 'space-between',
+        rowGap: CONSTS.SIZE.MD,
     },
     orderInfoLabel: {
         textAlign: 'right',
@@ -214,37 +214,37 @@ const styles = StyleSheet.create({
     },
     orderStatus: {
         flexDirection: 'row',
-        columnGap: CONSTS.SIZE.XS,
         alignItems: 'center',
+        columnGap: CONSTS.SIZE.XS,
     },
     totalContainer: {
         paddingVertical: CONSTS.SIZE.MD,
     },
     totalRow: {
-        paddingVertical: CONSTS.SIZE.XS,
         flexDirection: 'row',
         alignItems: 'center',
+        paddingVertical: CONSTS.SIZE.XS,
     },
     totalLabel: {
         flex: 3,
-        color: CONSTS.COLOR.BLACK,
         textAlign: 'right',
+        color: CONSTS.COLOR.BLACK,
     },
     totalValue: {
         flex: 1,
-        color: CONSTS.COLOR.BLACK,
         textAlign: 'right',
+        color: CONSTS.COLOR.BLACK,
     },
     lastTotalLabel: {
         flex: 3,
-        color: CONSTS.COLOR.BLACK,
         textAlign: 'right',
         fontWeight: 'bold',
+        color: CONSTS.COLOR.BLACK,
     },
     lastTotalValue: {
         flex: 1,
-        color: CONSTS.COLOR.BLACK,
         textAlign: 'right',
         fontWeight: 'bold',
+        color: CONSTS.COLOR.BLACK,
     },
 })
