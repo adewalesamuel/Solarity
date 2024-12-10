@@ -10,7 +10,7 @@ export default function MainMenu() {
 
   return (
     <View style={styles.container}>
-        <Pressable style={styles.menuIcon}>
+        <Pressable style={styles.menuIcon} onPress={() => navigation.navigate('NotificationList')}>
             <BellIcon size={28} color="grey"/>
         </Pressable>
         <Pressable style={styles.menuIcon} onPress={() => navigation.navigate('Dashboard')}>

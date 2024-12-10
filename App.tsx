@@ -28,11 +28,13 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Login" component={Views.LoginView}/>
         <Stack.Screen name="Dashboard" component={Views.DashboardView}/>
         <Stack.Screen name="Profile" component={Views.ProfileView}/>
+        <Stack.Screen name="SubscriptionShow" component={Views.SubscriptionShowView}/>
         <Stack.Screen name="InvoiceList" component={Views.InvoiceListView}
         options={{headerShown: true, header: MainHeader}}/>
         <Stack.Screen name="InvoiceShow" component={Views.InvoiceShowView}
         options={{headerShown: true, header: MainHeader}}/>
-        <Stack.Screen name="SubscriptionShow" component={Views.SubscriptionShowView}/>
+        <Stack.Screen name="NotificationList" component={Views.NotificationListView}
+        options={{headerShown: true, header: MainHeader}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

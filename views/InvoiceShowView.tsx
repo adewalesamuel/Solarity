@@ -46,7 +46,7 @@ export default function InvoiceShowView() {
     return (
         <AppLayout>
             <MainLayout>
-                <ScrollView style={styles.container}>
+                <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
                     <Components.Loader isLoading={useInvoice.isDisabled}>
                         <Components.InvoiceCardHeader canShowButton={false} canShowImage={false}
                         price={useInvoice.order?.amount} number={useInvoice.number}/>

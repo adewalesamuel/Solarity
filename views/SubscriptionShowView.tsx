@@ -9,7 +9,7 @@ import { Services } from '../services';
 import Product from '../core/entities/Product';
 import { ResponsePaginate } from '../core/types/services';
 import Order from '../core/entities/Order';
-import { ArrowLeftIcon, ArrowUturnRightIcon, ChevronRightIcon } from 'react-native-heroicons/outline';
+import { ArrowLeftIcon, ArrowUturnRightIcon, ChevronDownIcon, ChevronRightIcon } from 'react-native-heroicons/outline';
 import CustomText from '../components/CustomText';
 
 export default function SubscriptionShowView() {
@@ -30,6 +30,7 @@ export default function SubscriptionShowView() {
             if (page === 1) {
                 const orderResponse = await OrderService.getLatestSubscription(
                     abortController.signal);
+
                 setSubscription(orderResponse.subscription as Order);
                 setIsLoading_1(false);
             }
@@ -43,7 +44,6 @@ export default function SubscriptionShowView() {
             setProducts(productResponse.data);
             setIsLoading_2(false);
         } catch (error) {
-
             errorHandler.setError(error);
         } finally {
             setIsLoading_1(false);
@@ -118,7 +118,7 @@ export default function SubscriptionShowView() {
                                 <CustomText customStyle={styles.accordeonTitle}>
                                     Tirage au Sort Annuel
                                 </CustomText>
-                                <ChevronRightIcon color={CONSTS.COLOR.PRIMARY}/>
+                                <ChevronDownIcon color={CONSTS.COLOR.PRIMARY}/>
                             </View>
                         </View>
 
@@ -133,7 +133,7 @@ export default function SubscriptionShowView() {
                                             <Components.ButtonListItem>
                                                 <View style={styles.buttonListItemLeft}>
                                                     <Components.SafeImage style={styles.productImage}
-                                                    source={product.img_url as ImageSourcePropType | undefined}/>
+                                                    source={product.img_url as ImageSourcePropType}/>
                                                     <View>
                                                         <View style={styles.productInfoTop}>
                                                             <CustomText customStyle={{
@@ -144,7 +144,9 @@ export default function SubscriptionShowView() {
                                                                 {product.primary_price}€
                                                             </CustomText>
                                                         </View>
-                                                        <CustomText>{product.details.slice(0,28).concat('...')}</CustomText>
+                                                        <CustomText>
+                                                            {product.details.slice(0,28).concat('...')}
+                                                        </CustomText>
                                                     </View>
                                                 </View>
                                             </Components.ButtonListItem>
@@ -271,5 +273,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: CONSTS.COLOR.PRIMARY,
         fontSize: CONSTS.SIZE.LG,
-    }
+    },
 })
