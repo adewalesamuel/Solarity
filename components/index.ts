@@ -1,4 +1,5 @@
 import BadgeIcon from './BadgeIcon';
+import ButtonListItem from './ButtonListItem';
 import CustomText from './CustomText';
 import LoginForm from './forms/LoginForm';
 import RegisterForm from './forms/RegisterForm';
@@ -28,4 +29,5 @@ export const Components = {
     Loader,
     InvoiceCardHeader,
     InvoiceProductItem,
+    ButtonListItem,
 }

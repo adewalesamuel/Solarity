@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useEffect, useState } from 'react';
-import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import { Image, ImageBackground, ImageSourcePropType, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Layouts } from '../layouts';
 import { Components } from '../components';
 import { CONSTS } from '../constants';
@@ -21,8 +21,9 @@ export default function SubscriptionShowView() {
 
     const [subscription, setSubscription] = useState<Order>();
     const [products, setProducts] = useState<Product[]>([]);
-    const [page, setPage] = useState(1);
-    const [isLoading, setIsLoading] = useState(true);
+    const [page, _setPage] = useState(1);
+    const [isLoading_1, setIsLoading_1] = useState(true);
+    const [isLoading_2, setIsLoading_2] = useState(true);
 
     const init = useCallback(async () => {
         try {
@@ -30,6 +31,7 @@ export default function SubscriptionShowView() {
                 const orderResponse = await OrderService.getLatestSubscription(
                     abortController.signal);
                 setSubscription(orderResponse.subscription as Order);
+                setIsLoading_1(false);
             }
 
             const response =  await ProductService.getAll(
@@ -39,11 +41,13 @@ export default function SubscriptionShowView() {
             const productResponse = response.products as ResponsePaginate<Product[]>;
 
             setProducts(productResponse.data);
+            setIsLoading_2(false);
         } catch (error) {
 
             errorHandler.setError(error);
         } finally {
-            setIsLoading(false);
+            setIsLoading_1(false);
+            setIsLoading_2(false);
         }
     }, [page]);
 
@@ -54,7 +58,7 @@ export default function SubscriptionShowView() {
     return (
         <Layouts.AppLayout>
             <Layouts.MainLayout>
-                <ScrollView contentContainerStyle={styles.container}>
+                <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
                     <ImageBackground source={require('../assets/images/subscription-bg.jpg')}
                     style={styles.bgImg} resizeMode="cover"/>
                     <View style={styles.header}>
@@ -72,7 +76,7 @@ export default function SubscriptionShowView() {
                         </Pressable>
                     </View>
                     <View style={styles.subscriptionInfoContainer}>
-                        <Components.Loader isLoading={isLoading}>
+                        <Components.Loader isLoading={isLoading_1}>
                             <Text style={styles.price}>{subscription?.amount}€</Text>
                             <Text style={styles.productName}>{subscription?.product?.name}</Text>
                             <CustomText customStyle={{color: CONSTS.COLOR.WHITE}}>
@@ -116,6 +120,38 @@ export default function SubscriptionShowView() {
                                 <ChevronRightIcon color={CONSTS.COLOR.PRIMARY}/>
                             </View>
                         </View>
+
+                        <Components.TitleText>
+                            Découvrez nos offres
+                        </Components.TitleText>
+                        <View style={styles.productListContainer}>
+                            <Components.Loader isLoading={isLoading_2}>
+                                {products.map((product, index) => {
+                                    return (
+                                        <Fragment key={index}>
+                                            <Components.ButtonListItem>
+                                                <View style={styles.buttonListItemLeft}>
+                                                    <Components.SafeImage style={styles.productImage}
+                                                    source={product.img_url as ImageSourcePropType | undefined}/>
+                                                    <View>
+                                                        <View style={styles.productInfoTop}>
+                                                            <CustomText customStyle={{
+                                                                fontSize: CONSTS.SIZE.LG,
+                                                                color: CONSTS.COLOR.BLACK,
+                                                            }}>{product.name}</CustomText>
+                                                            <CustomText customStyle={styles.productPrice}>
+                                                                {product.primary_price}€
+                                                            </CustomText>
+                                                        </View>
+                                                        <CustomText>{product.details.slice(0,28).concat('...')}</CustomText>
+                                                    </View>
+                                                </View>
+                                            </Components.ButtonListItem>
+                                        </Fragment>
+                                    )
+                                })}
+                            </Components.Loader>
+                        </View>
                     </View>
                 </ScrollView>
             </Layouts.MainLayout>
@@ -125,7 +161,7 @@ export default function SubscriptionShowView() {
 
 const styles = StyleSheet.create({
     container: {
-        height: '100%',
+        minHeight: '100%',
         position: 'relative',
     },
     bgImg: {
@@ -197,6 +233,7 @@ const styles = StyleSheet.create({
     },
     accordeon: {
         marginTop: CONSTS.SIZE.SM,
+        marginBottom: CONSTS.SIZE.XL,
     },
     accordeonItem: {
         flexDirection: 'row',
@@ -209,4 +246,29 @@ const styles = StyleSheet.create({
     accordeonTitle: {
         color: CONSTS.COLOR.BLACK,
     },
+    productListContainer: {
+        marginTop: CONSTS.SIZE.MD,
+    },
+    buttonListItemLeft: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: CONSTS.SIZE.LG,
+    },
+    buttonListItemText: {
+        fontSize: CONSTS.SIZE.LG,
+    },
+    productImage: {
+        width: 60,
+        height: 60,
+        marginLeft: (CONSTS.SIZE.SM * -1),
+    },
+    productInfoTop: {
+        flexDirection: 'row',
+        columnGap: CONSTS.SIZE.SM,
+    },
+    productPrice: {
+        fontWeight: 'bold',
+        color: CONSTS.COLOR.PRIMARY,
+        fontSize: CONSTS.SIZE.LG,
+    }
 })
