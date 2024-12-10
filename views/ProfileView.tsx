@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { ImageSourcePropType, Pressable, ScrollView, StyleSheet, View } from 'react-native'
 import React, { useCallback, useEffect } from 'react'
 import { Layouts } from '../layouts'
-import { AcademicCapIcon, ArrowRightIcon, CheckBadgeIcon, Cog6ToothIcon,
+import { AcademicCapIcon, CheckBadgeIcon, Cog6ToothIcon,
     GlobeEuropeAfricaIcon, LifebuoyIcon, ShieldCheckIcon, ShoppingCartIcon, SunIcon, UserIcon, UsersIcon } from 'react-native-heroicons/outline';
 import { CONSTS } from '../constants';
 import { Components } from '../components';
@@ -30,7 +31,6 @@ export default function ProfileView() {
         } finally {
             useUser.setIsDisabled(false);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -40,7 +40,7 @@ export default function ProfileView() {
     return (
         <Layouts.AppLayout>
             <Layouts.MainLayout>
-                <ScrollView style={styles.container}>
+                <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
                     <View style={styles.top}>
                         <Components.TitleText>Mon profil</Components.TitleText>
                         <Pressable style={styles.icon}>
@@ -88,7 +88,7 @@ export default function ProfileView() {
                         </View>
                     </View>
                     <View style={styles.buttonListContainer}>
-                        <Pressable style={styles.buttonListItem}>
+                        <Components.ButtonListItem>
                             <View style={styles.buttonListItemLeft}>
                                 <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
                                 color={CONSTS.COLOR.LIGHT}>
@@ -96,9 +96,8 @@ export default function ProfileView() {
                                 </Components.BadgeIcon>
                                 <CustomText customStyle={styles.buttonListItemText}>Espace Formation</CustomText>
                             </View>
-                            <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
-                        </Pressable>
-                        <Pressable style={styles.buttonListItem}>
+                        </Components.ButtonListItem>
+                        <Components.ButtonListItem>
                             <View style={styles.buttonListItemLeft}>
                                 <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
                                 color={CONSTS.COLOR.LIGHT}>
@@ -106,9 +105,8 @@ export default function ProfileView() {
                                 </Components.BadgeIcon>
                                 <CustomText customStyle={styles.buttonListItemText}>Espace Parrainage</CustomText>
                             </View>
-                            <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
-                        </Pressable>
-                        <Pressable style={styles.buttonListItem} onPress={() => navigation.navigate('InvoiceList')}>
+                        </Components.ButtonListItem>
+                        <Components.ButtonListItem onPress={() => navigation.navigate('InvoiceList')}>
                             <View style={styles.buttonListItemLeft}>
                                 <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
                                 color={CONSTS.COLOR.LIGHT}>
@@ -116,9 +114,8 @@ export default function ProfileView() {
                                 </Components.BadgeIcon>
                                 <CustomText customStyle={styles.buttonListItemText}>Mes Factures</CustomText>
                             </View>
-                            <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
-                        </Pressable>
-                        <Pressable style={styles.buttonListItem} onPress={() => navigation.navigate('SubscriptionShow')}>
+                        </Components.ButtonListItem>
+                        <Components.ButtonListItem onPress={() => navigation.navigate('SubscriptionShow')}>
                             <View style={styles.buttonListItemLeft}>
                                 <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
                                 color={CONSTS.COLOR.LIGHT}>
@@ -126,9 +123,8 @@ export default function ProfileView() {
                                 </Components.BadgeIcon>
                                 <CustomText customStyle={styles.buttonListItemText}>Mes Abonnements</CustomText>
                             </View>
-                            <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
-                        </Pressable>
-                        <Pressable style={styles.buttonListItem}>
+                        </Components.ButtonListItem>
+                        <Components.ButtonListItem>
                             <View style={styles.buttonListItemLeft}>
                                 <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
                                 color={CONSTS.COLOR.LIGHT}>
@@ -136,9 +132,8 @@ export default function ProfileView() {
                                 </Components.BadgeIcon>
                                 <CustomText customStyle={styles.buttonListItemText}>Assurance</CustomText>
                             </View>
-                            <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
-                        </Pressable>
-                        <Pressable style={styles.buttonListItem}>
+                        </Components.ButtonListItem>
+                        <Components.ButtonListItem>
                             <View style={styles.buttonListItemLeft}>
                                 <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
                                 color={CONSTS.COLOR.LIGHT}>
@@ -146,8 +141,7 @@ export default function ProfileView() {
                                 </Components.BadgeIcon>
                                 <CustomText customStyle={styles.buttonListItemText}>Support Client</CustomText>
                             </View>
-                            <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
-                        </Pressable>
+                        </Components.ButtonListItem>
                     </View>
                 </ScrollView>
             </Layouts.MainLayout>
@@ -209,17 +203,6 @@ const styles = StyleSheet.create({
     },
     buttonListContainer: {
         marginTop: CONSTS.SIZE.XL,
-    },
-    buttonListItem: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderWidth: 2,
-        borderRadius: 20,
-        borderColor: CONSTS.COLOR.LIGHT,
-        marginBottom: CONSTS.SIZE.MD,
-        paddingHorizontal: CONSTS.SIZE.LG,
-        paddingVertical: CONSTS.SIZE.LG,
     },
     buttonListItemLeft: {
         flexDirection: 'row',

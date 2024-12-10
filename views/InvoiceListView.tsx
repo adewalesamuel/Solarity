@@ -96,7 +96,8 @@ export default function InvoiceListView() {
 						</View>
                     </View>
                     {invoices.length > 0 ?
-                        <VirtualizedList data={invoices} initialNumToRender={15}
+                        <VirtualizedList showsVerticalScrollIndicator={false}
+                            data={invoices} initialNumToRender={15}
                             ListHeaderComponent={() => InvoiceCardHeader}
                             onEndReached={handleEndReached}
                             getItem={(data: Invoice[], index) => data[index]}

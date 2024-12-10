@@ -58,7 +58,8 @@ export default function SubscriptionShowView() {
     return (
         <Layouts.AppLayout>
             <Layouts.MainLayout>
-                <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+                <ScrollView contentContainerStyle={styles.container}
+                showsVerticalScrollIndicator={false}>
                     <ImageBackground source={require('../assets/images/subscription-bg.jpg')}
                     style={styles.bgImg} resizeMode="cover"/>
                     <View style={styles.header}>

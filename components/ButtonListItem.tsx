@@ -6,7 +6,7 @@ import { CONSTS } from '../constants';
 export default function ButtonListItem(props: ViewProps & PressableProps) {
 
     return (
-        <Pressable style={styles.container}>
+        <Pressable style={styles.container} {...props}>
             {props.children}
             <ArrowRightIcon color={CONSTS.COLOR.PRIMARY} size={28}/>
         </Pressable>

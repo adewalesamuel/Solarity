@@ -114,7 +114,7 @@ export default function DashboardView() {
 	return (
 		<Layouts.AppLayout>
 			<Layouts.MainLayout>
-				<ScrollView style={styles.container}>
+				<ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
 					<View style={styles.topContainer}>
 						<View>
 							<CustomText customStyle={styles.todayText}>Aujourd'hui</CustomText>

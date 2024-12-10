@@ -1,12 +1,13 @@
 import React from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
-import { ShoppingCartIcon, ArrowRightIcon } from 'react-native-heroicons/outline';
+import { StyleSheet, View } from 'react-native';
+import { ShoppingCartIcon } from 'react-native-heroicons/outline';
 import { CONSTS } from '../constants';
 import BadgeIcon from './BadgeIcon';
 import CustomText from './CustomText';
 import Invoice from '../core/entities/Invoice';
 import { Utils } from '../utils';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { Components } from '.';
 
 type InvoiceCardProps = {
     invoice: Invoice,
@@ -17,10 +18,10 @@ export default function InvoiceCardItem({invoice}: InvoiceCardProps) {
     const getInvoiceDetail = (invoiceItem: Invoice) => {
         const amount = invoiceItem?.order?.amount ?? '';
         const orderType = getOrderTypeName(invoiceItem?.order?.type);
-        const prodcutName = invoiceItem?.order?.product?.name ?? '';
+        const productName = invoiceItem?.order?.product?.name ?? '';
 
         return (
-            `${amount}€ ${orderType} ${prodcutName}`
+            `${amount}€ ${orderType} ${productName}`.slice(0,32).concat('...')
         )
     }
     const getOrderTypeName = (type:string | undefined): string => {
@@ -28,7 +29,7 @@ export default function InvoiceCardItem({invoice}: InvoiceCardProps) {
         return 'Achat'
     }
     return (
-        <Pressable style={styles.invoiceCardItem} onPress={() => navigation.navigate(
+        <Components.ButtonListItem onPress={() => navigation.navigate(
             'InvoiceShow', {id: invoice.id, number: invoice.number})}>
             <View style={styles.invoiceCardItemLeft}>
                 <BadgeIcon color={CONSTS.COLOR.LIGHT} paddingH={CONSTS.SIZE.SM}
@@ -44,23 +45,11 @@ export default function InvoiceCardItem({invoice}: InvoiceCardProps) {
                     </CustomText>
                 </View>
             </View>
-            <ArrowRightIcon size={25} color={CONSTS.COLOR.PRIMARY}/>
-        </Pressable>
+        </Components.ButtonListItem>
     )
 }
 
 const styles = StyleSheet.create({
-    invoiceCardItem: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderRadius: CONSTS.SIZE.LG,
-        paddingVertical: CONSTS.SIZE.LG,
-        paddingHorizontal: CONSTS.SIZE.LG,
-        borderWidth: 1,
-        borderColor: CONSTS.COLOR.SECONDARY,
-        marginBottom: CONSTS.SIZE.MD,
-    },
     invoiceCardItemLeft: {
         flexDirection: 'row',
         alignItems: 'center',
