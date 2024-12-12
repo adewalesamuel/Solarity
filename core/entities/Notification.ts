@@ -4,6 +4,6 @@ export default interface Notification extends BaseEntity {
     type: string,
     notifiable_type: string,
     notifiable_id: number,
-    data: object,
+    data: any,
     read_at: string,
 };

@@ -3,6 +3,7 @@ import HomeView from './HomeView';
 import InvoiceListView from './InvoiceListView';
 import InvoiceShowView from './InvoiceShowView';
 import LoginView from './LoginView';
+import MeteoView from './MeteoView';
 import NotificationListView from './NotificationListView';
 import ProfileView from './ProfileView';
 import RegisterView from './RegisterView';
@@ -18,4 +19,5 @@ export const Views = {
     InvoiceShowView,
     SubscriptionShowView,
     NotificationListView,
+    MeteoView,
 }
