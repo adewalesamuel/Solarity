@@ -10,6 +10,7 @@ import { CONSTS } from '../constants';
 import { Components } from '../components';
 import { BellAlertIcon } from 'react-native-heroicons/outline';
 import CustomText from '../components/CustomText';
+import { Utils } from '../utils';
 
 type NotificationData = {
     title: string,
@@ -49,7 +50,7 @@ export default function NotificationListView() {
         for (let i = 0; i < notificationList.length; i++) {
             const notificationItem = notificationList[i];
             const notifcationDataItemDate = new Date(notificationItem.created_at)
-            .toLocaleDateString();
+            .toString();
 
             if (currentDate === undefined || currentDate !== notifcationDataItemDate) {
                 currentDate = notifcationDataItemDate;
@@ -118,23 +119,23 @@ export default function NotificationListView() {
                         onEndReached={handleEndReached}
                         sections={getNotificationData(notifications)}
                         keyExtractor={(_items, index) => index.toString()}
-                        // ItemSeparatorComponent={() => <View style={styles.separator}/>}
+                        // SectionSeparatorComponent={}
                         renderSectionHeader={({section: {title}}) => (
                             <CustomText customStyle={styles.notificationHeader}>
-                                {title}
+                                {Utils.Date.styleDate(new Date(title), 'long')}
                             </CustomText>
                         )}
                         renderItem={({item}) => (
                             <Pressable style={styles.notificationItem}>
-                                <Components.BadgeIcon color={CONSTS.COLOR.SECONDARY}
+                                <Components.BadgeIcon color={CONSTS.COLOR.LIGHT}
                                 paddingH={CONSTS.SIZE.SM} paddingV={CONSTS.SIZE.SM}>
                                     <BellAlertIcon size={28} color={CONSTS.COLOR.BLACK}/>
                                 </Components.BadgeIcon>
                                 <View>
                                     <CustomText customStyle={styles.notificationTitle}>
-                                        {item.type}
+                                        {Utils.String.getNotificationTitle(item.type)}
                                     </CustomText>
-                                    <CustomText>
+                                    <CustomText customStyle={styles.notifcationMessage}>
                                         {item.data?.message}
                                     </CustomText>
                                 </View>
@@ -176,5 +177,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: CONSTS.COLOR.BLACK,
         marginBottom: CONSTS.SIZE.XS,
+    },
+    notifcationMessage: {
+        flexWrap: 'wrap',
+        paddingRight: CONSTS.SIZE.XXL,
     },
 })
