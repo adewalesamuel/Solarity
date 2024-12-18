@@ -8,6 +8,7 @@ import { Hooks } from '../../hooks'
 import { FormProps } from '../../core/types/forms'
 import CustomText from '../CustomText'
 import { UseUser } from '../../core/types/hooks/UseUser'
+import { Utils } from '../../utils'
 
 type RegisterFormProps =  FormProps & {
     useUser: UseUser
@@ -19,7 +20,8 @@ export default function LoginForm(props: RegisterFormProps) {
 
     const handleForgotPress = async () => {
         try {
-            await Linking.openURL(forgotPassworUrl).catch(err => console.log(err));
+            await Linking.openURL(forgotPassworUrl)
+            .catch(err => Utils.Toaster.error(err));
         } catch (error) {
             errorHandler.setError(error);
         }

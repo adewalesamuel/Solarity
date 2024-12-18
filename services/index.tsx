@@ -4,6 +4,7 @@ import { NotificationService } from './NotificationService';
 import { OrderService } from './OrderService';
 import { ProductService } from './ProductService';
 import { UserService } from './UserService';
+import { WeatherService } from './WheatherService';
 
 export const Services = {
     UserService,
@@ -12,4 +13,5 @@ export const Services = {
     ProductService,
     OrderService,
     NotificationService,
+    WeatherService,
 }

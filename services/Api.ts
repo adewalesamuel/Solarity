@@ -25,11 +25,14 @@ const getFormDataHeaders = async () => {
     }));
 }
 
-const getAll = async <T>(endpoint: string, signal: AbortSignal): Promise<ApiResponse<T[]>> => {
+const getAll = async <T>(
+    endpoint: string,
+    signal: AbortSignal,
+    hostUrl = `${URL}${ROOT_PATH}`): Promise<ApiResponse<T[]>> => {
     const headers = await getHeaders();
 
     return new Promise((resolve, reject) => {
-        fetch(`${URL}${ROOT_PATH}${endpoint}`, {
+        fetch(`${hostUrl}${endpoint}`, {
             headers,
             signal,
         })
@@ -37,16 +40,19 @@ const getAll = async <T>(endpoint: string, signal: AbortSignal): Promise<ApiResp
             if (!response.ok) {return reject(getErrorObject(response));}
             return response.json();
         })
-        .then(result => {resolve(result)})
+        .then(result => resolve(result))
         .catch(error => reject(error))
     })
 }
 
-const get = async <T>(endpoint: string, signal: AbortSignal): Promise<ApiResponse<T>> => {
+const get = async <T>(
+    endpoint: string,
+    signal: AbortSignal,
+    hostUrl = `${URL}${ROOT_PATH}`): Promise<ApiResponse<T>> => {
     const headers = await getHeaders();
 
     return new Promise((resolve, reject) => {
-        fetch(`${URL}${ROOT_PATH}${endpoint}`, {
+        fetch(`${hostUrl}${endpoint}`, {
             headers,
             signal,
         })
@@ -54,16 +60,40 @@ const get = async <T>(endpoint: string, signal: AbortSignal): Promise<ApiRespons
             if (!response.ok) {return reject(getErrorObject(response));}
             return response.json();
         })
-        .then(result => {resolve(result)})
+        .then(result => resolve(result))
         .catch(error => reject(error))
     })
 }
 
-const post = async <T>(endpoint: string, payload = '', signal: AbortSignal): Promise<ApiResponse<T>> => {
+const _get = async <T>(
+    endpoint: string,
+    signal: AbortSignal,
+    hostUrl = `${URL}${ROOT_PATH}`): Promise<T> => {
     const headers = await getHeaders();
 
     return new Promise((resolve, reject) => {
-        fetch(`${URL}${ROOT_PATH}${endpoint}`,
+        fetch(`${hostUrl}${endpoint}`, {
+            headers,
+            signal,
+        })
+        .then(response => {
+            if (!response.ok) {return reject(getErrorObject(response));}
+            return response.json();
+        })
+        .then(result => resolve(result))
+        .catch(error => reject(error))
+    })
+}
+
+const post = async <T>(
+    endpoint: string,
+    payload = '',
+    signal: AbortSignal,
+    hostUrl: string = `${URL}${ROOT_PATH}`): Promise<ApiResponse<T>> => {
+    const headers = await getHeaders();
+
+    return new Promise((resolve, reject) => {
+        fetch(`${hostUrl}${endpoint}`,
         {
             method:'post',
             headers,
@@ -74,15 +104,19 @@ const post = async <T>(endpoint: string, payload = '', signal: AbortSignal): Pro
             if (!response.ok) {return reject(getErrorObject(response));}
             return response.json();
         })
-        .then(result => {resolve(result)})
+        .then(result => resolve(result))
         .catch(error => reject(error))
     })
 }
-const postFormData = async <T>(endpoint: string, payload = '', signal: AbortSignal): Promise<ApiResponse<T>> => {
+const postFormData = async <T>(
+    endpoint: string,
+    payload = '',
+    signal: AbortSignal,
+    hostUrl: string = `${URL}${ROOT_PATH}`): Promise<ApiResponse<T>> => {
     const headers = await getFormDataHeaders();
 
     return new Promise((resolve, reject) => {
-        fetch(`${URL}${ROOT_PATH}${endpoint}`,
+        fetch(`${hostUrl}${endpoint}`,
         {
             method:'post',
             headers,
@@ -93,16 +127,20 @@ const postFormData = async <T>(endpoint: string, payload = '', signal: AbortSign
             if (!response.ok) {return reject(getErrorObject(response));}
             return response.json();
         })
-        .then(result => {resolve(result)})
+        .then(result => resolve(result))
         .catch(error => reject(error))
     })
 }
 
-const put = async <T>(endpoint: string, payload = '', signal: AbortSignal): Promise<ApiResponse<T>> => {
+const put = async <T>(
+    endpoint: string,
+    payload = '',
+    signal: AbortSignal,
+    hostUrl: string = `${URL}${ROOT_PATH}`): Promise<ApiResponse<T>> => {
     const headers = await getHeaders();
 
     return new Promise((resolve, reject) => {
-        fetch(`${URL}${ROOT_PATH}${endpoint}`,
+        fetch(`${hostUrl}${endpoint}`,
         {
             method:'put',
             headers,
@@ -113,16 +151,19 @@ const put = async <T>(endpoint: string, payload = '', signal: AbortSignal): Prom
             if (!response.ok) {return reject(getErrorObject(response));}
             return response.json();
         })
-        .then(result => {resolve(result)})
+        .then(result => resolve(result))
         .catch(error => reject(error))
     })
 }
 
-const erase = async <T>(endpoint: string, signal: AbortSignal): Promise<ApiResponse<T>> => {
+const erase = async <T>(
+    endpoint: string,
+    signal: AbortSignal,
+    hostUrl = `${URL}${ROOT_PATH}`): Promise<ApiResponse<T>> => {
     const headers = await getHeaders();
 
     return new Promise((resolve, reject) => {
-        fetch(`${URL}${ROOT_PATH}${endpoint}`,
+        fetch(`${hostUrl}${endpoint}`,
         {
             method:'delete',
             headers,
@@ -132,12 +173,12 @@ const erase = async <T>(endpoint: string, signal: AbortSignal): Promise<ApiRespo
             if (!response.ok) {return reject(getErrorObject(response));}
             return response.json();
         })
-        .then(result => {resolve(result)})
+        .then(result => resolve(result))
         .catch(error => reject(error))
     })
 }
 
-const getResponseErrors = (response: Response) => {
+const getResponseErrors = (response: Response): Promise<string[]> => {
     return new Promise((resolve, reject) => {
         if (!response) {reject(null);}
 
@@ -167,6 +208,7 @@ const getErrorObject = (response: Response): object => {
 export const Api = {
     getAll,
     get,
+    _get,
     post,
     put,
     erase,

@@ -1,13 +1,48 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Image, ImageBackground, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { Layouts } from '../layouts';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { CONSTS } from '../constants';
 import { ArrowLeftIcon, QuestionMarkCircleIcon, SunIcon } from 'react-native-heroicons/outline';
 import { Components } from '../components';
 import CustomText from '../components/CustomText';
 import { Utils } from '../utils';
+import { useError } from '../hooks/useError';
+import { Services } from '../services';
+import { Wheather } from '../core/entities/Wheather';
 
 export default function MeteoView() {
+    const ERROR_MESSAGE = "Impossible d'acceder à la localisation";
+    const abortController = new AbortController();
+    const {Toaster, Location} = Utils;
+
+    const errorHandler = useError();
+
+    const [, setIsLoading] = useState(true);
+    const [weatherInfo, setWheatherInfo] = useState<Wheather>();
+
+    const init = useCallback(async () => {
+        try {
+            const {latitude, longitude} = await Location.getLatLong();
+            console.log(latitude, longitude)
+
+            const response = await Services.WeatherService.getAll(
+                {latitude, longitude},
+                abortController.signal
+            )
+
+            setWheatherInfo(response);
+        } catch (error) {
+            Toaster.error(ERROR_MESSAGE);
+            errorHandler.setError(error);
+        } finally {
+            setIsLoading(false);
+        }
+    }, [])
+
+    useEffect(() => {
+        init();
+    }, [init])
     return (
         <Layouts.AppLayout>
             <Layouts.MainLayout>
@@ -35,7 +70,10 @@ export default function MeteoView() {
                                 <Image style={styles.wheatherIcon}
                                 source={require('../assets/images/wheather-icon.png')}/>
                             </View>
-                            <CustomText customStyle={styles.temperature}>29°C</CustomText>
+                            <CustomText customStyle={styles.temperature}>
+                                {weatherInfo?.current?.apparent_temperature ?? '--'}
+                                {weatherInfo?.current_units?.apparent_temperature ?? '°C'}
+                            </CustomText>
                         </View>
                         <View style={styles.second}>
                             <View>
@@ -90,7 +128,10 @@ export default function MeteoView() {
                                     <CustomText customStyle={{color: CONSTS.COLOR.WHITE}}>
                                         Moyenne vent
                                     </CustomText>
-                                    <CustomText customStyle={styles.cardTitle}>24km/h</CustomText>
+                                    <CustomText customStyle={styles.cardTitle}>
+                                        {weatherInfo?.current?.wind_speed_10m ?? '--'}
+                                        {weatherInfo?.current_units?.wind_speed_10m ?? '--'}
+                                    </CustomText>
                                 </View>
                             </View>
                             <View style={styles.meteoCard}>
@@ -99,7 +140,10 @@ export default function MeteoView() {
                                     <CustomText customStyle={{color: CONSTS.COLOR.WHITE}}>
                                         Humidité
                                     </CustomText>
-                                    <CustomText customStyle={styles.cardTitle}>50%</CustomText>
+                                    <CustomText customStyle={styles.cardTitle}>
+                                        {weatherInfo?.current?.relative_humidity_2m ?? '--'}
+                                        {weatherInfo?.current_units?.relative_humidity_2m ?? '--'}
+                                    </CustomText>
                                 </View>
                             </View>
                         </View>

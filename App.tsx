@@ -22,7 +22,7 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Meteo" screenOptions={globalOptions}>
+      <Stack.Navigator initialRouteName="Home" screenOptions={globalOptions}>
         <Stack.Screen name="Home" component={Views.HomeView}/>
         <Stack.Screen name="Registration" component={Views.RegisterView}/>
         <Stack.Screen name="Login" component={Views.LoginView}/>

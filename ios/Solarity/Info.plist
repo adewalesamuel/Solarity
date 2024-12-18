@@ -50,5 +50,7 @@
 	<false/>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>App requires access to the local network to discover devices.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>App requires access to the geolocation.</string>
 </dict>
 </plist>
