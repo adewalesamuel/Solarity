@@ -19,7 +19,7 @@ export default function MainMenu() {
         <Pressable style={styles.accentMenuIcon} onPress={() => navigation.navigate('Meteo')}>
             <SunIcon size={28} color="white" />
         </Pressable>
-        <Pressable style={styles.menuIcon}>
+        <Pressable style={styles.menuIcon} onPress={() => navigation.navigate('ProductList')}>
             <ShoppingCartIcon size={28} color="grey" />
         </Pressable>
         <Pressable style={styles.menuIcon} onPress={() => navigation.navigate('Profile')}>

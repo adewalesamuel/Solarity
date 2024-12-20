@@ -12,6 +12,7 @@ import MainHeader from './MainHeader';
 import MainMenu from './MainMenu';
 import PrimaryButton from './PrimaryButton';
 import SafeImage from './SafeImage';
+import ShopHeader from './ShopHeader';
 import TitleText from './TitleText';
 
 export const Components = {
@@ -30,4 +31,5 @@ export const Components = {
     InvoiceCardHeader,
     InvoiceProductItem,
     ButtonListItem,
+    ShopHeader,
 }

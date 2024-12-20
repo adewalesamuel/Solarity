@@ -1,31 +1,16 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useCallback, useEffect } from 'react';
-import { ImageSourcePropType, Pressable, StyleSheet, View } from 'react-native';
-import { ArrowLeftIcon } from 'react-native-heroicons/outline';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { ArrowLeftIcon, ShoppingCartIcon } from 'react-native-heroicons/outline';
 import { CONSTS } from '../constants';
-import { Hooks } from '../hooks';
-import { Utils } from '../utils';
 import CustomText from './CustomText';
-import { Components } from '.';
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
+import { Components } from '.';
 
-export default function MainHeader(props: NativeStackHeaderProps) {
-    const {Auth} = Utils;
-
-    const useUser = Hooks.useUser();
-    const errorHandler = Hooks.useError();
+export default function ShopHeader(props: NativeStackHeaderProps) {
 
     const init = useCallback(async () => {
-        useUser.setIsDisabled(true);
-
-        try {
-            const user = await Auth.getUser();
-            useUser.fillUser(user);
-        } catch (error) {
-            errorHandler.setError(error);
-        } finally {
-            useUser.setIsDisabled(false);
-        }
+        // get cart info
     }, [])
 
     useEffect(() => {
@@ -39,13 +24,15 @@ export default function MainHeader(props: NativeStackHeaderProps) {
             </Pressable>
             <View style={styles.infoContainer}>
                 <View style={styles.textContainer}>
-                    <CustomText customStyle={textStyle}>Aujourd'hui</CustomText>
-                    <CustomText customStyle={styles.dateText}>
-							{Utils.Date.styleDate(new Date(), 'full')}
+                    <CustomText customStyle={textStyle}>Mon panier</CustomText>
+                    <CustomText customStyle={styles.amountText}>
+							Total: <CustomText customStyle={styles.price}>00.00 €</CustomText>
 					</CustomText>
                 </View>
-                <Components.SafeImage  style={styles.image}
-                source={useUser.profile_img_url as ImageSourcePropType ?? undefined}/>
+                <Components.BadgeIcon color={CONSTS.COLOR.PRIMARY_SOFT}
+                paddingH={CONSTS.SIZE.MD} paddingV={CONSTS.SIZE.MD}>
+                    <ShoppingCartIcon size={CONSTS.SIZE.XXL} color={CONSTS.COLOR.PRIMARY}/>
+                </Components.BadgeIcon>
             </View>
         </View>
     )
@@ -81,18 +68,14 @@ const styles = StyleSheet.create({
         borderColor: 'red',
         marginRight: CONSTS.SIZE.MD,
     },
-    todayText: {
-		marginBottom: CONSTS.SIZE.SM,
-	},
-	dateText: {
-        textTransform: 'capitalize',
-		color: CONSTS.COLOR.BLACK,
+	amountText: {
         ...textStyle,
+        textTransform: 'capitalize',
+        marginTop: CONSTS.SIZE.SM,
+		color: CONSTS.COLOR.BLACK,
 	},
-    image: {
-        objectFit: 'cover',
-        width: 60,
-        height: 60,
-        borderRadius: 60,
+    price: {
+        fontWeight: 'bold',
+        color: 'black',
     },
 });

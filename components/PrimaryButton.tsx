@@ -5,7 +5,8 @@ import { ButtonProps } from '../core/types/forms'
 
 export default function PrimaryButton(props: ButtonProps) {
     return (
-        <Pressable style={styles.container} onPress={props.onClick} disabled={props.isDisabled}>
+        <Pressable style={styles.container} onPress={props.onClick}
+        disabled={props.isDisabled}>
             <Text style={styles.text}>
                 {props.isDisabled ? 'Chargement...' : props.children}
             </Text>

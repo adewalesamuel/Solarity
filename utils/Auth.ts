@@ -5,26 +5,13 @@ const localStorage = AsyncStorage;
 const tokenName = 'utk';
 const userName = 'user'
 
-const getSessionToken = async () => {
-    return await localStorage.getItem(tokenName);
-}
+const getSessionToken = () => localStorage.getItem(tokenName);
+const setSessionToken = (token: string) => localStorage.setItem(tokenName, token);
+const setUser = (user: User) => localStorage.setItem(userName, JSON.stringify(user))
 
 const isLoggedIn = async (): Promise<boolean> => {
     const sessionToken = await getSessionToken();
-
-    if (sessionToken === '' || !sessionToken) {
-        return false;
-    }
-
-    return true;
-}
-
-const setSessionToken = (token: string) => {
-    return localStorage.setItem(tokenName, token)
-}
-
-const setUser = (user: User) => {
-    return localStorage.setItem(userName, JSON.stringify(user))
+    return sessionToken === '' || !sessionToken ? false : true;
 }
 
 const removeSessionToken = async () => {
@@ -33,10 +20,8 @@ const removeSessionToken = async () => {
 }
 
 const getUser = async (): Promise<User> => {
-    const data = await localStorage?.getItem(userName);
-
     return {
-        ...JSON.parse(data ?? '{}'),
+        ...JSON.parse(await localStorage?.getItem(userName) ?? '{}'),
     }
 }
 

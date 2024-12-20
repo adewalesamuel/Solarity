@@ -11,9 +11,7 @@ const getMonthInterval = (startDate: Date, endDate: Date): string => {
     return `${startInterval} - ${endInterval}`;
 }
 const styleDate = (date: Date, style: DateStyle = 'long') => {
-    if (!date) {return null;}
-
-    return date.toLocaleDateString('fr', {dateStyle: style})
+    return date ? date.toLocaleDateString('fr', {dateStyle: style}) : null
 }
 
 const getMonthList = (date: Date): String[] => {

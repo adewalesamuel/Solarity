@@ -46,9 +46,7 @@ const getNotificationTitle = (type: string): string => {
     const seperator = '\\';
 
     if (notifType.includes(seperator)) {
-        notifType = notifType.slice(
-            notifType.lastIndexOf(seperator) + 1
-        )
+        notifType = notifType.slice(notifType.lastIndexOf(seperator) + 1)
     }
 
     return notifTypeToTitleMap[notifType]?.title ?? type

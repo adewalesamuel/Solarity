@@ -15,11 +15,11 @@ export default function Input(props: InputProps) {
 const styles = StyleSheet.create({
     inputItem: {
         width: '100%',
-        color: CONSTS.COLOR.TEXT_BASE, 
+        borderBottomWidth: 1,
+        borderWidth: 0,
+        color: CONSTS.COLOR.TEXT_BASE,
         paddingVertical: CONSTS.SIZE.SM,
         borderColor: CONSTS.COLOR.LIGHT,
-        borderWidth: 0,
-        borderBottomWidth: 1,
         fontSize: CONSTS.SIZE.MD,
     },
 })

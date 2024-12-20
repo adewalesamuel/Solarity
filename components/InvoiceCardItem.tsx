@@ -21,12 +21,12 @@ export default function InvoiceCardItem({invoice}: InvoiceCardProps) {
         const productName = invoiceItem?.order?.product?.name ?? '';
 
         return (
-            `${amount}€ ${orderType} ${productName}`.slice(0,32).concat('...')
+            `${amount}€ ${orderType} ${productName}`
+            .slice(0,32).concat('...')
         )
     }
     const getOrderTypeName = (type:string | undefined): string => {
-        if (type !== 'sale') {return 'Abonnement';}
-        return 'Achat'
+        return type !== 'sale' ? 'Abonnement' : 'Achat';
     }
     return (
         <Components.ButtonListItem onPress={() => navigation.navigate(
