@@ -36,7 +36,10 @@ export default function SubscriptionShowView() {
             }
 
             const response =  await ProductService.getAll(
-                {page:page, type: CONSTS.PRODUCT.SERVICE_TYPE},
+                {
+                    page: page,
+                    type: CONSTS.PRODUCT.SERVICE_TYPE,
+                },
                 abortController.signal
             )
             const productResponse = response.products as ResponsePaginate<Product[]>;

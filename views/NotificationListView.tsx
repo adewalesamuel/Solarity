@@ -49,8 +49,7 @@ export default function NotificationListView() {
 
         for (let i = 0; i < notificationList.length; i++) {
             const notificationItem = notificationList[i];
-            const notifcationDataItemDate = new Date(notificationItem.created_at)
-            .toString();
+            const notifcationDataItemDate = new Date(notificationItem.created_at).toString();
 
             if (currentDate === undefined || currentDate !== notifcationDataItemDate) {
                 currentDate = notifcationDataItemDate;

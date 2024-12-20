@@ -24,8 +24,6 @@ export default function MeteoView() {
     const init = useCallback(async () => {
         try {
             const {latitude, longitude} = await Location.getLatLong();
-            console.log(latitude, longitude)
-
             const response = await Services.WeatherService.getAll(
                 {latitude, longitude},
                 abortController.signal

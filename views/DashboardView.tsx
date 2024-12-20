@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { BackHandler, ToastAndroid, Platform, View, ImageSourcePropType, StyleSheet, ScrollView, Image, Alert } from 'react-native'
+import { BackHandler, ToastAndroid, Platform, View, ImageSourcePropType, StyleSheet, ScrollView, Image } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Layouts } from '../layouts';
 import { useFocusEffect } from '@react-navigation/native';
@@ -29,11 +29,9 @@ export default function DashboardView() {
 		const requestList = [];
 
 		requestList.push(
-			fetch(
-				url, { signal: abortController.signal }
-			).catch(err => err)
+			fetch(url, { signal: abortController.signal })
+			.catch(err => err)
 		);
-
 		setTimeout(() => abortController.abort(), timeout);
 
 		return requestList;
@@ -65,12 +63,12 @@ export default function DashboardView() {
 			const subnet = await getNetworkSubnet();
 			if (!subnet || subnet === undefined) {return}
 
-			const devices = await scanNetwork(subnet as string, 2);
+			await scanNetwork(subnet as string, 2);
 
-			Alert.alert(
-				'Device Info',
-				JSON.stringify({subnet,devices}),
-			)
+			// Alert.alert(
+			// 	'Device Info',
+			// 	JSON.stringify({subnet,devices}),
+			// )
         } catch (error) {
             errorHandler.setError(error);
         } finally {
@@ -79,19 +77,14 @@ export default function DashboardView() {
     }, [])
 
 	const onBackPress = () => {
-		if (backPressed && Platform.OS === 'android') {
+		if (Platform.OS !== 'android') {return;}
+		if (backPressed) {
 			BackHandler.exitApp();
 			return true;
 		}
 
 		setBackPressed(true);
-		setTimeout(() => {
-			setBackPressed(false);
-		}, 2000)
-
-		if (Platform.OS !== 'android') {
-			return;
-		}
+		setTimeout(() => setBackPressed(false), 2000);
 
 		ToastAndroid.showWithGravity(
 			'Appuyez une seconde fois pour quitter',

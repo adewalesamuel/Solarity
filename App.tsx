@@ -14,6 +14,8 @@ import { Components } from './components';
 const Stack = createNativeStackNavigator();
 
 const MainHeader = (props: NativeStackHeaderProps) => <Components.MainHeader {...props} />;
+const ShopHeader = (props: NativeStackHeaderProps) => <Components.ShopHeader {...props} />;
+
 function App(): React.JSX.Element {
   const globalOptions: NativeStackNavigationOptions = {
     headerShown: false,
@@ -22,7 +24,7 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" screenOptions={globalOptions}>
+      <Stack.Navigator initialRouteName="Dashboard" screenOptions={globalOptions}>
         <Stack.Screen name="Home" component={Views.HomeView}/>
         <Stack.Screen name="Registration" component={Views.RegisterView}/>
         <Stack.Screen name="Login" component={Views.LoginView}/>
@@ -36,6 +38,8 @@ function App(): React.JSX.Element {
         options={{headerShown: true, header: MainHeader}}/>
         <Stack.Screen name="NotificationList" component={Views.NotificationListView}
         options={{headerShown: true, header: MainHeader}}/>
+        <Stack.Screen name="ProductList" component={Views.ProductListView}
+        options={{headerShown: true, header: ShopHeader}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
