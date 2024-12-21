@@ -6,25 +6,49 @@ import { useError } from '../hooks/useError';
 import { Services } from '../services';
 import Product from '../core/entities/Product';
 import { ResponsePaginate } from '../core/types/services';
-import { ActivityIndicator, FlatList, ImageSourcePropType, StyleSheet, TextInput, View } from 'react-native';
+import { ActivityIndicator, FlatList, Pressable, StyleSheet, TextInput, View } from 'react-native';
 import { CONSTS } from '../constants';
-import { EllipsisVerticalIcon, MagnifyingGlassIcon, MinusIcon, PlusIcon, ShoppingCartIcon } from 'react-native-heroicons/outline';
+import { EllipsisVerticalIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 import ProductCategory from '../core/entities/ProductCategory';
 import CustomText from '../components/CustomText';
 
 export default function ProductListView() {
     let abortController = new AbortController();
     const { ProductService, ProductCategoryService } = Services;
+    const allCategoryItem: ProductCategory = {
+        id: -1,
+        display_img_url: '',
+        logo_img_url: '',
+        name: 'Tous',
+        description: '',
+        slug: '',
+        product_category_id: -1,
+        created_at: '',
+        updated_at: '',
+    }
 
     const errorHandler = useError();
 
     const [product_categorys, setProduct_categorys] = useState<ProductCategory[]>([])
-    const [current_category, _setCurrent_category] = useState<string>();
+    const [current_category, setCurrent_category] = useState<string>('');
     const [products, setProducts] = useState<Product[]>([]);
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
     const [searchInput, setSearchInput] = useState<string>();
     const [hasMoreData, setHasMoreData] = useState(true);
+
+    const appendProductList = (currentPage: number, productList: Product[]) => {
+        if (currentPage === 1) { return setProducts(productList);}
+        setProducts([...products, ...productList]);
+    }
+
+    const handleCategoryPress = (slug: string) => {
+        if (isLoading) {return;}
+
+        setPage(1);
+        setHasMoreData(true);
+        setCurrent_category(slug);
+    }
 
     const handleEndReached = () => {
         if (hasMoreData === false) {return;}
@@ -39,6 +63,8 @@ export default function ProductListView() {
             paddingVertical: CONSTS.SIZE.SM,
             paddingHorizontal: CONSTS.SIZE.MD,
             borderRadius: CONSTS.SIZE.XL,
+            backgroundColor: current_category === product_category ?
+            CONSTS.COLOR.PRIMARY_SOFT : CONSTS.COLOR.WHITE,
         }
     }
 
@@ -51,19 +77,19 @@ export default function ProductListView() {
 
     const init = useCallback(async () => {
         setIsLoading(true);
+        if (page === 1) {setProducts([]);}
 
         try {
             const productResponse = await ProductService.getAll(
                 {
                     page: page,
                     category: current_category,
-                    type: CONSTS.PRODUCT.PRODUCT_TYPE,
                 },
                 abortController.signal
             );
             const data = (productResponse.products as ResponsePaginate<Product[]>).data;
 
-            setProducts([...products, ...data]);
+            appendProductList(page, data);
 
             if (data.length === 0) {setHasMoreData(false)}
             if (product_categorys.length > 0) {return;}
@@ -71,7 +97,11 @@ export default function ProductListView() {
             const categoryResponse = await ProductCategoryService.getAll(
                 {page: ''}, abortController.signal
             );
-            setProduct_categorys(categoryResponse.product_categorys as ProductCategory[]);
+
+            setProduct_categorys([
+                allCategoryItem,
+                ...categoryResponse.product_categorys as ProductCategory[],
+            ]);
         } catch (error) {
             errorHandler.setError(error);
         } finally {
@@ -105,49 +135,25 @@ export default function ProductListView() {
                     <View style={styles.productCategoryContainer}>
                         <FlatList contentContainerStyle={styles.productCategoryList}
                         data={product_categorys} horizontal={true}
-                        keyExtractor={(item, index) => index.toString()}
+                        extraData={current_category}
                         renderItem={
                             ({item}) => (
-                                <View style={getCategoryBadgeStyle(item.slug)}>
+                                <Pressable style={getCategoryBadgeStyle(item.slug)}
+                                onPress={() => handleCategoryPress(item.slug)}>
                                     <CustomText customStyle={getCategoryTextStyle(item.slug)}>
                                         {item.name}
                                     </CustomText>
-                                </View>
+                                </Pressable>
                             )
                         }/>
                     </View>
                     {products.length > 0 ?
-                    <FlatList contentContainerStyle={styles.productList}
-                        data={products}
+                    <FlatList contentContainerStyle={styles.productListContainer}
+                        data={products} showsVerticalScrollIndicator={false}
                         onEndReached={handleEndReached}
-                        keyExtractor={(item, index) => index.toString()}
                         renderItem={
                             ({item}) => (
-                                <View style={styles.productCard}>
-                                    <View style={styles.productCardLeft}>
-                                        <Components.SafeImage style={styles.productImage}
-                                        source={item.img_url as ImageSourcePropType} />
-                                        <View style={styles.productCardInfo}>
-                                            <CustomText customStyle={styles.productName}>
-                                                {item.name.slice(0,28).concat('...')}
-                                            </CustomText>
-                                            <CustomText customStyle={styles.productDescription}>
-                                                {item.details.slice(0,32).concat('...')}
-                                            </CustomText>
-                                            <CustomText customStyle={styles.productPrice}>
-                                                {item.primary_price}€
-                                            </CustomText>
-                                        </View>
-                                    </View>
-                                    <View style={styles.productCardRight}>
-                                        <ShoppingCartIcon color={CONSTS.COLOR.PRIMARY} />
-                                        <View style={styles.quantityPicker}>
-                                            <PlusIcon color={CONSTS.COLOR.BLACK} size={10}/>
-                                            <CustomText customStyle={styles.quantity}>2</CustomText>
-                                            <MinusIcon color={CONSTS.COLOR.BLACK} size={10}/>
-                                        </View>
-                                    </View>
-                                </View>
+                                <Components.ProductCardItem product={item} />
                             )
                         }/> : null
                     }
@@ -198,60 +204,13 @@ const styles = StyleSheet.create({
         right: CONSTS.SIZE.XL,
     },
     productCategoryContainer: {
-        marginTop: CONSTS.SIZE.SM,
+        paddingVertical: CONSTS.SIZE.MD,
     },
     productCategoryList: {
         columnGap: CONSTS.SIZE.SM,
     },
-    productCard: {
-        flexDirection: 'row',
-        alignItems: 'stretch',
-        justifyContent: 'space-between',
-        borderWidth: 1,
-        padding: CONSTS.SIZE.MD,
-        borderRadius: CONSTS.SIZE.LG,
-        borderColor: CONSTS.COLOR.LIGHT,
-    },
-    productCardLeft: {
-        flexDirection: 'row',
-        columnGap: CONSTS.SIZE.MD,
-    },
-    productImage: {
-        width: 80,
-        height: 80,
-        borderRadius: CONSTS.SIZE.MD,
-    },
-    productName: {
-        fontSize: CONSTS.SIZE.MD,
-        color: CONSTS.COLOR.BLACK,
-    },
-    productDescription: {
-        fontSize: 10,
-        marginTop: CONSTS.SIZE.MD * -1,
-    },
-    productPrice: {
-        fontWeight: 'bold',
-        fontSize: CONSTS.SIZE.LG,
-        color: CONSTS.COLOR.BLACK,
-    },
-    productCardInfo: {
-        justifyContent: 'space-between',
-    },
-    productCardRight: {
-        justifyContent: 'space-between',
-        alignItems: 'flex-end',
-    },
-    quantityPicker: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        columnGap: CONSTS.SIZE.MD,
-    },
-    quantity: {
-        color: CONSTS.COLOR.BLACK,
-        fontSize: CONSTS.SIZE.MD,
-    },
-    productList: {
-        marginTop: CONSTS.SIZE.LG,
+    productListContainer: {
+        paddingBottom: CONSTS.SIZE.LG,
         rowGap: CONSTS.SIZE.LG,
     },
 })

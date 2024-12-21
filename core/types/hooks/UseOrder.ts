@@ -1,5 +1,5 @@
 
-import Order, { OrderStatus, OrderType } from '../../entities/Order';
+import Order, { OrderStatus, OrderType, PeriodType } from '../../entities/Order';
 import Product from '../../entities/Product';
 import User from '../../entities/User';
 import { Response } from '../services';
@@ -13,6 +13,7 @@ export default interface UseOrder extends BaseHook {
     end_subscription_date: string,
     status: OrderStatus,
     type: OrderType,
+    period_type: PeriodType,
     product?: Product,
     products?: Product[],
     user?: User,
@@ -24,13 +25,14 @@ export default interface UseOrder extends BaseHook {
     setEnd_subscription_date: (arg: string) => any,
     setStatus: (arg: OrderStatus) => any,
     setType: (arg: OrderType) => any,
+    setPeriod_type: (arg: PeriodType) => any,
     setProduct?: (arg: Product) => any,
     setProducts?: (arg: Product[]) => any,
     setUser?: (arg: User) => any,
 
     getOrder: (userId: number, signal: AbortSignal) => Promise<Response<Order>>,
     createOrder: (signal: AbortSignal) => Promise<Response<Order>>,
-    updateOrder: (signal: AbortSignal) => Promise<Response<Order>>,
+    updateOrder: (userId: number, signal: AbortSignal) => Promise<Response<Order>>,
     deleteOrder: (userId: number, signal: AbortSignal) => Promise<Response<Order>>,
     fillOrder: (user: Order) => any,
     emptyOrder: () => any
