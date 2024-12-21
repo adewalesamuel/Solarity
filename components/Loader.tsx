@@ -10,7 +10,7 @@ export default function Loader(props: LoaderProps) {
         <>
             {props.isLoading ?
                 <View style={styles.container}>
-                        <ActivityIndicator color={CONSTS.COLOR.PRIMARY} size={28}/>
+                        <ActivityIndicator color={CONSTS.COLOR.PRIMARY} size="large" />
                 </View>
             : props.children
             }
