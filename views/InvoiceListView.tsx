@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, StyleSheet, View, VirtualizedList } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import AppLayout from '../layouts/AppLayout';
 import MainLayout from '../layouts/MainLayout';
 import { CONSTS } from '../constants';
@@ -44,24 +44,16 @@ export default function InvoiceListView() {
         setPage((prevPage) => prevPage + 1);
     }
 
-    const loadInvoiceList = async (currentPage: number = 1): Promise<Invoice[]> => {
-        const response = await Services.InvoiceService.getAll(
-            {page: currentPage},
-            abortController.signal
-        );
-        const data = (response.invoices as ResponsePaginate<Invoice[]>).data;
-
-        return data;
-    }
-
     const init = useCallback(async () => {
         setIsLoading(true);
 
         try {
-            const data = await loadInvoiceList(page);
-            const invoiceList = [...invoices, ...data];
+            const response = await Services.InvoiceService.getAll(
+                {page: page}, abortController.signal
+            );
+            const data = (response.invoices as ResponsePaginate<Invoice[]>).data;
 
-            setInvoices(invoiceList);
+            setInvoices([...invoices, ...data]);
             setIsLoading(false);
 
             if (data.length === 0) {setHasMoreData(false)}
@@ -96,12 +88,10 @@ export default function InvoiceListView() {
 						</View>
                     </View>
                     {invoices.length > 0 ?
-                        <VirtualizedList showsVerticalScrollIndicator={false}
+                        <FlatList showsVerticalScrollIndicator={false}
                             data={invoices} initialNumToRender={15}
                             ListHeaderComponent={() => InvoiceCardHeader}
                             onEndReached={handleEndReached}
-                            getItem={(data: Invoice[], index) => data[index]}
-                            getItemCount={(data: Invoice[]) => data.length}
                             renderItem={({item}) => <Components.InvoiceCardItem invoice={item} />}/>
                         : null
                     }

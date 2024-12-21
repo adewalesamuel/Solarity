@@ -4,12 +4,11 @@ import { Layouts } from '../layouts';
 import { Components } from '../components';
 import { useError } from '../hooks/useError';
 import { Services } from '../services';
-import { NavigationProp, ParamListBase, useNavigation, RouteProp, useRoute } from '@react-navigation/native';
 import Product from '../core/entities/Product';
 import { ResponsePaginate } from '../core/types/services';
-import { FlatList, StyleSheet, TextInput, View } from 'react-native';
+import { ActivityIndicator, FlatList, ImageSourcePropType, StyleSheet, TextInput, View } from 'react-native';
 import { CONSTS } from '../constants';
-import { EllipsisVerticalIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline';
+import { EllipsisVerticalIcon, MagnifyingGlassIcon, MinusIcon, PlusIcon, ShoppingCartIcon } from 'react-native-heroicons/outline';
 import ProductCategory from '../core/entities/ProductCategory';
 import CustomText from '../components/CustomText';
 
@@ -17,17 +16,20 @@ export default function ProductListView() {
     let abortController = new AbortController();
     const { ProductService, ProductCategoryService } = Services;
 
-    const navigation: NavigationProp<ParamListBase> = useNavigation();
-    const route: RouteProp<ParamListBase> = useRoute();
     const errorHandler = useError();
 
     const [product_categorys, setProduct_categorys] = useState<ProductCategory[]>([])
     const [current_category, _setCurrent_category] = useState<string>();
-    const [_products, setProducts] = useState<Product[]>([]);
-    const [page, _setPage] = useState(1);
-    const [_pageLength, setPageLength] = useState(1);
+    const [products, setProducts] = useState<Product[]>([]);
+    const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
     const [searchInput, setSearchInput] = useState<string>();
+    const [hasMoreData, setHasMoreData] = useState(true);
+
+    const handleEndReached = () => {
+        if (hasMoreData === false) {return;}
+        setPage((prevPage) => prevPage + 1);
+    }
 
     const getCategoryBadgeStyle = (product_category: string) => {
         return {
@@ -49,18 +51,21 @@ export default function ProductListView() {
 
     const init = useCallback(async () => {
         setIsLoading(true);
+
         try {
-            const productResponse = await ProductService.getAll({
+            const productResponse = await ProductService.getAll(
+                {
                     page: page,
                     category: current_category,
                     type: CONSTS.PRODUCT.PRODUCT_TYPE,
-                }, abortController.signal
+                },
+                abortController.signal
             );
-            const productList = productResponse.products as ResponsePaginate<Product[]>;
+            const data = (productResponse.products as ResponsePaginate<Product[]>).data;
 
-            setProducts(productList.data);
-            setPageLength(productList.last_page);
+            setProducts([...products, ...data]);
 
+            if (data.length === 0) {setHasMoreData(false)}
             if (product_categorys.length > 0) {return;}
 
             const categoryResponse = await ProductCategoryService.getAll(
@@ -82,21 +87,23 @@ export default function ProductListView() {
         <Layouts.AppLayout>
             <Layouts.MainLayout>
                 <View style={styles.container}>
-                    <Components.Loader isLoading={isLoading}>
-                        <View style={styles.topContainer}>
-                            <View style={styles.inputContainer}>
-                                <TextInput style={styles.searchInput} placeholderTextColor={CONSTS.COLOR.TEXT_BASE}
-                                placeholder="Trouver un produit" textContentType="name" autoCapitalize="none"
-                                value={searchInput} onChangeText={(text: string) => setSearchInput(text)} />
-                                <MagnifyingGlassIcon style={styles.searchIcon}
-                                color={CONSTS.COLOR.BLACK} size={30} />
-                            </View>
-                            <View style={styles.iconContainer}>
-                                <EllipsisVerticalIcon size={30} color="black"/>
-                            </View>
+                    <View style={styles.topContainer}>
+                        <View style={styles.inputContainer}>
+                            <TextInput style={styles.searchInput}
+                            placeholderTextColor={CONSTS.COLOR.TEXT_BASE}
+                            placeholder="Trouver un produit" textContentType="name"
+                             autoCapitalize="none" value={searchInput}
+                             onChangeText={(text: string) => setSearchInput(text)} />
+                            <MagnifyingGlassIcon style={styles.searchIcon}
+                            color={CONSTS.COLOR.BLACK} size={30} />
                         </View>
-                        <Components.TitleText>Catégories</Components.TitleText>
-                        <FlatList contentContainerStyle={styles.productCategoryContainer}
+                        <View style={styles.iconContainer}>
+                            <EllipsisVerticalIcon size={30} color="black"/>
+                        </View>
+                    </View>
+                    <Components.TitleText>Catégories</Components.TitleText>
+                    <View style={styles.productCategoryContainer}>
+                        <FlatList contentContainerStyle={styles.productCategoryList}
                         data={product_categorys} horizontal={true}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={
@@ -107,9 +114,44 @@ export default function ProductListView() {
                                     </CustomText>
                                 </View>
                             )
-                        }
-                        />
-                    </Components.Loader>
+                        }/>
+                    </View>
+                    {products.length > 0 ?
+                    <FlatList contentContainerStyle={styles.productList}
+                        data={products}
+                        onEndReached={handleEndReached}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={
+                            ({item}) => (
+                                <View style={styles.productCard}>
+                                    <View style={styles.productCardLeft}>
+                                        <Components.SafeImage style={styles.productImage}
+                                        source={item.img_url as ImageSourcePropType} />
+                                        <View style={styles.productCardInfo}>
+                                            <CustomText customStyle={styles.productName}>
+                                                {item.name.slice(0,28).concat('...')}
+                                            </CustomText>
+                                            <CustomText customStyle={styles.productDescription}>
+                                                {item.details.slice(0,32).concat('...')}
+                                            </CustomText>
+                                            <CustomText customStyle={styles.productPrice}>
+                                                {item.primary_price}€
+                                            </CustomText>
+                                        </View>
+                                    </View>
+                                    <View style={styles.productCardRight}>
+                                        <ShoppingCartIcon color={CONSTS.COLOR.PRIMARY} />
+                                        <View style={styles.quantityPicker}>
+                                            <PlusIcon color={CONSTS.COLOR.BLACK} size={10}/>
+                                            <CustomText customStyle={styles.quantity}>2</CustomText>
+                                            <MinusIcon color={CONSTS.COLOR.BLACK} size={10}/>
+                                        </View>
+                                    </View>
+                                </View>
+                            )
+                        }/> : null
+                    }
+                    {isLoading ? <ActivityIndicator size={'large'} color={CONSTS.COLOR.PRIMARY} /> : null}
                 </View>
             </Layouts.MainLayout>
         </Layouts.AppLayout>
@@ -118,9 +160,9 @@ export default function ProductListView() {
 
 const styles = StyleSheet.create({
     container: {
+        height: '100%',
         backgroundColor: CONSTS.COLOR.WHITE,
         paddingHorizontal: CONSTS.SIZE.LG,
-        height: '100%',
     },
     topContainer: {
 		flexDirection: 'row',
@@ -156,9 +198,60 @@ const styles = StyleSheet.create({
         right: CONSTS.SIZE.XL,
     },
     productCategoryContainer: {
-        flexDirection: 'row',
-        alignItems: 'flex-start',
         marginTop: CONSTS.SIZE.SM,
+    },
+    productCategoryList: {
         columnGap: CONSTS.SIZE.SM,
+    },
+    productCard: {
+        flexDirection: 'row',
+        alignItems: 'stretch',
+        justifyContent: 'space-between',
+        borderWidth: 1,
+        padding: CONSTS.SIZE.MD,
+        borderRadius: CONSTS.SIZE.LG,
+        borderColor: CONSTS.COLOR.LIGHT,
+    },
+    productCardLeft: {
+        flexDirection: 'row',
+        columnGap: CONSTS.SIZE.MD,
+    },
+    productImage: {
+        width: 80,
+        height: 80,
+        borderRadius: CONSTS.SIZE.MD,
+    },
+    productName: {
+        fontSize: CONSTS.SIZE.MD,
+        color: CONSTS.COLOR.BLACK,
+    },
+    productDescription: {
+        fontSize: 10,
+        marginTop: CONSTS.SIZE.MD * -1,
+    },
+    productPrice: {
+        fontWeight: 'bold',
+        fontSize: CONSTS.SIZE.LG,
+        color: CONSTS.COLOR.BLACK,
+    },
+    productCardInfo: {
+        justifyContent: 'space-between',
+    },
+    productCardRight: {
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+    },
+    quantityPicker: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        columnGap: CONSTS.SIZE.MD,
+    },
+    quantity: {
+        color: CONSTS.COLOR.BLACK,
+        fontSize: CONSTS.SIZE.MD,
+    },
+    productList: {
+        marginTop: CONSTS.SIZE.LG,
+        rowGap: CONSTS.SIZE.LG,
     },
 })

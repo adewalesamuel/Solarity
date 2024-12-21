@@ -45,7 +45,7 @@ export default function NotificationListView() {
         if (notificationList.length < 1) {return [];}
 
         let currentDate: string|undefined;
-        let data: NotificationData[] = [];
+        let notificationData: NotificationData[] = [];
 
         for (let i = 0; i < notificationList.length; i++) {
             const notificationItem = notificationList[i];
@@ -54,33 +54,16 @@ export default function NotificationListView() {
             if (currentDate === undefined || currentDate !== notifcationDataItemDate) {
                 currentDate = notifcationDataItemDate;
 
-                data.push({title: currentDate, data: []});
+                notificationData.push({title: currentDate, data: []});
             }
 
-            const index = data.findIndex(d => d.title === currentDate);
+            const index = notificationData.findIndex(d => d.title === currentDate);
 
-            data[index > 0 ? index : 0].data.push(notificationItem);
+            notificationData[index > 0 ? index : 0].data.push(notificationItem);
         }
 
-        return data;
+        return notificationData;
     }
-
-    // const handleNotificationClick = (index: number, url: string = '/') => {
-    //     const notificationCopy = [...notifications];
-    //     const notificationItem = notificationCopy[index];
-
-    //     navigation.navigate(url);
-
-    //     if (notificationItem.read_at !== null) {return;}
-
-    //     notificationItem.read_at = new Date().toISOString();
-
-    //     setNotifications([...notificationCopy]);
-    //     setUnreadNum(unreadNum ? unreadNum - 1 : 0);
-
-    //     Services.NotificationService.read(
-    //         notificationItem.id, '', abortController.signal);
-    // }
 
     const init = useCallback(async() => {
         setIsLoading(true);
@@ -88,13 +71,13 @@ export default function NotificationListView() {
         try {
             const response = await Services.NotificationService.getAll(
                 {page: page}, abortController.signal);
-            const notificationList = (response.notifications as ResponsePaginate<Notification[]>).data;
-            const notificationUnreadNum = getUnreadNotificationNum(notificationList);
+            const data = (response.notifications as ResponsePaginate<Notification[]>).data;
+            const notificationUnreadNum = getUnreadNotificationNum(data);
 
-            setNotifications([...notifications, ...notificationList]);
+            setNotifications([...notifications, ...data]);
             setUnreadNum(notificationUnreadNum);
 
-            if (notificationList.length === 0) {setHasMoreData(false)}
+            if (data.length === 0) {setHasMoreData(false)}
         } catch (error) {
             errorHandler.setError(error);
         } finally {

@@ -5,6 +5,7 @@ import {
     ParamListBase,
     useNavigation,
   } from '@react-navigation/native';
+import { ErrorObject } from '../services/Api';
 
 export type UseError = {
     setError: (error: any) => void,
@@ -13,10 +14,13 @@ export type UseError = {
 }
 
 export function useError(): UseError {
+    const ERROR_TYPES = Object.freeze({
+        ABORTED: 'Aborted',
+    });
     const {Toaster} = Utils;
     const navigation: NavigationProp<ParamListBase> = useNavigation();
 
-    const [error, setError] = useState({});
+    const [error, setError] = useState<ErrorObject>();
     const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
     const handle = useCallback(async () => {
@@ -27,16 +31,18 @@ export function useError(): UseError {
             return navigation.navigate('Login');
         }
         if ('message' in error) {
+            if (error.message === ERROR_TYPES.ABORTED) {return;}
+
             setErrorMessages([error.message as string]);
             Toaster.error(error.message as string);
         }
         if (!('messages' in error)) {return;}
 
-        const messages: string[] = await error.messages as string[];
+        const messages = await error.messages as string[];
 
         setErrorMessages(messages);
         messages.forEach(message => Toaster.error(message));
-    }, [error, navigation, Toaster]);
+    }, [error, navigation, ERROR_TYPES.ABORTED, Toaster]);
 
     useEffect(() => {
         handle();

@@ -1,6 +1,12 @@
 import { Response as ApiResponse } from '../core/types/services';
 import { Utils } from '../utils';
 
+export type ErrorObject = Partial<{
+    status: number,
+    message: string,
+    messages: Promise<string[]>
+}>
+
 const HOST = 'http://10.0.2.2';
 const PORT = '8000';
 const URL = process.env.APP_HOST_URL ?? `${HOST}:${PORT}`;
@@ -198,7 +204,7 @@ const getResponseErrors = (response: Response): Promise<string[]> => {
     })
 }
 
-const getErrorObject = (response: Response): object => {
+const getErrorObject = (response: Response): ErrorObject => {
     return {
         status: response.status,
         messages: getResponseErrors(response),
