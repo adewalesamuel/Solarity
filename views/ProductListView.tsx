@@ -6,11 +6,11 @@ import { useError } from '../hooks/useError';
 import { Services } from '../services';
 import Product from '../core/entities/Product';
 import { ResponsePaginate } from '../core/types/services';
-import { ActivityIndicator, FlatList, Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { ActivityIndicator, FlatList, Pressable, StyleSheet, View } from 'react-native';
 import { CONSTS } from '../constants';
-import { EllipsisVerticalIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 import ProductCategory from '../core/entities/ProductCategory';
 import CustomText from '../components/CustomText';
+import { EllipsisVerticalIcon } from 'react-native-heroicons/outline';
 
 export default function ProductListView() {
     let abortController = new AbortController();
@@ -118,15 +118,8 @@ export default function ProductListView() {
             <Layouts.MainLayout>
                 <View style={styles.container}>
                     <View style={styles.topContainer}>
-                        <View style={styles.inputContainer}>
-                            <TextInput style={styles.searchInput}
-                            placeholderTextColor={CONSTS.COLOR.TEXT_BASE}
-                            placeholder="Trouver un produit" textContentType="name"
-                             autoCapitalize="none" value={searchInput}
-                             onChangeText={(text: string) => setSearchInput(text)} />
-                            <MagnifyingGlassIcon style={styles.searchIcon}
-                            color={CONSTS.COLOR.BLACK} size={30} />
-                        </View>
+                        <Components.SearchInput placeholder="Trouver un produit"
+                        value={searchInput} onChangeText={(text: string) => setSearchInput(text)}/>
                         <View style={styles.iconContainer}>
                             <EllipsisVerticalIcon size={30} color="black"/>
                         </View>
@@ -185,24 +178,6 @@ const styles = StyleSheet.create({
 		paddingVertical: CONSTS.SIZE.MD,
 		borderColor: CONSTS.COLOR.SECONDARY,
 	},
-    inputContainer: {
-        position: 'relative',
-        flex: 1,
-    },
-    searchInput: {
-        borderWidth: 1,
-        paddingRight: 60,
-        color: CONSTS.COLOR.TEXT_BASE,
-        borderColor: CONSTS.COLOR.LIGHT,
-        paddingVertical: CONSTS.SIZE.MD,
-        paddingLeft: CONSTS.SIZE.LG,
-        borderRadius: CONSTS.SIZE.XL,
-    },
-    searchIcon: {
-        position: 'absolute',
-        top: CONSTS.SIZE.MD,
-        right: CONSTS.SIZE.XL,
-    },
     productCategoryContainer: {
         paddingVertical: CONSTS.SIZE.MD,
     },

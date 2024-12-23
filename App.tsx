@@ -38,6 +38,8 @@ function App(): React.JSX.Element {
         options={{headerShown: true, header: MainHeader}}/>
         <Stack.Screen name="NotificationList" component={Views.NotificationListView}
         options={{headerShown: true, header: MainHeader}}/>
+        <Stack.Screen name="CourseList" component={Views.CourseListView}
+        options={{headerShown: true, header: MainHeader}}/>
         <Stack.Screen name="ProductList" component={Views.ProductListView}
         options={{headerShown: true, header: ShopHeader}}/>
       </Stack.Navigator>

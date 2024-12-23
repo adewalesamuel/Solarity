@@ -1,3 +1,4 @@
+import CourseListView from './CourseListView';
 import DashboardView from './DashboardView';
 import HomeView from './HomeView';
 import InvoiceListView from './InvoiceListView';
@@ -22,4 +23,5 @@ export const Views = {
     NotificationListView,
     MeteoView,
     ProductListView,
+    CourseListView,
 }

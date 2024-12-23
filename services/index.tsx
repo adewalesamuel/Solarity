@@ -1,4 +1,5 @@
 import { AuthService } from './AuthService';
+import { CourseService } from './CourseService';
 import { InvoiceService } from './InvoiceService';
 import { NotificationService } from './NotificationService';
 import { OrderService } from './OrderService';
@@ -16,4 +17,5 @@ export const Services = {
     NotificationService,
     WeatherService,
     ProductCategoryService,
+    CourseService,
 }

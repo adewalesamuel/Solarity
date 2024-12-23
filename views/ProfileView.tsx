@@ -88,7 +88,7 @@ export default function ProfileView() {
                         </View>
                     </View>
                     <View style={styles.buttonListContainer}>
-                        <Components.ButtonListItem>
+                        <Components.ButtonListItem onPress={() => navigation.navigate('CourseList')}>
                             <View style={styles.buttonListItemLeft}>
                                 <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
                                 color={CONSTS.COLOR.LIGHT}>

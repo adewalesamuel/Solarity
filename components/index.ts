@@ -13,6 +13,7 @@ import MainMenu from './MainMenu';
 import PrimaryButton from './PrimaryButton';
 import ProductCardItem from './ProductCartItem';
 import SafeImage from './SafeImage';
+import SearchInput from './SearchInput';
 import ShopHeader from './ShopHeader';
 import TitleText from './TitleText';
 
@@ -34,4 +35,5 @@ export const Components = {
     ButtonListItem,
     ShopHeader,
     ProductCardItem,
+    SearchInput,
 }
