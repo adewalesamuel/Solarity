@@ -1,19 +1,20 @@
 import React from 'react';
-import { StyleSheet, TextProps } from 'react-native';
+import { TextProps, TextStyle } from 'react-native';
 import { CONSTS } from '../constants';
 import CustomText from './CustomText';
 
-export default function TitleText(props: TextProps) {
-    return (<CustomText customStyle={styles.title}>
-        {props.children}
-    </CustomText>)
+type CustomTitleProps = TextProps & {
+    customStyle?: TextStyle
 }
 
-const styles = StyleSheet.create({
-    title: {
+export default function TitleText(props: CustomTitleProps) {
+    const style: TextStyle = {
         fontWeight: 'bold',
         fontSize: CONSTS.SIZE.XL,
         marginBottom: CONSTS.SIZE.XS,
         color: CONSTS.COLOR.BLACK,
-    },
-})
+        ...props.customStyle,
+
+    }
+    return (<CustomText customStyle={style} {...props}>{props.children}</CustomText>)
+}
