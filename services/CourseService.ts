@@ -19,10 +19,10 @@ const create = (payload: string, signal: AbortSignal): Promise<Response<Course>>
     return Api.post(ENDPOINT, payload, signal)
 }
 
-const update = (id: number, payload: string, signal: AbortSignal): Promise<Response<Course>> => {
+const update = (id: string, payload: string, signal: AbortSignal): Promise<Response<Course>> => {
     return Api.put(`${ENDPOINT}/${id}`, payload, signal)
 }
-const destroy = (id: number, signal: AbortSignal): Promise<Response<Course>> => {
+const destroy = (id: string, signal: AbortSignal): Promise<Response<Course>> => {
     return Api.erase(`${ENDPOINT}/${id}`, signal)
 }
 

@@ -1,3 +1,4 @@
+import { useCourse } from './useCourse';
 import { useError } from './useError';
 import { useInvoice } from './useInvoice';
 import { useOrder } from './useOrder';
@@ -8,4 +9,5 @@ export const Hooks = {
     useError,
     useInvoice,
     useOrder,
+    useCourse,
 }

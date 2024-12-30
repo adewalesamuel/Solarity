@@ -13,8 +13,8 @@ export default function TitleText(props: CustomTitleProps) {
         fontSize: CONSTS.SIZE.XL,
         marginBottom: CONSTS.SIZE.XS,
         color: CONSTS.COLOR.BLACK,
-        ...props.customStyle,
+        ...props?.customStyle,
 
     }
-    return (<CustomText customStyle={style} {...props}>{props.children}</CustomText>)
+    return (<CustomText {...props} customStyle={style}>{props.children}</CustomText>)
 }

@@ -1,4 +1,5 @@
 import { COLOR } from './Color';
+import { COURSE } from './Course';
 import { ORDER } from './Order';
 import { PRODUCT } from './Product';
 import { SIZE } from './Size';
@@ -10,4 +11,5 @@ export const CONSTS = {
     COLOR,
     ORDER,
     PRODUCT,
+    COURSE,
 }

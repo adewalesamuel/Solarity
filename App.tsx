@@ -24,7 +24,7 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Dashboard" screenOptions={globalOptions}>
+      <Stack.Navigator initialRouteName="CourseList" screenOptions={globalOptions}>
         <Stack.Screen name="Home" component={Views.HomeView}/>
         <Stack.Screen name="Registration" component={Views.RegisterView}/>
         <Stack.Screen name="Login" component={Views.LoginView}/>
@@ -39,6 +39,8 @@ function App(): React.JSX.Element {
         <Stack.Screen name="NotificationList" component={Views.NotificationListView}
         options={{headerShown: true, header: MainHeader}}/>
         <Stack.Screen name="CourseList" component={Views.CourseListView}
+        options={{headerShown: true, header: MainHeader}}/>
+        <Stack.Screen name="CourseShow" component={Views.CourseShowView}
         options={{headerShown: true, header: MainHeader}}/>
         <Stack.Screen name="ProductList" component={Views.ProductListView}
         options={{headerShown: true, header: ShopHeader}}/>

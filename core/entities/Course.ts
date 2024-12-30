@@ -2,6 +2,7 @@ import CourseCategory from './CourseCategory';
 
 export type CourseVideoType = 'youtube' | 'vimeo' | 'self_hosting' | 'other';
 import BaseEntity from './BaseEntity';
+import Admin from './Admin';
 
 export default interface Course extends BaseEntity {
     name: string,
@@ -14,5 +15,8 @@ export default interface Course extends BaseEntity {
     admin_id: number,
     video_url: string,
     video_type: CourseVideoType,
-    course_category?: CourseCategory
+    admin?: Admin,
+    course_category?: CourseCategory,
+    previous?: Course,
+    next?: Course,
 }
