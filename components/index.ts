@@ -1,5 +1,6 @@
 import BadgeIcon from './BadgeIcon';
 import ButtonListItem from './ButtonListItem';
+import CourseVideo from './CourseVideo';
 import CustomText from './CustomText';
 import LoginForm from './forms/LoginForm';
 import RegisterForm from './forms/RegisterForm';
@@ -36,4 +37,5 @@ export const Components = {
     ShopHeader,
     ProductCardItem,
     SearchInput,
+    CourseVideo,
 }
