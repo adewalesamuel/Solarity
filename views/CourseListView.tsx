@@ -79,8 +79,10 @@ export default function CourseListView() {
                         renderItem={({item}) => (
                             <Pressable style={styles.courseCard} onPress={() => navigation.navigate(
                                 'CourseShow', {id: item.id, slug: item.slug})}>
-                                <ImageBackground style={styles.courseBgImg}
-                                source={{uri: item.display_img_url}} resizeMode="cover"/>
+                                {item.display_img_url ?
+                                    <ImageBackground style={styles.courseBgImg}
+                                    source={{uri: item.display_img_url}} resizeMode="cover"/> : null
+                                    }
                                 <Components.TitleText customStyle={styles.courseTitle}>
                                     {item.name}
                                 </Components.TitleText>

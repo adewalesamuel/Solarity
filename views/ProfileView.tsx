@@ -97,7 +97,7 @@ export default function ProfileView() {
                                 <CustomText customStyle={styles.buttonListItemText}>Espace Formation</CustomText>
                             </View>
                         </Components.ButtonListItem>
-                        <Components.ButtonListItem>
+                        <Components.ButtonListItem onPress={() => navigation.navigate('ReferralList')}>
                             <View style={styles.buttonListItemLeft}>
                                 <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
                                 color={CONSTS.COLOR.LIGHT}>

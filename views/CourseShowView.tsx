@@ -28,10 +28,11 @@ export default function CourseShowView() {
     const [_search, _setSearch] = useState('');
     const [hasClickedPlay, setHasClickedPlay] = useState(false);
     const [slug, _setSlug] = useState(params?.slug);
+    const [isLoading, setIsLoading] = useState(true);
 
     const init = useCallback(async () => {
         if (!slug) {return}
-        useCourse.setIsDisabled(true);
+        setIsLoading(true);
 
         try {
             await useCourse.getCourse(slug, abortController.signal);
@@ -45,19 +46,20 @@ export default function CourseShowView() {
         } catch (error) {
             errorHandler.setError(error);
         } finally{
-            useCourse.setIsDisabled(false);
+            setIsLoading(false);
         }
     }, [slug])
 
     useEffect(() => {
         init();
+        return () => abortController.abort();
     }, [init])
 
     return (
         <Layouts.AppLayout>
             <Layouts.MainLayout>
                 <View style={styles.container}>
-                    <Components.Loader isLoading={useCourse.isDisabled}>
+                    <Components.Loader isLoading={isLoading}>
                         <View style={styles.top}>
                             <CustomText customStyle={styles.title}>Tutoriel</CustomText>
                             <Components.TitleText customStyle={styles.courseName}>
@@ -66,14 +68,16 @@ export default function CourseShowView() {
                         </View>
                         {!hasClickedPlay ?
                             <View style={styles.courseCard}>
-                                <ImageBackground style={styles.courseImage} resizeMode="cover"
-                                source={{uri: useCourse.display_img_url}} />
+                                {useCourse.display_img_url ?
+                                    <ImageBackground style={styles.courseImage} resizeMode="cover"
+                                    source={{uri: useCourse.display_img_url}} />
+                                    : null}
                                 <View style={styles.imageOverlay}/>
-                                <TouchableOpacity style={styles.playBtnContainer}
-                                onPress={() => setHasClickedPlay(true)}>
-                                    <Image style={styles.playBtn}
-                                    source={require('../assets/images/play-btn.png')}/>
-                                </TouchableOpacity>
+                                    <TouchableOpacity style={styles.playBtnContainer}
+                                    onPress={() => setHasClickedPlay(true)}>
+                                        <Image style={styles.playBtn}
+                                        source={require('../assets/images/play-btn.png')}/>
+                                    </TouchableOpacity>
                             </View> :
                             <Components.CourseVideo videoType={useCourse.video_type}
                             videoUrl={useCourse.video_url}/>
@@ -123,8 +127,8 @@ const styles = StyleSheet.create({
     },
     playBtnContainer: {
         position: 'absolute',
-        top: '40%',
-        left: '40%',
+        top: '44%',
+        left: '44%',
     },
     playBtn: {
         width: 80,

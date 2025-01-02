@@ -25,15 +25,19 @@ export default function CourseVideo(props: CourseVideoProps) {
                 onError={(errorData) => handleError(errorData.error.errorString)} /> :
 
                 <WebView
-                scrollEnabled={false}
                 source={{uri: props.videoUrl}}
                 mixedContentMode="compatibility"
+                allowsFullscreenVideo={true}
+                scrollEnabled={false}
                 startInLoadingState={true}
                 javaScriptEnabled={true}
                 domStorageEnabled={true}
                 showsVerticalScrollIndicator={false}
-                renderLoading={() => <ActivityIndicator size="large" color={CONSTS.COLOR.PRIMARY} style={styles.loader}/>}
-                onError={(event) => handleError(event.nativeEvent.description)}/>
+                onError={(event) => handleError(event.nativeEvent.description)}
+                renderLoading={() => (
+                    <ActivityIndicator size="large" 
+                    color={CONSTS.COLOR.PRIMARY} style={styles.loader}/>
+                )} />
             }
         </View>
 
@@ -42,13 +46,13 @@ export default function CourseVideo(props: CourseVideoProps) {
 
 const styles = StyleSheet.create({
     container: {
-        minHeight: 250,
+        height: '40%',
         width: '100%',
     },
     loader: {
         position: 'absolute',
-        top: '40%',
-        left: '40%',
+        top: '44%',
+        left: '44%',
     },
 })
 

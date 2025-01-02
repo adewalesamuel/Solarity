@@ -9,6 +9,7 @@ import MeteoView from './MeteoView';
 import NotificationListView from './NotificationListView';
 import ProductListView from './ProductListView';
 import ProfileView from './ProfileView';
+import ReferralListView from './ReferralListView';
 import RegisterView from './RegisterView';
 import SubscriptionShowView from './SubscriptionShowView';
 
@@ -26,4 +27,5 @@ export const Views = {
     ProductListView,
     CourseListView,
     CourseShowView,
+    ReferralListView,
 }
