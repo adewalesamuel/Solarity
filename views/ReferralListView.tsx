@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from 'react';
 import { Layouts } from '../layouts';
-import { View, Pressable, StyleSheet } from 'react-native';
-import { ArrowLeftIcon, QuestionMarkCircleIcon } from 'react-native-heroicons/outline';
+import { View, Pressable, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { ArrowLeftIcon, GiftIcon, QuestionMarkCircleIcon } from 'react-native-heroicons/outline';
 import { Components } from '../components';
 import { CONSTS } from '../constants';
 import { useError } from '../hooks/useError';
 import { Services } from '../services';
 import Gift from '../core/entities/Gift';
 import CustomText from '../components/CustomText';
+
+const CARD_WIDTH = 280;
 
 export default function ReferralListView() {
     let abortController = new AbortController();
@@ -19,7 +21,7 @@ export default function ReferralListView() {
 
     const [gifts, setGifts] = useState<Gift[]>([]);
     const [total_points, setTotal_points] = useState<number>();
-    const [page, setPage] = useState(1);
+    const [page, _setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
 
     const init = useCallback(async () => {
@@ -62,23 +64,48 @@ export default function ReferralListView() {
                             </Components.BadgeIcon>
                         </Pressable>
                     </View>
-                    <View style={styles.mainContent}>
-                        <View style={styles.pointContainer}>
-                            <CustomText customStyle={styles.pointNumber}>
-                                {120}
-                            </CustomText>
-                            <CustomText customStyle={styles.pointUnit}>pts</CustomText>
+                    <Components.Loader isLoading={isLoading}>
+                        <View style={styles.mainContent}>
+                            <View style={styles.pointContainer}>
+                                <CustomText customStyle={styles.pointNumber}>
+                                    {total_points}
+                                </CustomText>
+                                <CustomText customStyle={styles.pointUnit}>pts</CustomText>
+                            </View>
+                            <View style={styles.textContainer}>
+                                <Components.TitleText customStyle={styles.congratTitle}>
+                                    Bravo !
+                                </Components.TitleText>
+                                <CustomText customStyle={styles.congratText}>
+                                    Choisissez votre cadeau maintenant
+                                    ou collecter plus de points !
+                                </CustomText>
+                            </View>
+                            <FlatList showsHorizontalScrollIndicator={false}
+                            contentContainerStyle={styles.giftCardContainer}
+                            snapToInterval={CARD_WIDTH}
+                            horizontal={true} data={gifts}
+                            renderItem={({item}) => (
+                                <View style={styles.giftCard}>
+                                    <Components.BadgeIcon paddingH={CONSTS.SIZE.MD}
+                                    paddingV={CONSTS.SIZE.MD} color={CONSTS.COLOR.PRIMARY}>
+                                        <GiftIcon color={CONSTS.COLOR.BLACK} size={CONSTS.SIZE.XL}/>
+                                    </Components.BadgeIcon>
+                                    <Components.TitleText customStyle={styles.giftTitle}>
+                                        {item.name}
+                                    </Components.TitleText>
+                                    <CustomText customStyle={styles.giftDescription}>
+                                        {item.description}
+                                    </CustomText>
+                                    <TouchableOpacity style={styles.giftLinkContainer}>
+                                        <CustomText customStyle={styles.giftLink}>
+                                            Collecter maintenant !
+                                        </CustomText>
+                                    </TouchableOpacity>
+                                </View>
+                            )}/>
                         </View>
-                        <View style={styles.textContainer}>
-                            <Components.TitleText customStyle={styles.congratTitle}>
-                                Bravo !
-                            </Components.TitleText>
-                            <CustomText customStyle={styles.congratText}>
-                                Choisissez votre cadeau maintenant
-                                ou collecter plus de points !
-                            </CustomText>
-                        </View>
-                    </View>
+                    </Components.Loader>
                 </View>
             </Layouts.MainLayout>
         </Layouts.AppLayout>
@@ -91,9 +118,7 @@ const styles = StyleSheet.create({
         paddingTop: 120,
         backgroundColor: CONSTS.COLOR.BLACK,
     },
-    mainContent: {
-        paddingHorizontal: CONSTS.SIZE.LG,
-    },
+    mainContent: {},
     bgImg: {
         position: 'absolute',
         width: '100%',
@@ -141,5 +166,33 @@ const styles = StyleSheet.create({
     congratText: {
         textAlign: 'center',
         maxWidth: 300,
+    },
+    giftCardContainer: {
+        marginVertical: CONSTS.SIZE.LG,
+        columnGap: CONSTS.SIZE.MD,
+    },
+    giftCard: {
+        alignItems: 'center',
+        borderWidth: 1,
+        width: CARD_WIDTH,
+        borderRadius: CONSTS.SIZE.XL,
+        borderColor: CONSTS.COLOR.TEXT_BASE,
+        padding: CONSTS.SIZE.LG,
+    },
+    giftTitle: {
+        color: CONSTS.COLOR.WHITE,
+        marginTop: CONSTS.SIZE.MD,
+    },
+    giftDescription: {
+        textAlign: 'center',
+        paddingHorizontal: CONSTS.SIZE.XS,
+        color: CONSTS.COLOR.WHITE,
+    },
+    giftLinkContainer: {
+        marginTop: CONSTS.SIZE.MD,
+    },
+    giftLink: {
+        fontWeight: 'bold',
+        color: CONSTS.COLOR.PRIMARY,
     },
 })
