@@ -1,14 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from 'react';
 import { Layouts } from '../layouts';
-import { View, Pressable, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
-import { ArrowLeftIcon, GiftIcon, QuestionMarkCircleIcon } from 'react-native-heroicons/outline';
+import { View, Pressable, StyleSheet, TouchableOpacity, FlatList, Image, ScrollView } from 'react-native';
+import { ArrowLeftIcon, ClipboardIcon, GiftIcon, QuestionMarkCircleIcon, ShareIcon } from 'react-native-heroicons/outline';
 import { Components } from '../components';
 import { CONSTS } from '../constants';
 import { useError } from '../hooks/useError';
 import { Services } from '../services';
 import Gift from '../core/entities/Gift';
 import CustomText from '../components/CustomText';
+import { Hooks } from '../hooks';
+import { Utils } from '../utils';
+import PrimaryButton from '../components/PrimaryButton';
 
 const CARD_WIDTH = 280;
 
@@ -18,6 +21,7 @@ export default function ReferralListView() {
     const { ReferralService, GiftService } = Services;
 
     const errorHandler = useError();
+    const useUser = Hooks.useUser();
 
     const [gifts, setGifts] = useState<Gift[]>([]);
     const [total_points, setTotal_points] = useState<number>();
@@ -30,8 +34,11 @@ export default function ReferralListView() {
                 {page: page}, abortController.signal);
             setTotal_points((referalPesponse as any).total_points as number);
 
-            const giftsResponse = await GiftService.getAll({}, abortController.signal);
+            const giftsResponse = await GiftService.getAll(
+                {}, abortController.signal);
             setGifts(giftsResponse.gifts as Gift[]);
+
+            useUser.fillUser(await Utils.Auth.getUser())
         } catch (error) {
             errorHandler.setError(error);
         } finally {
@@ -47,7 +54,7 @@ export default function ReferralListView() {
     return (
         <Layouts.AppLayout>
             <Layouts.MainLayout>
-            <View style={styles.container}>
+                <View style={styles.container}>
                     <View style={styles.header}>
                         <Pressable>
                             <Components.BadgeIcon color={CONSTS.COLOR.BLACK}
@@ -65,7 +72,7 @@ export default function ReferralListView() {
                         </Pressable>
                     </View>
                     <Components.Loader isLoading={isLoading}>
-                        <View style={styles.mainContent}>
+                        <ScrollView style={styles.mainContent} showsVerticalScrollIndicator={false}>
                             <View style={styles.pointContainer}>
                                 <CustomText customStyle={styles.pointNumber}>
                                     {total_points}
@@ -104,7 +111,29 @@ export default function ReferralListView() {
                                     </TouchableOpacity>
                                 </View>
                             )}/>
-                        </View>
+                            <View style={styles.referralInfoContainer}>
+                                <Image style={styles.referralImage}
+                                source={require('../assets/images/referral-image.png')} />
+                                <Components.TitleText customStyle={{
+                                    color: CONSTS.COLOR.WHITE,
+                                    fontSize: CONSTS.SIZE.LG,
+                                }}>
+                                    Votre lien de parrainage Solarity :
+                                </Components.TitleText>
+                                <View style={styles.referralLinkContainer}>
+                                    <CustomText customStyle={{color: CONSTS.COLOR.LIGHT}}>
+                                        {`https://parrainage.solaritycom/${useUser?.referral_code}`}
+                                    </CustomText>
+                                    <ShareIcon color={CONSTS.COLOR.LIGHT} size={CONSTS.SIZE.LG}/>
+                                    <ClipboardIcon color={CONSTS.COLOR.LIGHT} size={CONSTS.SIZE.LG}/>
+                                </View>
+                                <View style={styles.buttonContainer}>
+                                    <PrimaryButton isDisabled={false} onClick={() => null}>
+                                        Vérifier ma liste de parrainage
+                                    </PrimaryButton>
+                                </View>
+                            </View>
+                        </ScrollView>
                     </Components.Loader>
                 </View>
             </Layouts.MainLayout>
@@ -194,5 +223,29 @@ const styles = StyleSheet.create({
     giftLink: {
         fontWeight: 'bold',
         color: CONSTS.COLOR.PRIMARY,
+    },
+    referralImage: {
+        width: 170,
+        height: 70,
+        alignSelf: 'center',
+    },
+    referralInfoContainer: {
+        alignItems: 'center',
+        marginTop: CONSTS.SIZE.SM,
+        rowGap: CONSTS.SIZE.LG,
+    },
+    referralLinkContainer: {
+        flexDirection: 'row',
+        borderWidth: 1,
+        columnGap: CONSTS.SIZE.MD,
+        borderColor: CONSTS.COLOR.TEXT_BASE,
+        borderRadius: CONSTS.SIZE.XL,
+        paddingHorizontal: CONSTS.SIZE.XL,
+        paddingVertical: CONSTS.SIZE.LG,
+    },
+    buttonContainer: {
+        width: '100%',
+        paddingHorizontal: CONSTS.SIZE.LG,
+        marginBottom: CONSTS.SIZE.LG,
     },
 })
