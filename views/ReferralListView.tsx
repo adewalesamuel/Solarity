@@ -72,7 +72,8 @@ export default function ReferralListView() {
                         </Pressable>
                     </View>
                     <Components.Loader isLoading={isLoading}>
-                        <ScrollView style={styles.mainContent} showsVerticalScrollIndicator={false}>
+                        <ScrollView contentContainerStyle={styles.mainContent}
+                        showsVerticalScrollIndicator={false}>
                             <View style={styles.pointContainer}>
                                 <CustomText customStyle={styles.pointNumber}>
                                     {total_points}
