@@ -3,7 +3,7 @@ import React from 'react';
 import { Components } from '../components';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { CONSTS } from '../constants';
-import { SunIcon } from 'react-native-heroicons/outline';
+import { CalendarIcon, GiftIcon, GlobeEuropeAfricaIcon, SunIcon } from 'react-native-heroicons/outline';
 import CustomText from '../components/CustomText';
 
 export default function MonitoringView() {
@@ -58,6 +58,30 @@ export default function MonitoringView() {
                             </View>
                         </View>
                     </View>
+                    <View style={styles.cardContainer}>
+                        <View style={styles.defaultCard}>
+                            <Components.BadgeIcon paddingH={CONSTS.SIZE.SM}
+                            paddingV={CONSTS.SIZE.SM} color={CONSTS.COLOR.SECONDARY}>
+                                <CalendarIcon size={30} color={CONSTS.COLOR.TEXT_BASE}/>
+                            </Components.BadgeIcon>
+                            <View style={{marginTop: CONSTS.SIZE.MD}}>
+                                <CustomText>Abonnement Uno</CustomText>
+                                <CustomText customStyle={styles.defaultCardNumber}>162</CustomText>
+                                <CustomText>Jours restants</CustomText>
+                            </View>
+                        </View>
+                        <View style={styles.defaultCard}>
+                            <Components.BadgeIcon paddingH={CONSTS.SIZE.SM}
+                            paddingV={CONSTS.SIZE.SM} color={CONSTS.COLOR.PRIMARY_SOFT}>
+                                <GiftIcon size={30} color={CONSTS.COLOR.PRIMARY}/>
+                            </Components.BadgeIcon>
+                            <View style={{marginTop: CONSTS.SIZE.MD}}>
+                                <CustomText>Points cadeaux</CustomText>
+                                <CustomText customStyle={styles.defaultCardNumber}>120</CustomText>
+                                <CustomText>Points</CustomText>
+                            </View>
+                        </View>
+                    </View>
                 </ScrollView>
             </Layouts.MainLayout>
         </Layouts.AppLayout>
@@ -86,6 +110,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 		alignItems: 'flex-start',
+        marginTop: CONSTS.SIZE.LG,
 	},
     prodImage: {
 		left: 0,
@@ -121,6 +146,19 @@ const styles = StyleSheet.create({
 		color: CONSTS.COLOR.BLACK,
 		fontSize: CONSTS.SIZE.LG,
 	},
+    cardContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        columnGap: CONSTS.SIZE.MD,
+        marginVertical: CONSTS.SIZE.LG,
+    },
+    defaultCard: {
+        ...defaultCardStyle,
+        flex: 1,
+        flexDirection: 'column',
+		justifyContent: 'space-between',
+		alignItems: 'flex-start',
+    },
     textRight: {textAlign: 'right'},
     textCenter: {textAlign: 'center'},
 })
