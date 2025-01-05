@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { Fragment, useCallback, useEffect } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import AppLayout from '../layouts/AppLayout'
 import MainLayout from '../layouts/MainLayout'
 import { Image, ScrollView, StyleSheet, View } from 'react-native'
@@ -24,9 +24,9 @@ export default function InvoiceShowView() {
     const route: RouteProp<ParamListBase> = useRoute();
     const params: InvoiceRouteParams = route.params;
 
-    const init = useCallback(async() => {
-        useInvoice.setIsDisabled(true);
+    const [isLoading, setIsLoading] = useState(true);
 
+    const init = useCallback(async() => {
         try {
             await useInvoice.getInvoice(
                 params?.number as string, abortController.signal
@@ -34,7 +34,7 @@ export default function InvoiceShowView() {
         } catch (error) {
             errorhandler.setError(error);
         } finally {
-            useInvoice.setIsDisabled(false);
+            setIsLoading(false);
         }
     }, [])
 
@@ -47,7 +47,7 @@ export default function InvoiceShowView() {
         <AppLayout>
             <MainLayout>
                 <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-                    <Components.Loader isLoading={useInvoice.isDisabled}>
+                    <Components.Loader isLoading={isLoading}>
                         <Components.InvoiceCardHeader canShowButton={false} canShowImage={false}
                         price={useInvoice.order?.amount} number={useInvoice.number}/>
                         <View style={{...styles.invoiceRow, marginTop: (60 * -1)}}>

@@ -97,7 +97,8 @@ export default function SubscriptionShowView() {
                                     </CustomText>
                                 </View>
                             </Pressable>
-                            <Image style={styles.mainImg} source={require('../assets/images/solar-panel.png')} />
+                            <Image style={styles.mainImg}
+                            source={require('../assets/images/solar-panel.png')} />
                         </Components.Loader>
                     </View>
                     <View style={styles.cardContainer}>

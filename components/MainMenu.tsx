@@ -16,7 +16,7 @@ export default function MainMenu() {
         <Pressable style={styles.menuIcon} onPress={() => navigation.navigate('Dashboard')}>
             <ChartBarSquareIcon size={28} color="grey" />
         </Pressable>
-        <Pressable style={styles.accentMenuIcon} onPress={() => navigation.navigate('Meteo')}>
+        <Pressable style={styles.accentMenuIcon} onPress={() => navigation.navigate('Monitoring')}>
             <SunIcon size={28} color="white" />
         </Pressable>
         <Pressable style={styles.menuIcon} onPress={() => navigation.navigate('ProductList')}>
