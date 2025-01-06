@@ -1,16 +1,41 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Layouts } from '../layouts';
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Components } from '../components';
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { Image, ImageSourcePropType, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { CONSTS } from '../constants';
-import { CalendarIcon, GiftIcon, GlobeEuropeAfricaIcon, SunIcon } from 'react-native-heroicons/outline';
+import { CalendarIcon, GiftIcon, SunIcon } from 'react-native-heroicons/outline';
 import CustomText from '../components/CustomText';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { Hooks } from '../hooks';
+import { Utils } from '../utils';
+import { useError } from '../hooks/useError';
+import SafeImage from '../components/SafeImage';
+import PrimaryButton from '../components/PrimaryButton';
 
 export default function MonitoringView() {
+    const navigation: NavigationProp<ParamListBase> = useNavigation();
+    const errorHandler = useError();
+    const useUser = Hooks.useUser();
+
+    const init = useCallback(async () => {
+        try {
+            useUser.fillUser(await Utils.Auth.getUser());
+        } catch (error) {
+            errorHandler.setError(error);
+        }
+
+    },[])
+
+    useEffect(() => {
+        init();
+    }, [init])
+
     return (
         <Layouts.AppLayout>
             <Layouts.MainLayout>
-                <ScrollView contentContainerStyle={styles.container}>
+                <ScrollView contentContainerStyle={styles.container}
+                showsVerticalScrollIndicator={false}>
                     <Components.TitleText>
                         Rapport complet
                     </Components.TitleText>
@@ -30,7 +55,7 @@ export default function MonitoringView() {
                         <View style={styles.prodCardBottom}>
                             <View style={styles.prodCardInfo}>
                                 <CustomText>Production Total</CustomText>
-                                <Components.TitleText customStyle={{fontSize: CONSTS.SIZE.LG,}}>
+                                <Components.TitleText customStyle={{fontSize: CONSTS.SIZE.LG}}>
                                     13,850
                                 </Components.TitleText>
                             </View>
@@ -66,7 +91,9 @@ export default function MonitoringView() {
                             </Components.BadgeIcon>
                             <View style={{marginTop: CONSTS.SIZE.MD}}>
                                 <CustomText>Abonnement Uno</CustomText>
-                                <CustomText customStyle={styles.defaultCardNumber}>162</CustomText>
+                                <CustomText customStyle={styles.defaultCardNumber}>
+                                    162
+                                </CustomText>
                                 <CustomText>Jours restants</CustomText>
                             </View>
                         </View>
@@ -77,16 +104,67 @@ export default function MonitoringView() {
                             </Components.BadgeIcon>
                             <View style={{marginTop: CONSTS.SIZE.MD}}>
                                 <CustomText>Points cadeaux</CustomText>
-                                <CustomText customStyle={styles.defaultCardNumber}>120</CustomText>
+                                <CustomText customStyle={styles.defaultCardNumber}>
+                                    120
+                                </CustomText>
                                 <CustomText>Points</CustomText>
                             </View>
                         </View>
                     </View>
+                    <Pressable style={styles.buttonBlack}>
+                        <Pressable style={styles.buttonInnerContainer}
+                        onPress={() => navigation.navigate('Meteo')}>
+                            <CustomText customStyle={styles.buttonTextLeft}>
+                                Production
+                            </CustomText>
+                            <CustomText customStyle={{color: CONSTS.COLOR.WHITE }}>
+                                prévisionelle
+                            </CustomText>
+                        </Pressable>
+                    </Pressable>
+                    <Components.TitleText customStyle={{marginTop: CONSTS.SIZE.LG}}>
+                        Objectif Parrainage
+                    </Components.TitleText>
+                    <View style={styles.referralCard}>
+                        <SafeImage style={styles.profileImage}
+                        source={useUser.profile_img_url as ImageSourcePropType} />
+                        <View style={styles.referralCardRight}>
+                            <CustomText customStyle={{
+                                fontSize: CONSTS.SIZE.LG,
+                                marginBottom: CONSTS.SIZE.SM,
+                            }}>
+                                {useUser.name}
+                            </CustomText>
+                            <View>
+                                <View style={styles.referralCardInfo}>
+                                    <CustomText>1 mois offert</CustomText>
+                                    <CustomText customStyle={{fontWeight: styles.defaultCardNumber.fontWeight}}>
+                                        120/240<CustomText customStyle={{fontWeight: FONT_NORMAL}}>m</CustomText>
+                                    </CustomText>
+                                </View>
+                                <View style={styles.progressContainer}>
+                                    <View style={styles.progressBar} />
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                    <PrimaryButton onClick={() => navigation.navigate('ReferralList')} isDisabled={false}>
+                        <View style={styles.buttonInnerContainer}>
+                            <CustomText customStyle={{marginRight: CONSTS.SIZE.SM}}>
+                                Mon espace
+                            </CustomText>
+                            <CustomText customStyle={{fontWeight: styles.defaultCardNumber.fontWeight }}>
+                                parrainage
+                            </CustomText>
+                        </View>
+                    </PrimaryButton>
                 </ScrollView>
             </Layouts.MainLayout>
         </Layouts.AppLayout>
     )
 }
+
+const FONT_NORMAL = 'normal';
 
 const defaultCardStyle = {
 	borderWidth: 1,
@@ -94,14 +172,11 @@ const defaultCardStyle = {
 	borderRadius: CONSTS.SIZE.LG,
 	paddingVertical: CONSTS.SIZE.MD,
 	paddingHorizontal: CONSTS.SIZE.MD,
-	justifyContent: 'space-between',
-	alignItems: 'flex-start',
 }
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: CONSTS.COLOR.WHITE,
-        height: '100%',
         paddingHorizontal: CONSTS.SIZE.LG,
     },
     prodCard: {
@@ -158,6 +233,57 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
 		justifyContent: 'space-between',
 		alignItems: 'flex-start',
+    },
+    buttonBlack: {
+        width: '100%',
+        alignItems: 'center',
+        marginTop: CONSTS.SIZE.XS,
+        paddingVertical: CONSTS.SIZE.LG,
+        borderRadius: CONSTS.SIZE.LG,
+        backgroundColor: CONSTS.COLOR.BLACK,
+    },
+    buttonInnerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    buttonTextLeft: {
+        fontWeight: 'bold',
+        color: CONSTS.COLOR.INFO,
+        marginRight: CONSTS.SIZE.SM,
+    },
+    referralCard: {
+        ...defaultCardStyle,
+		flexDirection: 'row',
+		alignItems: 'center',
+        marginTop: CONSTS.SIZE.LG,
+        columnGap: CONSTS.SIZE.MD,
+        paddingHorizontal: CONSTS.SIZE.LG,
+        paddingVertical: CONSTS.SIZE.LG,
+    },
+    profileImage: {
+        width: 70,
+        height: 70,
+        borderRadius: CONSTS.SIZE.XXL,
+    },
+    referralCardRight: {
+        flex: 1,
+    },
+    referralCardInfo: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    progressContainer: {
+        marginTop: CONSTS.SIZE.SM,
+        height: CONSTS.SIZE.SM,
+        borderRadius: CONSTS.SIZE.SM,
+        backgroundColor: CONSTS.COLOR.PRIMARY_SOFT,
+    },
+    progressBar: {
+        width: '40%',
+        height: CONSTS.SIZE.SM,
+        borderRadius: CONSTS.SIZE.SM,
+        backgroundColor: CONSTS.COLOR.PRIMARY,
     },
     textRight: {textAlign: 'right'},
     textCenter: {textAlign: 'center'},

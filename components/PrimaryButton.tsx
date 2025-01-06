@@ -16,6 +16,7 @@ export default function PrimaryButton(props: ButtonProps) {
 
 const styles = StyleSheet.create({
     container: {
+        width: '100%',
         marginTop: CONSTS.SIZE.MD,
         paddingVertical: CONSTS.SIZE.LG,
         borderRadius: CONSTS.SIZE.LG,

@@ -11,6 +11,7 @@ import { ResponsePaginate } from '../core/types/services';
 import Order from '../core/entities/Order';
 import { ArrowLeftIcon, ArrowUturnRightIcon, ChevronDownIcon, ChevronRightIcon } from 'react-native-heroicons/outline';
 import CustomText from '../components/CustomText';
+import PrimaryButton from '../components/PrimaryButton';
 
 export default function SubscriptionShowView() {
     let abortController = new AbortController();
@@ -89,14 +90,14 @@ export default function SubscriptionShowView() {
                             <CustomText customStyle={{color: CONSTS.COLOR.WHITE}}>
                                 {subscription?.product?.name} {subscription?.product?.primary_period} mois
                             </CustomText>
-                            <Pressable style={styles.buttonContainer}>
+                            <PrimaryButton onClick={() => null} isDisabled={false}>
                                 <View style={styles.buttonInnerContainer}>
                                     <CustomText>Upgrade Now -20% </CustomText>
                                     <CustomText customStyle={styles.buttonTextRight}>
                                         Solarity+ Duo
                                     </CustomText>
                                 </View>
-                            </Pressable>
+                            </PrimaryButton>
                             <Image style={styles.mainImg}
                             source={require('../assets/images/solar-panel.png')} />
                         </Components.Loader>
@@ -206,14 +207,6 @@ const styles = StyleSheet.create({
         color: CONSTS.COLOR.WHITE,
         fontSize: CONSTS.SIZE.XL,
         marginBottom: CONSTS.SIZE.MD,
-    },
-    buttonContainer: {
-        width: '100%',
-        alignItems: 'center',
-        marginTop: CONSTS.SIZE.MD,
-        paddingVertical: CONSTS.SIZE.LG,
-        borderRadius: CONSTS.SIZE.LG,
-        backgroundColor: CONSTS.COLOR.PRIMARY,
     },
     buttonInnerContainer: {
         flexDirection: 'row',
