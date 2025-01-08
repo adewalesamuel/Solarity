@@ -45,6 +45,8 @@ function App(): React.JSX.Element {
         options={{headerShown: true, header: MainHeader}}/>
         <Stack.Screen name="Monitoring" component={Views.MonitoringView}
         options={{headerShown: true, header: MainHeader}}/>
+        <Stack.Screen name="Faq" component={Views.FaqListView}
+        options={{headerShown: true, header: MainHeader}}/>
         <Stack.Screen name="ProductList" component={Views.ProductListView}
         options={{headerShown: true, header: ShopHeader}}/>
       </Stack.Navigator>

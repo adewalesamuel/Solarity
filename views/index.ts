@@ -1,6 +1,7 @@
 import CourseListView from './CourseListView';
 import CourseShowView from './CourseShowView';
 import DashboardView from './DashboardView';
+import FaqListView from './FaqListView';
 import HomeView from './HomeView';
 import InvoiceListView from './InvoiceListView';
 import InvoiceShowView from './InvoiceShowView';
@@ -30,4 +31,5 @@ export const Views = {
     CourseShowView,
     ReferralListView,
     MonitoringView,
+    FaqListView,
 }

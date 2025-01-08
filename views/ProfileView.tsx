@@ -133,7 +133,7 @@ export default function ProfileView() {
                                 <CustomText customStyle={styles.buttonListItemText}>Assurance</CustomText>
                             </View>
                         </Components.ButtonListItem>
-                        <Components.ButtonListItem>
+                        <Components.ButtonListItem onPress={() => navigation.navigate('Faq')}>
                             <View style={styles.buttonListItemLeft}>
                                 <Components.BadgeIcon paddingH={BADGE_PADDING} paddingV={BADGE_PADDING}
                                 color={CONSTS.COLOR.LIGHT}>

@@ -8,7 +8,7 @@ import Course from '../core/entities/Course';
 import { ResponsePaginate } from '../core/types/services';
 import { ActivityIndicator, FlatList, ImageBackground, Pressable, StyleSheet, View } from 'react-native';
 import { CONSTS } from '../constants';
-import { CheckCircleIcon, EllipsisVerticalIcon } from 'react-native-heroicons/outline';
+import { CheckCircleIcon } from 'react-native-heroicons/outline';
 import CustomText from '../components/CustomText';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
@@ -66,9 +66,6 @@ export default function CourseListView() {
                     <View style={styles.topContainer}>
                         <Components.SearchInput placeholder="Cherchez un tutoriel"
                         value={searchInput} onChangeText={(text: string) => setSearchInput(text)}/>
-                        <View style={styles.iconContainer}>
-                            <EllipsisVerticalIcon size={30} color="black"/>
-                        </View>
                     </View>
                     {courses.length > 0 ?
                         <FlatList showsVerticalScrollIndicator={false}
