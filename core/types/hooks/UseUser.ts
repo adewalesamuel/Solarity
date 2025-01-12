@@ -53,7 +53,7 @@ export type UseUser = BaseHook & {
     setHasAcceptedConditions: (arg: boolean) => void,
     setCanRemember: (arg: boolean) => void,
 
-    getUser: (userId: number, signal: AbortSignal) => Promise<Response<User | User[]>>,
+    getUser: (userId: number, signal: AbortSignal) => Promise<Response<User>>,
     createUser: (signal: AbortSignal) => Promise<Response<User>>,
     updateUser: (signal: AbortSignal) => Promise<Response<User>>,
     deleteUser: (userId: number, signal: AbortSignal) => Promise<Response<User>>,

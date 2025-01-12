@@ -1,3 +1,4 @@
+import AssuranceView from './AssuranceView';
 import CourseListView from './CourseListView';
 import CourseShowView from './CourseShowView';
 import DashboardView from './DashboardView';
@@ -32,4 +33,5 @@ export const Views = {
     ReferralListView,
     MonitoringView,
     FaqListView,
+    AssuranceView,
 }

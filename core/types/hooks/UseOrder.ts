@@ -5,7 +5,7 @@ import User from '../../entities/User';
 import { Response } from '../services';
 import BaseHook from './BaseHook';
 
-export default interface UseOrder extends BaseHook {
+export type UseOrder =  BaseHook & {
     product_id: number,
     user_id: number,
     amount: number,
