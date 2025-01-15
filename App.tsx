@@ -24,7 +24,7 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" screenOptions={globalOptions}>
+      <Stack.Navigator initialRouteName="Profile" screenOptions={globalOptions}>
         <Stack.Screen name="Home" component={Views.HomeView}/>
         <Stack.Screen name="Registration" component={Views.RegisterView}/>
         <Stack.Screen name="Login" component={Views.LoginView}/>
@@ -33,6 +33,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name="SubscriptionShow" component={Views.SubscriptionShowView}/>
         <Stack.Screen name="Meteo" component={Views.MeteoView}/>
         <Stack.Screen name="ReferralList" component={Views.ReferralListView}/>
+        <Stack.Screen name="Assurance" component={Views.AssuranceView}/>
         <Stack.Screen name="InvoiceList" component={Views.InvoiceListView}
         options={{headerShown: true, header: MainHeader}}/>
         <Stack.Screen name="InvoiceShow" component={Views.InvoiceShowView}
@@ -46,8 +47,6 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Monitoring" component={Views.MonitoringView}
         options={{headerShown: true, header: MainHeader}}/>
         <Stack.Screen name="Faq" component={Views.FaqListView}
-        options={{headerShown: true, header: MainHeader}}/>
-        <Stack.Screen name="Assurance" component={Views.AssuranceView}
         options={{headerShown: true, header: MainHeader}}/>
         <Stack.Screen name="ProductList" component={Views.ProductListView}
         options={{headerShown: true, header: ShopHeader}}/>

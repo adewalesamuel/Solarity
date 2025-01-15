@@ -31,25 +31,25 @@ export default function MainMenu() {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: CONSTS.COLOR.WHITE,
+        width: '100%',
         position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        width: '100%',
+        left: 0,
+        right: 0,
+        bottom: 0,
         paddingVertical: CONSTS.SIZE.SM,
+        backgroundColor: CONSTS.COLOR.WHITE,
     },
     menuIcon: {
         paddingVertical: CONSTS.SIZE.SM,
         paddingHorizontal: CONSTS.SIZE.MD,
     },
     accentMenuIcon: {
+        borderRadius: 100,
         paddingVertical: CONSTS.SIZE.MD,
         paddingHorizontal: CONSTS.SIZE.MD,
         backgroundColor: CONSTS.COLOR.PRIMARY,
-        borderRadius: 100,
     },
 })

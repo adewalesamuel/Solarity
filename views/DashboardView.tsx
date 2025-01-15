@@ -249,16 +249,16 @@ const styles = StyleSheet.create({
 		textTransform: 'capitalize',
 	},
 	iconContainer: {
-		borderRadius: CONSTS.SIZE.LG,
 		borderWidth: 1,
+		borderRadius: CONSTS.SIZE.LG,
 		paddingVertical: CONSTS.SIZE.MD,
 		borderColor: CONSTS.COLOR.SECONDARY,
 	},
 	powerCard: {
 		position: 'relative',
+		minHeight: 160,
 		borderRadius: CONSTS.SIZE.LG,
 		backgroundColor: CONSTS.COLOR.BLACK,
-		minHeight: 160,
 	},
 	powerCardHeader: {
 		flexDirection: 'row',
@@ -274,30 +274,30 @@ const styles = StyleSheet.create({
 		marginRight: CONSTS.SIZE.MD,
 	},
 	powerCardTitle: {
-		color: CONSTS.COLOR.WHITE,
 		fontWeight: 'bold',
+		color: CONSTS.COLOR.WHITE,
 		fontSize: CONSTS.SIZE.XL,
 	},
 	powerCardSubtitle: {
 		color: CONSTS.COLOR.WHITE,
 	},
 	powerCardNumber: {
-		color: CONSTS.COLOR.PRIMARY,
 		fontWeight: 'bold',
+		color: CONSTS.COLOR.PRIMARY,
 		fontSize: CONSTS.SIZE.LG,
 	},
 	powerCardNumberSign: {
-		color: CONSTS.COLOR.SECONDARY,
 		fontWeight: 'bold',
+		color: CONSTS.COLOR.SECONDARY,
 		fontSize: CONSTS.SIZE.LG,
 	},
 	powerImage: {
 		position: 'absolute',
-		left: 0,
-		bottom: 0,
 		width: '100%',
 		maxHeight: '100%',
 		height: '45%',
+		left: 0,
+		bottom: 0,
 	},
 	cardGroupContainer: {
 		width: '100%',
@@ -317,9 +317,9 @@ const styles = StyleSheet.create({
 		alignItems: 'flex-start',
 	},
 	prodImage: {
+		left: 0,
 		position: 'absolute',
 		top: '30%',
-		left: 0,
 		width: '118%',
 		height: '85%',
 	},
@@ -330,8 +330,8 @@ const styles = StyleSheet.create({
 	},
 	defaultCardNumber: {
 		color: CONSTS.COLOR.BLACK,
-		fontWeight: 'bold',
 		fontSize: CONSTS.SIZE.LG,
+		fontWeight: 'bold',
 	},
 	cardGroupItemRight: {
 		width: '48%',
@@ -344,9 +344,9 @@ const styles = StyleSheet.create({
 	},
 	prodCardCo2: {
 		...defaultCardStyle,
-		marginTop: CONSTS.SIZE.MD,
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 		alignItems: 'flex-start',
+		marginTop: CONSTS.SIZE.MD,
 	},
 })

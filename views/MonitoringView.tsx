@@ -111,9 +111,9 @@ export default function MonitoringView() {
                             </View>
                         </View>
                     </View>
-                    <Pressable style={styles.buttonBlack}>
-                        <Pressable style={styles.buttonInnerContainer}
-                        onPress={() => navigation.navigate('Meteo')}>
+                    <Pressable style={styles.buttonBlack}
+                    onPress={() => navigation.navigate('Meteo')}>
+                        <Pressable style={styles.buttonInnerContainer}>
                             <CustomText customStyle={styles.buttonTextLeft}>
                                 Production
                             </CustomText>

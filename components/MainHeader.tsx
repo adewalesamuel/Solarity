@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect } from 'react';
-import { ImageSourcePropType, Pressable, StyleSheet, View } from 'react-native';
+import { ImageSourcePropType, Platform, Pressable, StyleSheet, View } from 'react-native';
 import { ArrowLeftIcon } from 'react-native-heroicons/outline';
 import { CONSTS } from '../constants';
 import { Hooks } from '../hooks';
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
         paddingTop: CONSTS.SIZE.XL,
         paddingBottom: CONSTS.SIZE.MD,
         paddingHorizontal: CONSTS.SIZE.MD,
+        marginBottom: Platform.OS === 'ios' ? -20 : 0,
     },
     iconContainer: {
         borderWidth: 1,

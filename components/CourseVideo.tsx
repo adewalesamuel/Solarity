@@ -35,7 +35,7 @@ export default function CourseVideo(props: CourseVideoProps) {
                 showsVerticalScrollIndicator={false}
                 onError={(event) => handleError(event.nativeEvent.description)}
                 renderLoading={() => (
-                    <ActivityIndicator size="large" 
+                    <ActivityIndicator size="large"
                     color={CONSTS.COLOR.PRIMARY} style={styles.loader}/>
                 )} />
             }

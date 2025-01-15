@@ -17,13 +17,13 @@ export default function PrimaryButton(props: ButtonProps) {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
+        alignItems: 'center',
         marginTop: CONSTS.SIZE.MD,
         paddingVertical: CONSTS.SIZE.LG,
         borderRadius: CONSTS.SIZE.LG,
         backgroundColor: CONSTS.COLOR.PRIMARY,
     },
     text: {
-        textAlign: 'center',
         fontSize: CONSTS.SIZE.MD,
         color: CONSTS.COLOR.BLACK,
     },

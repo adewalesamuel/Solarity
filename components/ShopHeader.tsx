@@ -1,6 +1,6 @@
 
 import React, { useCallback, useEffect } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, View } from 'react-native';
 import { ArrowLeftIcon, ShoppingCartIcon } from 'react-native-heroicons/outline';
 import { CONSTS } from '../constants';
 import CustomText from './CustomText';
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
         paddingTop: CONSTS.SIZE.XL,
         paddingBottom: CONSTS.SIZE.MD,
         paddingHorizontal: CONSTS.SIZE.MD,
+        marginBottom: Platform.OS === 'ios' ? -20 : 0,
     },
     iconContainer: {
         borderWidth: 1,

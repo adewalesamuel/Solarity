@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Components } from '../components';
 import { StyleSheet, View } from 'react-native';
+import { CONSTS } from '../constants';
 
 export default function MainLayout(props: PropsWithChildren) {
     return (
@@ -14,10 +15,8 @@ export default function MainLayout(props: PropsWithChildren) {
 
 const styles = StyleSheet.create({
     container: {
-        position: 'relative',
         flexGrow: 1,
         paddingBottom: 68,
-        width: '100%',
-        height: '100%',
+        backgroundColor: CONSTS.COLOR.WHITE,
     },
 })

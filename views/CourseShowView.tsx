@@ -133,6 +133,5 @@ const styles = StyleSheet.create({
     playBtn: {
         width: 80,
         height: 100,
-        borderWidth: 1,
     },
 })

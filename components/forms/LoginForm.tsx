@@ -40,9 +40,9 @@ export default function LoginForm(props: RegisterFormProps) {
             </View>
             <View style={styles.checkboxContainer}>
                 <View style={styles.checkboxLeft}>
-                    <CheckBox disabled={false} value={props.useUser.canRemember}
-                    tintColors={{true: CONSTS.COLOR.PRIMARY}} onValueChange={(newValue) =>
-                    props.useUser.setCanRemember(newValue)}/>
+                    <CheckBox value={props.useUser.canRemember} boxType="square"
+                    tintColors={{true: CONSTS.COLOR.PRIMARY}}
+                    onValueChange={(newValue) => props.useUser.setCanRemember(newValue)} />
                     <CustomText customStyle={styles.checkboxText} onPress={() =>
                         props.useUser.setCanRemember(!props.useUser.canRemember)}>
                         Se souvenir de moi
@@ -73,20 +73,21 @@ const styles = StyleSheet.create({
         marginBottom: CONSTS.SIZE.SM,
     },
     checkboxContainer: {
+        width: '100%',
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingVertical: CONSTS.SIZE.SM,
         marginBottom: CONSTS.SIZE.SM,
-        width: '100%',
     },
     checkboxLeft: {
         alignItems: 'center',
         flexDirection: 'row',
     },
     checkboxText: {
-        fontSize: CONSTS.SIZE.MD,
         fontWeight: 'bold',
+        fontSize: CONSTS.SIZE.MD,
+        marginLeft: CONSTS.SIZE.SM,
     },
     forgotText: {
         textDecorationLine: 'underline',
