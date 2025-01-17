@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         paddingVertical: 80,
         paddingHorizontal: CONSTS.SIZE.XL,
-        marginBottom: CONSTS.SIZE.XXL * -1,
+        marginBottom: -CONSTS.SIZE.XXL,
     },
     priceContainer: {
         alignItems: 'center',
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     price: {
         fontSize: 42,
         color: CONSTS.COLOR.PRIMARY,
-        marginBottom: CONSTS.SIZE.SM * -1,
+        marginBottom: -CONSTS.SIZE.SM,
     },
     bottomCard: {
         height: '100%',

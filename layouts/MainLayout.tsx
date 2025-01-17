@@ -1,12 +1,14 @@
 import React, { PropsWithChildren } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Components } from '../components';
 import { StyleSheet, View } from 'react-native';
 import { CONSTS } from '../constants';
 
 export default function MainLayout(props: PropsWithChildren) {
+    const insets = useSafeAreaInsets();
+
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, {paddingBottom: insets.bottom}]}>
             <View>{props.children}</View>
             <Components.MainMenu />
         </SafeAreaView>

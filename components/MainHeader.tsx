@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect } from 'react';
-import { ImageSourcePropType, Platform, Pressable, StyleSheet, View } from 'react-native';
+import { ImageSourcePropType, Platform, Pressable, SafeAreaView, StyleSheet, View } from 'react-native';
 import { ArrowLeftIcon } from 'react-native-heroicons/outline';
 import { CONSTS } from '../constants';
 import { Hooks } from '../hooks';
@@ -33,21 +33,23 @@ export default function MainHeader(props: NativeStackHeaderProps) {
     }, [init])
 
     return (
-        <View style={styles.container}>
-            <Pressable style={styles.iconContainer} onPress={() => props.navigation.goBack()}>
-                <ArrowLeftIcon size={30} color={CONSTS.COLOR.BLACK}/>
-            </Pressable>
-            <View style={styles.infoContainer}>
-                <View style={styles.textContainer}>
-                    <CustomText customStyle={textStyle}>Aujourd'hui</CustomText>
-                    <CustomText customStyle={styles.dateText}>
-							{Utils.Date.styleDate(new Date(), 'full')}
-					</CustomText>
+        <SafeAreaView>
+            <View style={styles.container}>
+                <Pressable style={styles.iconContainer} onPress={() => props.navigation.goBack()}>
+                    <ArrowLeftIcon size={30} color={CONSTS.COLOR.BLACK}/>
+                </Pressable>
+                <View style={styles.infoContainer}>
+                    <View style={styles.textContainer}>
+                        <CustomText customStyle={textStyle}>Aujourd'hui</CustomText>
+                        <CustomText customStyle={styles.dateText}>
+                                {Utils.Date.styleDate(new Date(), 'full')}
+                        </CustomText>
+                    </View>
+                    <Components.SafeImage  style={styles.image}
+                    source={useUser.profile_img_url as ImageSourcePropType ?? undefined}/>
                 </View>
-                <Components.SafeImage  style={styles.image}
-                source={useUser.profile_img_url as ImageSourcePropType ?? undefined}/>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 
@@ -61,11 +63,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        marginBottom: Platform.OS === 'ios' ? -CONSTS.SIZE.LG : 0,
         backgroundColor: CONSTS.COLOR.WHITE,
         paddingTop: CONSTS.SIZE.XL,
         paddingBottom: CONSTS.SIZE.MD,
         paddingHorizontal: CONSTS.SIZE.MD,
-        marginBottom: Platform.OS === 'ios' ? -20 : 0,
     },
     iconContainer: {
         borderWidth: 1,

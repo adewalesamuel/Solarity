@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     productImage: {
         width: 60,
         height: 60,
-        marginLeft: (CONSTS.SIZE.SM * -1),
+        marginLeft: -CONSTS.SIZE.SM,
     },
     productInfoTop: {
         flexDirection: 'row',

@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     },
     productDescription: {
         fontSize: 10,
-        marginTop: CONSTS.SIZE.MD * -1,
+        marginTop: -CONSTS.SIZE.MD,
     },
     productPrice: {
         fontWeight: 'bold',

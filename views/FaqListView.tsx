@@ -174,5 +174,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: CONSTS.COLOR.BLACK,
         marginRight: CONSTS.SIZE.MD,
-    }
+    },
 })
