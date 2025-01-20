@@ -52,6 +52,11 @@ const getNotificationTitle = (type: string): string => {
     return notifTypeToTitleMap[notifType]?.title ?? type
 };
 
+const parsePrice = (decimalPrice: number|undefined): string => {
+    return `${parseInt((decimalPrice ?? 0).toString(), 10)}€`;
+}
+
 export const String = {
     getNotificationTitle,
+    parsePrice,
 }

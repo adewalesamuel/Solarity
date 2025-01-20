@@ -16,6 +16,7 @@ import ProductCardItem from './ProductCartItem';
 import SafeImage from './SafeImage';
 import SearchInput from './SearchInput';
 import ShopHeader from './ShopHeader';
+import SuccessButton from './SuccessButton';
 import TitleText from './TitleText';
 
 export const Components = {
@@ -38,4 +39,5 @@ export const Components = {
     ProductCardItem,
     SearchInput,
     CourseVideo,
+    SuccessButton,
 }

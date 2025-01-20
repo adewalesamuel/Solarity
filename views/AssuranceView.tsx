@@ -8,9 +8,13 @@ import { useError } from '../hooks/useError';
 import Product from '../core/entities/Product';
 import TitleText from '../components/TitleText';
 import CustomText from '../components/CustomText';
+import { Utils } from '../utils';
+import { CheckBadgeIcon } from 'react-native-heroicons/outline';
+import { Components } from '../components';
 
 export default function AssuranceView() {
     const abortController = new AbortController();
+    const {String} = Utils;
 
     const useOrder = Hooks.useOrder();
     const useProduct = Hooks.useProduct();
@@ -48,28 +52,147 @@ export default function AssuranceView() {
                     <View style={styles.top}>
                         <View style={styles.priceContainer}>
                             <TitleText customStyle={styles.price}>
-                                {parseInt(String(useProduct?.primary_price ?? 0), 10)}€
+                                {String.parsePrice(useProduct?.primary_price)}
                             </TitleText>
-                            <CustomText customStyle={{color: CONSTS.COLOR.WHITE}}>
+                            <CustomText customStyle={{
+                                color: CONSTS.COLOR.WHITE,
+                                fontSize: textMediumFontSize,
+                            }}>
                                 seulement
                             </CustomText>
                         </View>
                     </View>
-                    <ScrollView contentContainerStyle={styles.bottomCard} showsVerticalScrollIndicator={false}>
-                        <TitleText>
-                            Panneaux solaires protégés, énergie assurée ...
-                        </TitleText>
-                        <CustomText>Pour seulement 2€ de plus,</CustomText>
-                        <CustomText>
-                            assurez vos panneaux solaires contre les aléas
-                            de la météo, le vol et les incendies.
-                        </CustomText>
-                    </ScrollView>
+                    <View style={styles.bottomCard}>
+                        <ScrollView showsVerticalScrollIndicator={false}>
+                            <TitleText customStyle={{marginBottom: CONSTS.SIZE.MD}}>
+                                Panneaux solaires protégés, énergie assurée ...
+                            </TitleText>
+                            <CustomText customStyle={textLineHeightStyle}>
+                                Pour <CustomText customStyle={textBoldFontStyle}>
+                                    seulement {String.parsePrice(useProduct.primary_price)}
+                                </CustomText> de plus,
+                            </CustomText>
+                            <CustomText customStyle={textLineHeightStyle}>
+                                assurez vos panneaux solaires contre les aléas
+                                de la météo, le vol et les incendies.
+                            </CustomText>
+                            <ScrollView horizontal={true} contentContainerStyle={styles.cardContainer}
+                            showsHorizontalScrollIndicator={false}>
+                                <View style={[
+                                    styles.card,
+                                    {backgroundColor: CONSTS.COLOR.PRIMARY},
+                                ]}>
+                                    <View style={styles.cardLeft}>
+                                        <TitleText customStyle={{fontSize: CONSTS.SIZE.LG}}>
+                                            Assurance
+                                        </TitleText>
+                                        <TitleText customStyle={{fontSize: CONSTS.SIZE.LG}}>
+                                            Intempéries
+                                        </TitleText>
+                                        <CustomText customStyle={styles.cardText}>
+                                            Zone de texte pour répondre à cette question fréquente
+                                            maximum 4-5 lignes pas plus
+                                        </CustomText>
+                                    </View>
+                                    <View style={styles.cardRight}>
+                                        <ImageBackground style={styles.cardBgImage}
+                                        source={require('../assets/images/thunder.jpg')} resizeMode="cover"/>
+                                    </View>
+                                </View>
+                                <View style={[
+                                    styles.card,
+                                    {backgroundColor: CONSTS.COLOR.BLACK},
+                                ]}>
+                                    <View style={styles.cardLeft}>
+                                        <TitleText customStyle={{
+                                            fontSize: CONSTS.SIZE.LG,
+                                            color: CONSTS.COLOR.PRIMARY,
+                                        }}>
+                                            Assurance
+                                        </TitleText>
+                                        <TitleText customStyle={{
+                                            fontSize: CONSTS.SIZE.LG,
+                                            color: CONSTS.COLOR.PRIMARY,
+                                        }}>
+                                            Voleurs
+                                        </TitleText>
+                                        <CustomText customStyle={{
+                                            ...styles.cardText,
+                                            color: CONSTS.COLOR.WHITE,
+                                        }}>
+                                            Zone de texte pour répondre à cette question fréquente
+                                            maximum 4-5 lignes pas plus
+                                        </CustomText>
+                                    </View>
+                                    <View style={styles.cardRight}>
+                                        <ImageBackground style={styles.cardBgImage}
+                                        source={require('../assets/images/thieves.jpg')} resizeMode="cover"/>
+                                    </View>
+                                </View>
+                                <View style={[
+                                    styles.card,
+                                    {backgroundColor: CONSTS.COLOR.LIGHT},
+                                ]}>
+                                    <View style={styles.cardLeft}>
+                                        <TitleText customStyle={{fontSize: CONSTS.SIZE.LG}}>
+                                            Assurance
+                                        </TitleText>
+                                        <TitleText customStyle={{fontSize: CONSTS.SIZE.LG}}>
+                                            Intempéries
+                                        </TitleText>
+                                        <CustomText customStyle={styles.cardText}>
+                                            Zone de texte pour répondre à cette question fréquente
+                                            maximum 4-5 lignes pas plus
+                                        </CustomText>
+                                    </View>
+                                    <View style={styles.cardRight}>
+                                        <ImageBackground style={styles.cardBgImage}
+                                        source={require('../assets/images/fire.jpg')} resizeMode="cover"/>
+                                    </View>
+                                </View>
+                            </ScrollView>
+                            <View style={styles.listItem}>
+                                <CheckBadgeIcon color={CONSTS.COLOR.SUCCESS} size={CONSTS.SIZE.LG}/>
+                                <CustomText>Sécurisez votre investissement solaire</CustomText>
+                            </View>
+                            <View style={styles.listItem}>
+                                <CheckBadgeIcon color={CONSTS.COLOR.SUCCESS} size={CONSTS.SIZE.LG}/>
+                                <CustomText>Protégez votre installation en toute sérénité</CustomText>
+                            </View>
+                            <View style={styles.listItem}>
+                                <CheckBadgeIcon color={CONSTS.COLOR.SUCCESS} size={CONSTS.SIZE.LG}/>
+                                <CustomText>Couverture solaire complète </CustomText>
+                            </View>
+                            <View style={styles.listItem}>
+                                <CheckBadgeIcon color={CONSTS.COLOR.SUCCESS} size={CONSTS.SIZE.LG}/>
+                                <CustomText>Tranquillité d'esprit garantie </CustomText>
+                            </View>
+                            <Components.SuccessButton onClick={() => null} isDisabled={false}>
+                                <View style={styles.buttonInnerContainer}>
+                                    <CustomText customStyle={styles.buttonTextLeft}>
+                                        Profitez
+                                    </CustomText>
+                                    <CustomText customStyle={{color: CONSTS.COLOR.WHITE }}>
+                                        Maintenant !
+                                    </CustomText>
+                                </View>
+                            </Components.SuccessButton>
+                        </ScrollView>
+                    </View>
                 </View>
             </Layouts.MainLayout>
         </Layouts.AppLayout>
     )
+}
 
+const textMediumFontSize = 11;
+
+const textBoldFontStyle = {
+    fontWeight: 'bold' as 'bold',
+}
+
+const textLineHeightStyle = {
+    lineHeight: CONSTS.SIZE.XL,
 }
 
 const styles = StyleSheet.create({
@@ -106,11 +229,62 @@ const styles = StyleSheet.create({
         marginBottom: -CONSTS.SIZE.SM,
     },
     bottomCard: {
-        height: '100%',
         paddingHorizontal: CONSTS.SIZE.LG,
         backgroundColor: CONSTS.COLOR.WHITE,
         paddingVertical: CONSTS.SIZE.XL,
         borderTopLeftRadius: CONSTS.SIZE.XXL,
         borderTopRightRadius: CONSTS.SIZE.XXL,
+    },
+    cardContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        columnGap: CONSTS.SIZE.MD,
+        marginVertical: CONSTS.SIZE.LG,
+    },
+    card: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        overflow: 'hidden',
+        width: 300,
+        borderRadius: CONSTS.SIZE.XL,
+    },
+    cardLeft: {
+        width: '65%',
+        paddingHorizontal: CONSTS.SIZE.LG,
+        paddingVertical: CONSTS.SIZE.XL,
+    },
+    cardText: {
+        fontSize: textMediumFontSize,
+        marginTop: CONSTS.SIZE.SM,
+        paddingBottom: CONSTS.SIZE.SM,
+        paddingRight: CONSTS.SIZE.MD,
+    },
+    cardRight: {
+        position: 'relative',
+        width: '35%',
+    },
+    cardBgImage: {
+        position: 'absolute',
+        width: '110%',
+        height: '110%',
+        top: 0,
+        left: 0,
+    },
+    listItem: {
+        flexDirection: 'row',
+        width: '100%',
+        alignItems: 'center',
+        paddingVertical: CONSTS.SIZE.XS,
+    },
+    buttonInnerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    buttonTextLeft: {
+        fontWeight: 'bold',
+        color: CONSTS.COLOR.WHITE,
+        marginRight: CONSTS.SIZE.SM,
     },
 })

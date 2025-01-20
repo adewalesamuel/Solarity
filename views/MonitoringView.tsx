@@ -113,14 +113,14 @@ export default function MonitoringView() {
                     </View>
                     <Pressable style={styles.buttonBlack}
                     onPress={() => navigation.navigate('Meteo')}>
-                        <Pressable style={styles.buttonInnerContainer}>
+                        <View style={styles.buttonInnerContainer}>
                             <CustomText customStyle={styles.buttonTextLeft}>
                                 Production
                             </CustomText>
                             <CustomText customStyle={{color: CONSTS.COLOR.WHITE }}>
                                 prévisionelle
                             </CustomText>
-                        </Pressable>
+                        </View>
                     </Pressable>
                     <Components.TitleText customStyle={{marginTop: CONSTS.SIZE.LG}}>
                         Objectif Parrainage
