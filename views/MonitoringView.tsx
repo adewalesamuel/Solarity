@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: CONSTS.COLOR.WHITE,
         paddingHorizontal: CONSTS.SIZE.LG,
+        paddingBottom: CONSTS.SIZE.LG,
     },
     prodCard: {
 		...defaultCardStyle,

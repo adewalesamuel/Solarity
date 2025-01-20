@@ -63,7 +63,8 @@ export default function AssuranceView() {
                         </View>
                     </View>
                     <View style={styles.bottomCard}>
-                        <ScrollView showsVerticalScrollIndicator={false}>
+                        <ScrollView showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{paddingBottom: CONSTS.SIZE.LG}}>
                             <TitleText customStyle={{marginBottom: CONSTS.SIZE.MD}}>
                                 Panneaux solaires protégés, énergie assurée ...
                             </TitleText>
@@ -197,8 +198,7 @@ const textLineHeightStyle = {
 
 const styles = StyleSheet.create({
     container: {
-        flexGrow: 1,
-        justifyContent: 'flex-end',
+        height: '100%',
     },
     bgImg: {
         position: 'absolute',
@@ -229,9 +229,10 @@ const styles = StyleSheet.create({
         marginBottom: -CONSTS.SIZE.SM,
     },
     bottomCard: {
+        flex: 1,
         paddingHorizontal: CONSTS.SIZE.LG,
         backgroundColor: CONSTS.COLOR.WHITE,
-        paddingVertical: CONSTS.SIZE.XL,
+        paddingTop: CONSTS.SIZE.XL,
         borderTopLeftRadius: CONSTS.SIZE.XXL,
         borderTopRightRadius: CONSTS.SIZE.XXL,
     },

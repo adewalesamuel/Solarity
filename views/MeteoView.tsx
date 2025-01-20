@@ -161,10 +161,9 @@ const cardDefaultStyles = {
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
-        position: 'relative',
         paddingTop: 120,
         backgroundColor: CONSTS.COLOR.BLACK,
+        paddingBottom: CONSTS.SIZE.LG,
     },
     mainContent: {
         paddingHorizontal: CONSTS.SIZE.LG,

@@ -9,16 +9,17 @@ export default function MainLayout(props: PropsWithChildren) {
 
     return (
         <SafeAreaView style={[styles.container, {paddingBottom: insets.bottom}]}>
-            <View>{props.children}</View>
+            <View style={{paddingBottom: LAYOUT_PADDING}}>{props.children}</View>
             <Components.MainMenu />
         </SafeAreaView>
     )
 }
 
+const LAYOUT_PADDING = 70;
+
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
-        paddingBottom: 68,
         backgroundColor: CONSTS.COLOR.WHITE,
     },
 })

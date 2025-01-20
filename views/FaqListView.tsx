@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
         minHeight: '100%',
         backgroundColor: CONSTS.COLOR.WHITE,
         paddingHorizontal: CONSTS.SIZE.MD,
+        paddingBottom: CONSTS.SIZE.LG,
     },
     titleContainer: {
         flexDirection: 'row',

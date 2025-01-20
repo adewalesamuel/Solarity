@@ -19,10 +19,10 @@ export default function ProductCardItem({product}: ProductCartitemProps) {
                 source={product.img_url as ImageSourcePropType} />
                 <View style={styles.productCardInfo}>
                     <CustomText customStyle={styles.productName}>
-                        {product.name.slice(0,28).concat('...')}
+                        {product.name.slice(0,25).concat('...')}
                     </CustomText>
                     <CustomText customStyle={styles.productDescription}>
-                        {product.details.slice(0,32).concat('...')}
+                        {product.details.slice(0,28).concat('...')}
                     </CustomText>
                     <CustomText customStyle={styles.productPrice}>
                         {product.primary_price}€

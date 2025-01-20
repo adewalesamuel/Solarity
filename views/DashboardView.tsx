@@ -107,7 +107,8 @@ export default function DashboardView() {
 	return (
 		<Layouts.AppLayout>
 			<Layouts.MainLayout>
-				<ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+				<ScrollView contentContainerStyle={styles.container}
+				showsVerticalScrollIndicator={false}>
 					<View style={styles.topContainer}>
 						<View>
 							<CustomText customStyle={styles.todayText}>Aujourd'hui</CustomText>
@@ -214,9 +215,9 @@ const defaultCardStyle = {
 
 const styles = StyleSheet.create({
 	container: {
-		height: '100%',
-		paddingHorizontal: CONSTS.SIZE.MD,
 		backgroundColor: CONSTS.COLOR.WHITE,
+		paddingHorizontal: CONSTS.SIZE.MD,
+		paddingBottom: CONSTS.SIZE.LG,
 	},
 	topContainer: {
 		flexDirection: 'row',

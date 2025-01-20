@@ -53,7 +53,8 @@ export default function LoginForm(props: RegisterFormProps) {
                 </TouchableOpacity>
             </View>
             <View style={styles.inputContainer}>
-                <Components.PrimaryButton onClick={props.handleFormSubmit} isDisabled={props.isDisabled}>
+                <Components.PrimaryButton onClick={props.handleFormSubmit} 
+                isDisabled={props.isDisabled}>
                     Continuer
                 </Components.PrimaryButton>
             </View>
@@ -91,9 +92,8 @@ const styles = StyleSheet.create({
     },
     forgotText: {
         textDecorationLine: 'underline',
-        borderBottomWidth: 1,
+        textDecorationColor: CONSTS.COLOR.BLACK,
         borderBottomColor: CONSTS.COLOR.LIGHT,
         fontSize: CONSTS.SIZE.MD,
-        marginLeft: CONSTS.SIZE.XXL,
     },
 })

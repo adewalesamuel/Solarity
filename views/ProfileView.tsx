@@ -40,7 +40,8 @@ export default function ProfileView() {
     return (
         <Layouts.AppLayout>
             <Layouts.MainLayout>
-                <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+                <ScrollView contentContainerStyle={styles.container}
+                showsVerticalScrollIndicator={false}>
                     <View style={styles.top}>
                         <Components.TitleText>Mon profil</Components.TitleText>
                         <Pressable style={styles.icon}>
@@ -152,8 +153,9 @@ export default function ProfileView() {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        paddingHorizontal: CONSTS.SIZE.MD,
         backgroundColor: CONSTS.COLOR.WHITE,
+        paddingHorizontal: CONSTS.SIZE.MD,
+        paddingBottom: CONSTS.SIZE.MD,
     },
     top: {
         flexDirection: 'row',

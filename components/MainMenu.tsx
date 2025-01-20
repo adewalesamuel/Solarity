@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, View } from 'react-native'
+import { Platform, Pressable, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { BellIcon, ChartBarSquareIcon, SunIcon,
     ShoppingCartIcon, UserIcon } from 'react-native-heroicons/outline';
@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        paddingVertical: CONSTS.SIZE.SM,
+        paddingTop: CONSTS.SIZE.SM,
+        paddingBottom: Platform.OS === 'ios' ? CONSTS.SIZE.XL : CONSTS.SIZE.SM,
         backgroundColor: CONSTS.COLOR.WHITE,
     },
     menuIcon: {

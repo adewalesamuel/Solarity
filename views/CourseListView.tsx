@@ -71,7 +71,10 @@ export default function CourseListView() {
                         <FlatList showsVerticalScrollIndicator={false}
                         data={courses} numColumns={2}
                         columnWrapperStyle={{gap: COURSE_LIST_GAP}}
-                        contentContainerStyle={{gap: COURSE_LIST_GAP}}
+                        contentContainerStyle={{
+                            gap: COURSE_LIST_GAP,
+                            paddingBottom: CONSTS.SIZE.LG,
+                        }}
                         onEndReached={handleEndReached}
                         renderItem={({item}) => (
                             <Pressable style={styles.courseCard} onPress={() => navigation.navigate(

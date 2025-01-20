@@ -89,10 +89,11 @@ export default function InvoiceListView() {
                     </View>
                     {invoices.length > 0 ?
                         <FlatList showsVerticalScrollIndicator={false}
-                            data={invoices} initialNumToRender={15}
-                            ListHeaderComponent={() => InvoiceCardHeader}
-                            onEndReached={handleEndReached}
-                            renderItem={({item}) => <Components.InvoiceCardItem invoice={item} />}/>
+                        contentContainerStyle={{paddingBottom: CONSTS.SIZE.LG}}
+                        data={invoices} initialNumToRender={15}
+                        ListHeaderComponent={() => InvoiceCardHeader}
+                        onEndReached={handleEndReached}
+                        renderItem={({item}) => <Components.InvoiceCardItem invoice={item} />}/>
                         : null
                     }
                     {isLoading ? <ActivityIndicator size={'large'} color={CONSTS.COLOR.PRIMARY} /> : null}
